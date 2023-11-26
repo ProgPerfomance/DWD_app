@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled1/domain/get_citys_list.dart';
 import 'package:untitled1/view/auth/registration/registration_freelancer_view/citys_list_screen.dart';
 
 class SetFreelancer1view extends StatelessWidget {
@@ -6,6 +8,7 @@ class SetFreelancer1view extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final citysModel = context.watch<GetCitysList>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -71,8 +74,8 @@ class SetFreelancer1view extends StatelessWidget {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const CitysListView()));
                     },
-                    child: const Text('Москва',
-                    style: TextStyle(
+                    child: Text(citysModel.selectedCity,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                     ),),
@@ -128,6 +131,3 @@ class SetFreelancer1view extends StatelessWidget {
     );
   }
 }
-//в день когда мы расстались я вытягивал исходники на 400гб с индусских серверов общей стоимостью n тысяч в день.
-// Ты понимаешь чего мне это стоило, пару часиков посидеть чай попить, если хочешь покажу как это делается.
-// А безопасность там весьма хорошая
