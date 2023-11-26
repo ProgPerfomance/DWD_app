@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //import 'package:untitled1/view/auth/registration/registration_%20customer_view/start_registration_%20customer_view.dart';
 import 'package:untitled1/view/auth/start_screen.dart';
 
@@ -13,9 +14,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: StartView(),
+    return MultiProvider(
+      providers: [
+
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: StartView(),
+      ),
     );
   }
 }

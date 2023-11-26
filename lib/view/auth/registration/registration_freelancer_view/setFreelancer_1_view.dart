@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled1/view/auth/registration/registration_freelancer_view/citys_list_screen.dart';
 
 class SetFreelancer1view extends StatelessWidget {
   const SetFreelancer1view({super.key});
@@ -66,21 +67,26 @@ class SetFreelancer1view extends StatelessWidget {
                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Москва',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CitysListView()));
+                    },
+                    child: const Text('Москва',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),),
+                  ),
                   Image.asset('assets/design/images/arrowright.png'),
                 ],
               ),
-             SizedBox(height: 10,),
+             const SizedBox(height: 10,),
               Container(
                 height: 1,
                 width: MediaQuery.of(context).size.width - 20,
-                color: Color(0xff808080),
+                color: const Color(0xff808080),
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               const TextField(
                 style: TextStyle(
                   fontSize: 18,
