@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled1/view/main/home_view.dart';
 import 'package:untitled1/view/widgets/custom_textfield_widget.dart';
 TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
@@ -32,13 +34,28 @@ class LoginFirstView extends StatelessWidget {
               const SizedBox(height: 10),
               CustomTextFieldWidget(controller: emailController, text: 'Введите email', password: false,),
               const SizedBox(height: 12,),
-              CustomTextFieldWidget(controller: emailController, text: 'Введите пароль', password: true,),
+              CustomTextFieldWidget(controller: passwordController, text: 'Введите пароль', password: true,),
              SizedBox(height: MediaQuery.of(context).size.height / 5,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginFirstView()));
+                  Dio dio = Dio();
+                  dio.get('http://192.168.88.14:2302/getorders');
+                    if(emailController.text == 'jekcatpopov@gmail.com' && passwordController.text == '12345ABCabc!#\$') {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => const HomeScreen()));
+                    }
+                    else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 35,
+                      color: Colors.red.shade300,
+                      child: Center(
+                        child: Text('Неверный логин или пароль'),
+                      ),
+                    )));
+                    }
                   },
                   child: Container(
                     height: 52,

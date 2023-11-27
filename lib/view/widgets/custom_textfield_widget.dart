@@ -16,7 +16,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return  TextField(
-         controller: emailController,
+         controller: widget.controller,
       decoration: InputDecoration(
 
         hintStyle: const TextStyle(
@@ -50,7 +50,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
           fit: BoxFit.scaleDown,
         ) ) : null,
       ),
-      obscureText: widget.password == true ? true : false,
+      obscureText: widget.password == true ? true && see == true : false ,
     );
   }
 }

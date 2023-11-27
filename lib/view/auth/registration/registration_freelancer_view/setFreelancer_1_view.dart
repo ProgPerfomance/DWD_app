@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/domain/get_citys_list.dart';
 import 'package:untitled1/view/auth/registration/registration_freelancer_view/citys_list_screen.dart';
+import 'package:untitled1/view/auth/registration/registration_freelancer_view/set_freelance_add_photo_view.dart';
 
 class SetFreelancer1view extends StatelessWidget {
   const SetFreelancer1view({super.key});
@@ -106,7 +107,7 @@ class SetFreelancer1view extends StatelessWidget {
               SizedBox(height: MediaQuery.of(context).size.height /3,),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SetFreelancer1view()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SetFreelancerAddPhotoView()));
                 },
                 child: Container(
                   height: 52,

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../ServerRoutes.dart';
+
 class GetCitysList extends ChangeNotifier {
   var allCityList = [];
   var popularCityList = [];
@@ -11,7 +13,7 @@ class GetCitysList extends ChangeNotifier {
   Future<void> getAllCitys() async {
     if(allCityList.length < 2) {
       final response = await dio.get(
-          'http://192.168.88.14:2302/getallcitylist');
+          '${ServerRoutes.host}/getallcitylist');
       final json = jsonDecode(response.data);
       allCityList = json['citys'];
       print(allCityList);
@@ -21,7 +23,7 @@ class GetCitysList extends ChangeNotifier {
   Future<void> getPopularCitys() async {
     if(popularCityList.length < 2) {
       final response = await dio.get(
-          'http://192.168.88.14:2302/popularallcitylist');
+          '${ServerRoutes.host}/popularallcitylist');
       final json = jsonDecode(response.data);
       popularCityList = json['citys'];
       print(popularCityList);
