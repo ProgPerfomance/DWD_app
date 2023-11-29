@@ -151,14 +151,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                const Text(
+                watchModel.myOrders.isEmpty ? const SizedBox() : const Text(
                   "Ваши заявки",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                watchModel.myOrders.isEmpty ? const Text('У вас нет заявок') :
+                watchModel.myOrders.isEmpty ? const SizedBox() :
                 SizedBox(
                   height: 193,
                   width: double.infinity,

@@ -1,4 +1,4 @@
 class ServerRoutes {
-  static const host = 'http://192.168.1.103:2302';
+  static const host = 'http://178.162.0.149:2302';
 
 }
