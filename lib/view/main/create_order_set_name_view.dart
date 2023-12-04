@@ -27,7 +27,7 @@ class _CreateOrderSetNameViewState extends State<CreateOrderSetNameAndEmailView>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             TopRowWidget(text: 'Шаг 6 из 6'),
+             const TopRowWidget(text: 'Шаг 6 из 6'),
               const SizedBox(
                 height: 16,
               ),

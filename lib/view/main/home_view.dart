@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled1/domain/create_order.dart';
 import 'package:untitled1/domain/get_orders_list.dart';
 import 'package:untitled1/view/main/create_order_select_category.dart';
 import 'package:untitled1/view/widgets/draver_widget.dart';
@@ -166,42 +165,54 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: watchModel.myOrders.length,
                       itemBuilder: (context, index) {
                         final item = watchModel.myOrders[index];
+                        List _orders = watchModel.myOrders[index]['orders'] ?? [];
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(14)),
-                            child: ListTile(
-                              title: Text(
-                                item['name'],
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              subtitle: Text("${item['price']}€"),
-                              trailing: FittedBox(
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.near_me,
-                                      color: Colors.grey,
-                                      size: 12,
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      item['address'],
-                                      style: const TextStyle(
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    item['name'],
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("${item['price']}€"),
+                                      Row(
+                                        children: List.generate(_orders.length, (index) => Image.network(_orders[index]['ava'], width: 30, height: 30,)),
+                                      )
+                                    ],
+                                  ),
+                                  trailing: FittedBox(
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.near_me,
                                           color: Colors.grey,
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
+                                          size: 12,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          item['address'],
+                                          style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.w500),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                         );
