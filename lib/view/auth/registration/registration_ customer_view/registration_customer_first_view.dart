@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled1/domain/auth/create_user.dart';
+
 import 'package:untitled1/view/auth/registration/registration_%20customer_view/registration_customer_second_screen.dart';
 import 'package:untitled1/view/widgets/custom_textfield_widget.dart';
 
@@ -12,6 +15,7 @@ class RegistrationCustomerFirstView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final createUserModel = context.read<CreateUser>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -44,7 +48,7 @@ class RegistrationCustomerFirstView extends StatelessWidget {
                 const SizedBox(height: 16,),
                 CustomTextFieldWidget(controller: nameController, text: 'Введите Имя', password: false),
                 const SizedBox(height: 16,),
-                CustomTextFieldWidget(controller: nameController, text: 'Введите Город', password: false),
+                CustomTextFieldWidget(controller: cityController, text: 'Введите Город', password: false),
                 const SizedBox(height: 16,),
                 CustomTextFieldWidget(controller: nameController, text: 'Введите email', password: false),
                 const SizedBox(height: 16,),
@@ -85,7 +89,8 @@ class RegistrationCustomerFirstView extends StatelessWidget {
                 ),
                 const SizedBox(height: 30,),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                   createUserModel.createUser(name: nameController.text,  email: emailController.text, age: null, freelancer: false, last_login: DateTime.now().toString(), password_hash: passwordController, city: cityController, country: null, date_of_burn: null, avatar: null, spheres: null, skills: null, education: null, experience: null, about_me: null, client_visiting: null, servises: null, rating: null, reviews: null, email_succes: true);
                      Navigator.push(context, MaterialPageRoute(builder: (context) => const RegistrationCustomerSecondScreen()));
                   },
                   child: Container(

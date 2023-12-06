@@ -20,7 +20,7 @@ dependencies:
   json_serializable:
   flutter_styled_toast:
   svg_flutter:
-
+  crypto: ^3.0.3
 
   flutter_svg:
   pin_code_fields:
