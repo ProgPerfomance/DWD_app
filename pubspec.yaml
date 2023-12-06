@@ -21,6 +21,7 @@ dependencies:
   flutter_styled_toast:
   svg_flutter:
 
+
   flutter_svg:
   pin_code_fields:
 dev_dependencies:

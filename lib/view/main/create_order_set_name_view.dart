@@ -48,7 +48,7 @@ class _CreateOrderSetNameViewState extends State<CreateOrderSetNameAndEmailView>
                 padding: const EdgeInsets.symmetric(vertical: 2.0),
                 child: GestureDetector(
                   onTap: () {
-                    _emailController.text.isEmpty || _nameController.text.length< 1 ? null : {
+                    _emailController.text.isEmpty || _nameController.text.isEmpty ? null : {
                       watchModel.create(),
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()))};
 
@@ -65,7 +65,7 @@ class _CreateOrderSetNameViewState extends State<CreateOrderSetNameAndEmailView>
                       child: Text('Продолжить', style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
-                        color: _emailController.text.isEmpty || _nameController.text.length <1 ? Colors.black : Colors.white,
+                        color: _emailController.text.isEmpty || _nameController.text.isEmpty ? Colors.black : Colors.white,
                       )),
                     ),
                   ),

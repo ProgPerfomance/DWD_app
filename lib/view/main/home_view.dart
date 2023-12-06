@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/domain/get_order_from_id.dart';
 import 'package:untitled1/domain/get_orders_list.dart';
 import 'package:untitled1/view/main/create_order_select_category.dart';
+import 'package:untitled1/view/main/response_order_view.dart';
 import 'package:untitled1/view/widgets/draver_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final testModel = context.read<GetOrderFromId>();
     final controller = TextEditingController();
     final watchModel = context.watch<GetOrdersList>();
     watchModel.getAllOrders();
@@ -96,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: MediaQuery.of(context).size.width * 0.1,
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      // width: MediaQuery.of(context).size.width * 0.4,
                       height: 40,
                       decoration: BoxDecoration(
                           color: Colors.red,
@@ -150,74 +153,88 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                watchModel.myOrders.isEmpty ? const SizedBox() : const Text(
-                  "Ваши заявки",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
+                watchModel.myOrders.isEmpty
+                    ? const SizedBox()
+                    : const Text(
+                        "Ваши заявки",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
                 const SizedBox(
                   height: 10,
                 ),
-                watchModel.myOrders.isEmpty ? const SizedBox() :
-                SizedBox(
-                  height: 193,
-                  width: double.infinity,
-                  child: ListView.builder(
-                      itemCount: watchModel.myOrders.length,
-                      itemBuilder: (context, index) {
-                        final item = watchModel.myOrders[index];
-                        List _orders = watchModel.myOrders[index]['orders'] ?? [];
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(14)),
-                            child: Column(
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                    item['name'],
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text("${item['price']}€"),
-                                      Row(
-                                        children: List.generate(_orders.length, (index) => Image.network(_orders[index]['ava'], width: 30, height: 30,)),
-                                      )
-                                    ],
-                                  ),
-                                  trailing: FittedBox(
-                                    child: Row(
+                if (watchModel.myOrders.isEmpty)
+                  const SizedBox()
+                else
+                  SizedBox(
+                    height: 193,
+                    width: double.infinity,
+                    child: ListView.builder(
+                        itemCount: watchModel.myOrders.length,
+                        itemBuilder: (context, index) {
+                          final item = watchModel.myOrders[index];
+                          List _orders =
+                              watchModel.myOrders[index]['orders'] ?? [];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(14)),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text(
+                                      item['name'],
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        const Icon(
-                                          Icons.near_me,
-                                          color: Colors.grey,
-                                          size: 12,
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          item['address'],
-                                          style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w500),
+                                        Text("${item['price']}€"),
+                                        Row(
+                                          children: List.generate(
+                                              _orders.length,
+                                              (index) => Image.network(
+                                                    'https://i.pinimg.com/originals/2e/2e/21/2e2e2125ee53807c2d77b34773f84b5c.jpg',
+                                                    width: 30,
+                                                    height: 30,
+                                                  )),
                                         )
                                       ],
                                     ),
+                                    trailing: FittedBox(
+                                      child: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.near_me,
+                                            color: Colors.grey,
+                                            size: 12,
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            item['address'],
+                                            style: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w500),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }),
-                ),
+                          );
+                        }),
+                  ),
                 const Text(
                   "Популярное",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -439,7 +456,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
                 ),
-                Container(
+                SizedBox(
                   height: 193,
                   width: double.infinity,
                   child: ListView.builder(
@@ -448,38 +465,50 @@ class _HomeScreenState extends State<HomeScreen> {
                       final item = watchModel.orders[index];
                       return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(14)),
-                            child: ListTile(
-                              title: Text(
-                                item['name'],
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              subtitle: Text("${item['price']}€"),
-                              trailing: FittedBox(
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.near_me,
-                                      color: Colors.grey,
-                                      size: 12,
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      item['address'],
-                                      style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
+                          child: GestureDetector(
+                            onTap: () async {
+                              await testModel.getOrderFromId(index);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ResponseOrderView(
+                                            id: index,
+                                            order: testModel.order,
+                                          )));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(14)),
+                              child: ListTile(
+                                title: Text(
+                                  item['name'],
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                subtitle: Text("${item['price']}€"),
+                                trailing: FittedBox(
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.near_me,
+                                        color: Colors.grey,
+                                        size: 12,
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        item['address'],
+                                        style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w500),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -497,7 +526,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
                 ),
-                Container(
+                SizedBox(
                   height: 193,
                   width: double.infinity,
                   child: ListView.builder(

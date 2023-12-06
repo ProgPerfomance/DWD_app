@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:untitled1/domain/create_order.dart';
 import 'package:untitled1/domain/get_categories_list.dart';
 import 'package:untitled1/domain/get_citys_list.dart';
+import 'package:untitled1/domain/get_order_from_id.dart';
 import 'package:untitled1/domain/get_orders_list.dart';
+import 'package:untitled1/domain/response_from_order.dart';
 import 'package:untitled1/view/auth/start_screen.dart';
 import 'package:untitled1/view/main/home_view.dart';
 import 'package:untitled1/view/main/response_order_view.dart';
@@ -22,13 +24,15 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => GetCitysList()),
+        ChangeNotifierProvider(create: (context) => ResponseFromOrder()),
+        ChangeNotifierProvider(create: (context) => GetOrderFromId()),
         ChangeNotifierProvider(create: (context) => GetCategoriesList()),
         ChangeNotifierProvider(create: (context) => GetOrdersList()),
         ChangeNotifierProvider(create: (context) => CreateOrder())
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: StartView(),
+        home: HomeScreen(),
       ),
     );
   }
