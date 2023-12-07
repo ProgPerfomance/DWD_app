@@ -48,7 +48,7 @@ class SetFreelancerAddPhotoView extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height / 9.3,),
                 Center(child: Image.asset('assets/design/images/user.png')),
                 const SizedBox(height: 7,),
-                const Center(child: Text('Никита', style: TextStyle(
+                Center(child: Text(name, style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 18,
                 ),)),
@@ -77,7 +77,7 @@ class SetFreelancerAddPhotoView extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height / 5,),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SetFreelancerSendOnYouView()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SetFreelancerSendOnYouView(name: name, password: password, email: email, city: city, date_of_burn:  date_of_burn, photo: null,)));
                   },
                   child: Container(
                     height: 52,

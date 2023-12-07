@@ -55,11 +55,12 @@ class SetFreelancer1view extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                   color: Color(0xff808080),
               ),),
-              const TextField(
-                style: TextStyle(
+               TextField(
+                controller: _nameController,
+                style: const TextStyle(
                   fontSize: 18,
                 ),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'ФИО',
                   hintStyle: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -97,7 +98,8 @@ class SetFreelancer1view extends StatelessWidget {
                 color: const Color(0xff808080),
               ),
               const SizedBox(height: 10,),
-              const TextField(
+               TextField(
+                controller: _dateOfBurnController,
                 style: TextStyle(
                   fontSize: 18,
                 ),

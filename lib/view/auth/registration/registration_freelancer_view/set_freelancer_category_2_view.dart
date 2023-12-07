@@ -88,7 +88,7 @@ class SetFreelancerCategory2View extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SetFreelancerSendOnYouView()));
+            //      Navigator.push(context, MaterialPageRoute(builder: (context) => const SetFreelancerSendOnYouView()));
                 },
                 child: Container(
                   height: 52,

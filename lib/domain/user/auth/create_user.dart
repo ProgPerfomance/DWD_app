@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:untitled1/ServerRoutes.dart';
 
 class CreateUser extends ChangeNotifier {
   Dio dio = Dio();
-  Future<void> createUser(
+  var uid;
+  Future<int> createUser(
       {required var name,
       required var email,
       required var age,
@@ -48,5 +51,7 @@ class CreateUser extends ChangeNotifier {
       'reviews': reviews,
       'email_succes': email_succes,
     });
+    var data = jsonDecode(response.data);
+    return data['uid'];
   }
 }

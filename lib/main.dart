@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/controller/send_for_user_controller.dart';
 import 'package:untitled1/domain/create_order.dart';
 import 'package:untitled1/domain/get_categories_list.dart';
 import 'package:untitled1/domain/get_citys_list.dart';
@@ -7,6 +8,7 @@ import 'package:untitled1/domain/get_order_from_id.dart';
 import 'package:untitled1/domain/get_orders_list.dart';
 import 'package:untitled1/domain/response_from_order.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
+import 'package:untitled1/view/auth/registration/registration_freelancer_view/set_freelancer_success.dart';
 import 'package:untitled1/view/auth/start_screen.dart';
 
 import 'domain/user/auth/auth_user.dart';
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => SendForUserController()),
         ChangeNotifierProvider(create: (context) => GetUserProfile()),
         ChangeNotifierProvider(create: (context) => AuthUserFromEmail()),
         ChangeNotifierProvider(create: (context) => CreateUser()),
