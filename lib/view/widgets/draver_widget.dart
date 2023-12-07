@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled1/domain/user/get_user_profile.dart';
 import 'package:untitled1/view/main/profile/profile_view.dart';
 
 class DraverWidget extends StatelessWidget {
@@ -6,6 +8,7 @@ class DraverWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  final  userModel = context.watch<GetUserProfile>();
     return Drawer(
       width: 350,
       backgroundColor: Colors.white,
@@ -41,11 +44,11 @@ class DraverWidget extends StatelessWidget {
                       const SizedBox(
                         width: 12,
                       ),
-                      const Column(
+                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Никита",
+                            userModel.userModel!.name,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w500),
                           ),
@@ -53,7 +56,7 @@ class DraverWidget extends StatelessWidget {
                             height: 4,
                           ),
                           Text(
-                            "jekcatpopov@gmail.com",
+                           userModel.userModel!.email,
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,

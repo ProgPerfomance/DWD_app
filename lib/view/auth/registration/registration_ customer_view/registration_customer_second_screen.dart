@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:untitled1/view/main/home_view.dart';
 
 class RegistrationCustomerSecondScreen extends StatefulWidget {
   const RegistrationCustomerSecondScreen({super.key});
@@ -87,7 +88,7 @@ class _RegistrationCustomerSecondScreenState extends State<RegistrationCustomerS
                 SizedBox(height: MediaQuery.of(context).size.height / 3.9,),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const RegistrationCustomerSecondScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
                   },
                   child: Container(
                     height: 52,

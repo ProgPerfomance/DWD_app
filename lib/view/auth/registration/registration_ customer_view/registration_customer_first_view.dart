@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled1/domain/auth/create_user.dart';
 
 import 'package:untitled1/view/auth/registration/registration_%20customer_view/registration_customer_second_screen.dart';
 import 'package:untitled1/view/widgets/custom_textfield_widget.dart';
+
+import '../../../../domain/user/auth/create_user.dart';
 
 TextEditingController nameController = TextEditingController();
 TextEditingController cityController = TextEditingController();
@@ -50,9 +51,9 @@ class RegistrationCustomerFirstView extends StatelessWidget {
                 const SizedBox(height: 16,),
                 CustomTextFieldWidget(controller: cityController, text: 'Введите Город', password: false),
                 const SizedBox(height: 16,),
-                CustomTextFieldWidget(controller: nameController, text: 'Введите email', password: false),
+                CustomTextFieldWidget(controller: emailController, text: 'Введите email', password: false),
                 const SizedBox(height: 16,),
-                CustomTextFieldWidget(controller: nameController, text: 'Введите пароль', password: true),
+                CustomTextFieldWidget(controller: passwordController, text: 'Введите пароль', password: true),
                 const SizedBox(height: 16,),
                 RichText(
                   text: TextSpan(
@@ -90,7 +91,7 @@ class RegistrationCustomerFirstView extends StatelessWidget {
                 const SizedBox(height: 30,),
                 GestureDetector(
                   onTap: () async {
-                   createUserModel.createUser(name: nameController.text,  email: emailController.text, age: null, freelancer: false, last_login: DateTime.now().toString(), password_hash: passwordController, city: cityController, country: null, date_of_burn: null, avatar: null, spheres: null, skills: null, education: null, experience: null, about_me: null, client_visiting: null, servises: null, rating: null, reviews: null, email_succes: true);
+                   createUserModel.createUser(name: nameController.text,  email: emailController.text, age: null, freelancer: false, last_login: DateTime.now().toString(), password_hash: passwordController.text, city: cityController.text, country: null, date_of_burn: null, avatar: null, spheres: null, skills: null, education: null, experience: null, about_me: null, client_visiting: null, servises: null, rating: null, reviews: null, email_succes: true);
                      Navigator.push(context, MaterialPageRoute(builder: (context) => const RegistrationCustomerSecondScreen()));
                   },
                   child: Container(

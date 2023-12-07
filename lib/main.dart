@@ -6,9 +6,11 @@ import 'package:untitled1/domain/get_citys_list.dart';
 import 'package:untitled1/domain/get_order_from_id.dart';
 import 'package:untitled1/domain/get_orders_list.dart';
 import 'package:untitled1/domain/response_from_order.dart';
+import 'package:untitled1/domain/user/get_user_profile.dart';
 import 'package:untitled1/view/auth/start_screen.dart';
-import 'package:untitled1/view/main/home_view.dart';
-import 'package:untitled1/view/main/response_order_view.dart';
+
+import 'domain/user/auth/auth_user.dart';
+import 'domain/user/auth/create_user.dart';
 
 
 
@@ -23,6 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => GetUserProfile()),
+        ChangeNotifierProvider(create: (context) => AuthUserFromEmail()),
+        ChangeNotifierProvider(create: (context) => CreateUser()),
         ChangeNotifierProvider(create: (context) => GetCitysList()),
         ChangeNotifierProvider(create: (context) => ResponseFromOrder()),
         ChangeNotifierProvider(create: (context) => GetOrderFromId()),
@@ -32,7 +37,7 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: StartView(),
       ),
     );
   }
