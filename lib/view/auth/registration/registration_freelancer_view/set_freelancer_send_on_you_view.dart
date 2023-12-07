@@ -1,7 +1,8 @@
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names, must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/controller/send_for_user_controller.dart';
-import 'package:untitled1/domain/user/auth/auth_user.dart';
 import 'package:untitled1/domain/user/auth/create_user.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
 import 'package:untitled1/view/auth/registration/registration_freelancer_view/edit_send_for_you_form_view.dart';
@@ -98,7 +99,6 @@ class SetFreelancerSendOnYouView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    print(name);
              int uid = await     createUserModel.createUser(
                         name: name,
                         email: email,
@@ -120,7 +120,7 @@ class SetFreelancerSendOnYouView extends StatelessWidget {
                         rating: 5,
                         reviews: null,
                         email_succes: true);
-                    getUserDataModel.getUserProfile(createUserModel.uid);
+                    getUserDataModel.getUserProfile(uid);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
