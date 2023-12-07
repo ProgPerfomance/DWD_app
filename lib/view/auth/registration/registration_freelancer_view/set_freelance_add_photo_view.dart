@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:untitled1/view/auth/registration/registration_freelancer_view/set_freelancer_category_1_view.dart';
+import 'package:untitled1/view/auth/registration/registration_freelancer_view/set_freelancer_send_on_you_view.dart';
 
 class SetFreelancerAddPhotoView extends StatelessWidget {
-  const SetFreelancerAddPhotoView({super.key});
+  String email;
+  String password;
+  String city;
+  String name;
+  String date_of_burn;
+   SetFreelancerAddPhotoView({super.key, required this.password, required this.email, required this.city, required this.date_of_burn, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +77,7 @@ class SetFreelancerAddPhotoView extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height / 5,),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SetFreelancerCategory1View()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SetFreelancerSendOnYouView()));
                   },
                   child: Container(
                     height: 52,

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../domain/user/get_user_profile.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final  userModel = context.watch<GetUserProfile>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -47,10 +51,10 @@ class ProfileView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(22),
                           ),child: Image.asset('assets/design/images/testava.png', height: 129, width: 104),),
                        const SizedBox(width: 16,),
-                          const Column(
+                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Евгений',
+                              Text(userModel.userModel!.name,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -84,45 +88,45 @@ class ProfileView extends StatelessWidget {
                       Container(height: 1,color: const Color(0xffCBCBCB),
                       width: MediaQuery.of(context).size.width -40,),
                       const SizedBox(height: 16,),
-                      const Text('Навыки:',
+                      userModel.userModel!.skills != null ? Text('Навыки:',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Color(0xff333333),
-                      ),),
-                      const Text('Монтаж канализационных систем.'),
+                      ),) : SizedBox(),
+                      userModel.userModel!.skills != null ? Text(userModel.userModel!.skills) : SizedBox(),
                       const SizedBox(height: 12,),
-                      const Text('Образование:',
+                      userModel.userModel!.education != null ? Text('Образование:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
-                        ),),
-                      const Text('Высшее техническое.'),
+                        ),) : SizedBox(),
+                      userModel.userModel!.education != null ? Text(userModel.userModel!.education) : SizedBox(),
                       const SizedBox(height: 12,),
-                      const Text('Опыт:',
+                      userModel.userModel!.experience != null ? Text('Опыт:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
-                        ),),
-                      const Text('Более 5 лет работы в Газпром.'),
+                        ),) : SizedBox(),
+                      userModel.userModel!.experience != null ? Text(userModel.userModel!.education) : SizedBox(),
                       const SizedBox(height: 12,),
-                      const Text('О себе:',
+                      userModel.userModel!.about_me != null ? Text('О себе:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
-                        ),),
-                      const Text('Короче крутой монтажник.'),
+                        ),) : SizedBox(),
+                      userModel.userModel!.about_me != null ? Text(userModel.userModel!.about_me) : SizedBox(),
                       const SizedBox(height: 12,),
-                      const Text('Выезд к клиенту:',
+                      userModel.userModel!.client_visiting != null ? Text('Выезд к клиенту:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
-                        ),),
-                      const Text('Иркутск.'),
+                        ),) : SizedBox(),
+                      userModel.userModel!.client_visiting != null ? Text(userModel.userModel!.client_visiting) : SizedBox(),
                       const SizedBox(height: 12,),
                       const Text('Услуги и цены:',
                         style: TextStyle(

@@ -239,7 +239,7 @@ class DraverWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Expanded(
+            userModel.userModel!.freelancer == false ?  Expanded(
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -258,7 +258,7 @@ class DraverWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
+              ) : SizedBox(),
               const SizedBox(
                 height: 28,
               )

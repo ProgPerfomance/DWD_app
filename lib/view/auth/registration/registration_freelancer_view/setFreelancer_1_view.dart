@@ -4,8 +4,14 @@ import 'package:untitled1/domain/get_citys_list.dart';
 import 'package:untitled1/view/auth/registration/registration_freelancer_view/citys_list_screen.dart';
 import 'package:untitled1/view/auth/registration/registration_freelancer_view/set_freelance_add_photo_view.dart';
 
+TextEditingController _nameController = TextEditingController();
+TextEditingController _dateOfBurnController = TextEditingController();
+
+
 class SetFreelancer1view extends StatelessWidget {
-  const SetFreelancer1view({super.key});
+  String email;
+  String password;
+  SetFreelancer1view({super.key, required this.email, required this.password});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +79,7 @@ class SetFreelancer1view extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CitysListView()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CitysListView()));
                     },
                     child: Text(citysModel.selectedCity,
                     style: const TextStyle(
@@ -107,7 +113,7 @@ class SetFreelancer1view extends StatelessWidget {
               SizedBox(height: MediaQuery.of(context).size.height /3,),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SetFreelancerAddPhotoView()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SetFreelancerAddPhotoView(name: _nameController.text,email: email, password: password, city: citysModel.selectedCity, date_of_burn: _dateOfBurnController.text,)));
                 },
                 child: Container(
                   height: 52,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled1/view/auth/registration/registration_freelancer_view/edit_send_for_you_form_view.dart';
 
 class SetFreelancerSendOnYouView extends StatelessWidget {
   const SetFreelancerSendOnYouView({super.key});
@@ -81,25 +82,30 @@ class SendForYouCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-             Text(text, style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-              color: Color(0xff808080),
-            ),),
-            Image.asset('assets/design/images/arrowright.png'),
-          ],),
-        const SizedBox(height: 12,),
-        Container(
-          height: 1,
-          color: const Color(0xffEBEBEB),
-          width: MediaQuery.of(context).size.width - 40,
-        ),
-        const SizedBox(height: 12,),
-      ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => EditSendForYouFormView(name: text, nameView: text)));
+      },
+      child: Column(
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+               Text(text, style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 18,
+                color: Color(0xff808080),
+              ),),
+              Image.asset('assets/design/images/arrowright.png'),
+            ],),
+          const SizedBox(height: 12,),
+          Container(
+            height: 1,
+            color: const Color(0xffEBEBEB),
+            width: MediaQuery.of(context).size.width - 40,
+          ),
+          const SizedBox(height: 12,),
+        ],
+      ),
     );
   }
 }

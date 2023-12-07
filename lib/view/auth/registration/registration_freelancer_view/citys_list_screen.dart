@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:untitled1/domain/get_citys_list.dart';
 
 class CitysListView extends StatefulWidget {
-  const CitysListView({super.key});
+
+  CitysListView({super.key,});
 
   @override
   State<CitysListView> createState() => _CitysListViewState();

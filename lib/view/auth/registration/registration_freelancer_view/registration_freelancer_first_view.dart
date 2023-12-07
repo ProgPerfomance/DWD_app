@@ -81,7 +81,7 @@ class RegistrationFreelancerFirstView extends StatelessWidget {
                 const SizedBox(height: 30,),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const RegistrationFreelancerSecondScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationFreelancerSecondScreen(email: emailController.text, password: passwordController.text,)));
                   },
                   child: Container(
                     height: 52,

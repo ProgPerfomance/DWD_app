@@ -3,7 +3,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:untitled1/view/auth/registration/registration_freelancer_view/setFreelancer_1_view.dart';
 
 class RegistrationFreelancerSecondScreen extends StatefulWidget {
-  const RegistrationFreelancerSecondScreen({super.key});
+  String email;
+  String password;
+  RegistrationFreelancerSecondScreen({super.key, required this.email, required this.password});
 
   @override
   State<RegistrationFreelancerSecondScreen> createState() => _RegistrationCustomerSecondScreenState();
@@ -88,7 +90,7 @@ class _RegistrationCustomerSecondScreenState extends State<RegistrationFreelance
                 SizedBox(height: MediaQuery.of(context).size.height / 3.9,),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SetFreelancer1view()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SetFreelancer1view(email: widget.email, password: widget.password,)));
                   },
                   child: Container(
                     height: 52,
