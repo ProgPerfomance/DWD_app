@@ -475,7 +475,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   MaterialPageRoute(
                                       builder: (context) => ResponseOrderView(
                                             id: index,
-                                            order: testModel.order,
+                                           name: item.name,
+                                        address: null,
+                                        city: item.city,
+                                        category: item.category, sees: item.sees,
+                                        description: 'ffddfihd',
+                                        wishes: item.wishes, orderStatus: item.orderStatus,
+
                                           )));
                             },
                             child: Container(
@@ -522,7 +528,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 12,
                 ),
                 const Text(
-                  "Последние услуги ",
+                  "Последние услуги",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,

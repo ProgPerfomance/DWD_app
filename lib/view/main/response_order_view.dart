@@ -13,8 +13,15 @@ TextEditingController kom = TextEditingController();
 
 class ResponseOrderView extends StatelessWidget {
   final id;
-  final order;
-  const ResponseOrderView({super.key, required this.id, required this.order});
+  final description;
+  final orderStatus;
+  final city;
+  final address;
+  final wishes;
+  final sees;
+  final name;
+  final category;
+  const ResponseOrderView({super.key, required this.id, required this.name, required this.city, required this.sees, required this.orderStatus, required this.category, required this.wishes, required this.address, required this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +43,7 @@ class ResponseOrderView extends StatelessWidget {
                       },
                       child: Image.asset('assets/design/images/arrowleft.png')),
                   Text(
-                    'Заявка номер ${order['id'].toString()}',
+                    'Заявка номер $id',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -55,7 +62,7 @@ class ResponseOrderView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          order['status'],
+                          orderStatus,
                           style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
@@ -63,9 +70,9 @@ class ResponseOrderView extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            const Text(
-                              '10',
-                              style: TextStyle(
+                             Text(
+                              sees.toString(),
+                              style: const TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -82,7 +89,7 @@ class ResponseOrderView extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      order['name'],
+                      name,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -91,7 +98,7 @@ class ResponseOrderView extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          order['address'],
+                          city,
                           style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -122,7 +129,7 @@ class ResponseOrderView extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      order['sub'],
+                     description,
                       style: const TextStyle(
                         color: Color(0xff333333),
                       ),
@@ -139,7 +146,7 @@ class ResponseOrderView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      order['wishes'],
+                      wishes,
                       style: const TextStyle(
                         color: Color(0xff333333),
                       ),
