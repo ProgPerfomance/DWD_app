@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:untitled1/view/main/create_order_set_time_view.dart';
 import 'package:untitled1/view/widgets/custom_textfield_widget.dart';
-
-import '../../domain/create_order.dart';
 import '../widgets/top_row_widget.dart';
 TextEditingController nameController = TextEditingController();
 
 class CreateOrderSetName extends StatefulWidget {
   final name;
- // final podname;
   const CreateOrderSetName({super.key, required this.name});
 
   @override
@@ -19,7 +15,7 @@ class CreateOrderSetName extends StatefulWidget {
 class _CreateOrderSetNameState extends State<CreateOrderSetName> {
   @override
   Widget build(BuildContext context) {
-    final watchModel = context.watch<CreateOrder>();
+    //final watchModel = context.watch<CreateOrder>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -27,7 +23,7 @@ class _CreateOrderSetNameState extends State<CreateOrderSetName> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TopRowWidget(text: 'Название заявки'),
+              const TopRowWidget(text: 'Название заявки'),
               const SizedBox(
                 height: 16,
               ),
@@ -46,21 +42,20 @@ class _CreateOrderSetNameState extends State<CreateOrderSetName> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: GestureDetector(
                   onTap: () {
-                    watchModel.setName(nameController.text);
-                    nameController.text.length < 1 ? null :  Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderSetTimeView(name: widget.name)));
+                    nameController.text.isEmpty ? null :  Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderSetTimeView(categoryName: widget.name, orderName: nameController.text,)));
                   },
                   child: Container(
                     height: 52,
                     width: MediaQuery.of(context).size.width - 10,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: nameController.text.length < 1 ? const Color(0xffEBEBEB) : const Color(0xffF14F44),
+                      color: nameController.text.isEmpty ? const Color(0xffEBEBEB) : const Color(0xffF14F44),
                     ),
                     child: Center(
                       child: Text('Продолжить', style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
-                        color: nameController.text.length < 1 ? Colors.black : Colors.white,
+                        color: nameController.text.isEmpty ? Colors.black : Colors.white,
                       )),
                     ),
                   ),

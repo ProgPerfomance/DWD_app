@@ -8,8 +8,11 @@ import '../../domain/create_order.dart';
 TextEditingController minPriceController = TextEditingController();
 TextEditingController maxPriceController =TextEditingController();
 class CreateOrderSetPriceView extends StatefulWidget {
-  final String name;
-  const CreateOrderSetPriceView({super.key, required this.name});
+  final String categoryName;
+  final String orderName;
+  final String dateAndTime;
+  final String address;
+  const CreateOrderSetPriceView({super.key, required this.orderName, required this.categoryName, required this.dateAndTime, required this.address});
 
   @override
   State<CreateOrderSetPriceView> createState() => _CreateOrderSetPriceViewState();
@@ -30,7 +33,7 @@ class _CreateOrderSetPriceViewState extends State<CreateOrderSetPriceView> {
               const SizedBox(
                 height: 16,
               ),
-              Text(widget.name, style: const TextStyle(
+              Text(widget.categoryName, style: const TextStyle(
                 fontSize: 12,
                 color: Color(0xff808080),
               ),),
@@ -106,8 +109,7 @@ class _CreateOrderSetPriceViewState extends State<CreateOrderSetPriceView> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: GestureDetector(
                   onTap: () {
-                    watchModel.setPrice(maxPriceController.text);
-                    minPriceController.text.isEmpty || maxPriceController.text.length< 1 ? null :  Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderOtherPropiretiesView(name: widget.name)));
+                    minPriceController.text.isEmpty || maxPriceController.text.isEmpty ? null :  Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderOtherPropiretiesView(categoryName: widget.categoryName, orderName: widget.orderName, priceMax: maxPriceController.text, dateAndTime: widget.dateAndTime, address: widget.address,priceMin: minPriceController.text,)));
                   },
                   child: Container(
                     height: 52,
@@ -120,7 +122,7 @@ class _CreateOrderSetPriceViewState extends State<CreateOrderSetPriceView> {
                       child: Text('Продолжить', style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
-                        color: minPriceController.text.isEmpty || maxPriceController.text.length <1 ? Colors.black : Colors.white,
+                        color: minPriceController.text.isEmpty || maxPriceController.text.isEmpty ? Colors.black : Colors.white,
                       )),
                     ),
                   ),

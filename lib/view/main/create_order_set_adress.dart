@@ -9,8 +9,10 @@ import '../widgets/top_row_widget.dart';
 TextEditingController addressController = TextEditingController();
 
 class CreateOrderSetAdressView extends StatefulWidget {
-  final String name;
-  const CreateOrderSetAdressView({super.key, required this.name});
+  final String orderName;
+  final String dateAndTime;
+  final String categoryName;
+  const CreateOrderSetAdressView({super.key, required this.categoryName, required this.orderName, required this.dateAndTime});
 
   @override
   State<CreateOrderSetAdressView> createState() => _CreateOrderSetAdressViewState();
@@ -32,7 +34,7 @@ class _CreateOrderSetAdressViewState extends State<CreateOrderSetAdressView> {
               const SizedBox(
                 height: 16,
               ),
-              Text(widget.name, style: const TextStyle(
+              Text(widget.categoryName, style: const TextStyle(
                 fontSize: 12,
                 color: Color(0xff808080),
               ),),
@@ -64,8 +66,7 @@ class _CreateOrderSetAdressViewState extends State<CreateOrderSetAdressView> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: GestureDetector(
                   onTap: () {
-                    watchModel.setAdress(addressController.text);
-                    addressController.text.length < 1 ? null :  Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderSetPriceView(name: widget.name)));
+                    addressController.text.length < 1 ? null :  Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderSetPriceView(categoryName: widget.categoryName, orderName: widget.orderName, address: addressController.text, dateAndTime: widget.dateAndTime,)));
                   },
                   child: Container(
                     height: 52,

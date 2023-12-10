@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/domain/user/auth/create_user.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
 
 import 'package:untitled1/view/main/home_view.dart';
@@ -18,7 +19,7 @@ class LoginFirstView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authModel = context.read<AuthUserFromEmail>();
+    final authModel = context.read<CreateUser>();
     final getProfile = context.read<GetUserProfile>();
     return Scaffold(
       body: SafeArea(

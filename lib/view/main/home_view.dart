@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/domain/get_order_from_id.dart';
@@ -482,13 +484,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   borderRadius: BorderRadius.circular(14)),
                               child: ListTile(
                                 title: Text(
-                                  item['name'],
+                                  item.name,
                                   style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                subtitle: Text("${item['price']}€"),
+                               subtitle: Text("${item.price_min}-${item.price_max}"),
                                 trailing: FittedBox(
                                   child: Row(
                                     children: [
@@ -501,7 +503,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         width: 8,
                                       ),
                                       Text(
-                                        item['address'],
+                                      item.city,
                                         style: const TextStyle(
                                             color: Colors.grey,
                                             fontSize: 8,

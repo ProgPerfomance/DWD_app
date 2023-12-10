@@ -54,4 +54,19 @@ class CreateUser extends ChangeNotifier {
     var data = jsonDecode(response.data);
     return data['uid'];
   }
+  Future<dynamic> authUserFromEmail(String email, String password)  async {
+    final response = await dio.post('${ServerRoutes.host}/authuser',
+        data: {
+          'email': email,
+          'password': password,
+        });
+    var data = await jsonDecode(response.data);
+    if(data['success'] == true) {
+      print(data['uid']);
+      uid = data['uid'];
+      notifyListeners();
+      return data['uid'];
+    }
+    return null;
+  }
 }

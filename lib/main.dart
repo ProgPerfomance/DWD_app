@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => SendForUserController()),
         ChangeNotifierProvider(create: (context) => GetUserProfile()),
-        ChangeNotifierProvider(create: (context) => AuthUserFromEmail()),
+       // ChangeNotifierProvider(create: (context) => AuthUserFromEmail()),
         ChangeNotifierProvider(create: (context) => CreateUser()),
         ChangeNotifierProvider(create: (context) => GetCitysList()),
         ChangeNotifierProvider(create: (context) => ResponseFromOrder()),

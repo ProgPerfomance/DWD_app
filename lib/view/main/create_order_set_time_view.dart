@@ -6,8 +6,9 @@ import '../widgets/top_row_widget.dart';
 
 TextEditingController timeController = TextEditingController();
 class CreateOrderSetTimeView extends StatefulWidget {
-  final name;
-  const CreateOrderSetTimeView({super.key, required this.name});
+  final categoryName;
+  final orderName;
+  const CreateOrderSetTimeView({super.key, required this.categoryName, required this.orderName});
 
   @override
   State<CreateOrderSetTimeView> createState() => _CreateOrderSetTimeViewState();
@@ -27,7 +28,7 @@ class _CreateOrderSetTimeViewState extends State<CreateOrderSetTimeView> {
               const SizedBox(
                 height: 16,
               ),
-              Text(widget.name, style: const TextStyle(
+              Text(widget.categoryName, style: const TextStyle(
                 fontSize: 12,
                 color: Color(0xff808080),
               ),),
@@ -42,7 +43,7 @@ class _CreateOrderSetTimeViewState extends State<CreateOrderSetTimeView> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: GestureDetector(
                   onTap: () {
-                    timeController.text.length < 1 ? null :  Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderSetAdressView(name: widget.name)));
+                    timeController.text.length < 1 ? null :  Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderSetAdressView(categoryName: widget.categoryName, dateAndTime: timeController.text, orderName: widget.orderName,)));
                   },
                   child: Container(
                     height: 52,

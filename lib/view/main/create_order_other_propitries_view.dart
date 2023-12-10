@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import '../widgets/top_row_widget.dart';
 import 'create_order_set_name_view.dart';
 
-TextEditingController textEditingController = TextEditingController();
+TextEditingController supEditingController = TextEditingController();
 
 class CreateOrderOtherPropiretiesView extends StatefulWidget {
-  final name;
-  const CreateOrderOtherPropiretiesView({super.key, required this.name});
+  final String categoryName;
+  final String orderName;
+  final String dateAndTime;
+  final String address;
+  final String priceMin;
+  final String priceMax;
+  const CreateOrderOtherPropiretiesView({super.key, required this.categoryName, required this.dateAndTime, required this.orderName, required this.address, required this.priceMax, required this.priceMin});
 
   @override
   State<CreateOrderOtherPropiretiesView> createState() => _CreateOrderOtherPropiretiesViewState();
@@ -27,7 +32,7 @@ class _CreateOrderOtherPropiretiesViewState extends State<CreateOrderOtherPropir
               const SizedBox(
                 height: 16,
               ),
-              Text(widget.name, style: const TextStyle(
+              Text(widget.categoryName, style: const TextStyle(
                 fontSize: 12,
                 color: Color(0xff808080),
               ),),
@@ -38,7 +43,7 @@ class _CreateOrderOtherPropiretiesViewState extends State<CreateOrderOtherPropir
               const SizedBox(height: 10,),
               SizedBox(
                 child: TextField(
-                  controller: textEditingController,
+                  controller: supEditingController,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(vertical: 30),
                     hintStyle: const TextStyle(
@@ -76,7 +81,7 @@ class _CreateOrderOtherPropiretiesViewState extends State<CreateOrderOtherPropir
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderSetNameAndEmailView(name: widget.name,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderSetNameAndEmailView(categoryName: widget.categoryName, orderName: widget.orderName, priceMax: widget.priceMax, priceMin: widget.priceMin, address: widget.address, dateAndTime: widget.dateAndTime, sup: supEditingController.text,)));
                   },
                   child: Container(
                     height: 52,
