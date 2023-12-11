@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled1/view/main/create_order_set_time_view.dart';
+import 'package:untitled1/view/main/create_order/create_order_set_time_view.dart';
 import 'package:untitled1/view/widgets/custom_textfield_widget.dart';
-import '../widgets/top_row_widget.dart';
+import '../../widgets/top_row_widget.dart';
 TextEditingController nameController = TextEditingController();
 
 class CreateOrderSetName extends StatefulWidget {

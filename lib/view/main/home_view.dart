@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/domain/get_order_from_id.dart';
 import 'package:untitled1/domain/get_orders_list.dart';
-import 'package:untitled1/view/main/create_order_select_category.dart';
+import 'package:untitled1/domain/user/auth/create_user.dart';
+import 'package:untitled1/view/main/create_order/create_order_select_category.dart';
+import 'package:untitled1/view/main/profile/profile_view.dart';
 import 'package:untitled1/view/main/response_order_view.dart';
 import 'package:untitled1/view/widgets/draver_widget.dart';
 
@@ -21,8 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final testModel = context.read<GetOrderFromId>();
     final controller = TextEditingController();
     final watchModel = context.watch<GetOrdersList>();
+    final userModel = context.watch<CreateUser>();
     watchModel.getAllOrders();
-    watchModel.getMyOrders();
+    watchModel.getMyOrders(int.parse(userModel.uid));
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
@@ -138,10 +141,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(12)),
                     child: MaterialButton(
                       onPressed: () {
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //           builder: (context) => SearchScreen()));
                       },
                       child: TextField(
                         controller: controller,
@@ -176,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           final item = watchModel.myOrders[index];
                           List _orders =
-                              watchModel.myOrders[index]['orders'] ?? [];
+                              watchModel.myOrders ?? [];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
@@ -187,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   ListTile(
                                     title: Text(
-                                      item['name'],
+                                      item.name,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 10,
@@ -197,15 +196,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text("${item['price']}€"),
+                                        Text("${item.price_min}-${item.price_max}€"),
                                         Row(
                                           children: List.generate(
-                                              _orders.length,
-                                              (index) => Image.network(
-                                                    'https://i.pinimg.com/originals/2e/2e/21/2e2e2125ee53807c2d77b34773f84b5c.jpg',
-                                                    width: 30,
-                                                    height: 30,
-                                                  )),
+                                              item.responses.length,
+                                              (index) => GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileView()));
+                                                },
+                                                child: Image.network(
+                                                      'https://i.pinimg.com/originals/2e/2e/21/2e2e2125ee53807c2d77b34773f84b5c.jpg',
+                                                      width: 30,
+                                                      height: 30,
+                                                    ),
+                                              )),
                                         )
                                       ],
                                     ),
@@ -221,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: 8,
                                           ),
                                           Text(
-                                            item['address'],
+                                            item.city,
                                             style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 8,

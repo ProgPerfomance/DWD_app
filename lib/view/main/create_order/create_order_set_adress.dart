@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/domain/create_order.dart';
-import 'package:untitled1/view/main/create_order_set_price_view.dart';
+import 'package:untitled1/view/main/create_order/create_order_set_price_view.dart';
 
-import '../widgets/custom_textfield_widget.dart';
-import '../widgets/top_row_widget.dart';
+import '../../widgets/custom_textfield_widget.dart';
+import '../../widgets/top_row_widget.dart';
 
 TextEditingController addressController = TextEditingController();
 

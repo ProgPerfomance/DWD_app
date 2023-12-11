@@ -1,3 +1,5 @@
+import 'package:untitled1/model/response_from_order_model.dart';
+
 class OrderModel {
   final name;
   final uid;
@@ -12,6 +14,7 @@ class OrderModel {
   final sees;
   final remotely;
   final city;
+  final List<ResponseFromOrderModel> responses;
   OrderModel(
       {required this.uid,
       required this.remotely,
@@ -25,10 +28,11 @@ class OrderModel {
       required this.id,
       required this.orderStatus,
         required this.city,
-      required this.sees});
+      required this.sees, required this.responses});
   @override
   String toString() {
     // TODO: implement toString
-    return '$uid, $remotely, $email, $username, $wishes, $price_min, $price_max, $category, $name, $id, $orderStatus, $sees';
+    return '$uid, $remotely, $email, $username, $wishes, $price_min, $price_max, $category, $name, $id, $orderStatus, $sees, $responses';
   }
 }
+

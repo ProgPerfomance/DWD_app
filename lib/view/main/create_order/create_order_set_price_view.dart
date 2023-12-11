@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled1/view/main/create_order_other_propitries_view.dart';
+import 'package:untitled1/view/main/create_order/create_order_other_propitries_view.dart';
 import 'package:untitled1/view/widgets/top_row_widget.dart';
 
-import '../../domain/create_order.dart';
+import '../../../domain/create_order.dart';
 
 TextEditingController minPriceController = TextEditingController();
 TextEditingController maxPriceController =TextEditingController();
