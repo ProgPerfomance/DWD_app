@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/domain/user/auth/create_user.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
-import 'package:untitled1/view/main/profile/profile_view.dart';
+import 'package:untitled1/view/main/chat/chat_list_view.dart';
+import 'package:untitled1/view/main/profile/my_profile/my_orders_view.dart';
+import 'package:untitled1/view/main/profile/my_profile/profile_view.dart';
 
 class DraverWidget extends StatelessWidget {
   const DraverWidget({super.key});
@@ -9,6 +12,9 @@ class DraverWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   final  userModel = context.watch<GetUserProfile>();
+  final logModel = context.read<CreateUser>();
+  userModel.getUserProfile(int.parse(logModel.uid));
+  print(userModel.userModel?.name);
     return Drawer(
       width: 350,
       backgroundColor: Colors.white,
@@ -28,85 +34,80 @@ class DraverWidget extends StatelessWidget {
                       icon: const Icon(Icons.clear)),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundColor: Colors.grey[300],
-                        backgroundImage: Image.network(
-                            "https://media.istockphoto.com/id/846685158/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D0%BB%D0%B8%D1%88%D0%BA%D0%BE%D0%BC-%D0%B3%D1%80%D0%BE%D0%BC%D0%BA%D0%BE-%D0%B4%D0%BB%D1%8F-%D1%87%D1%83%D0%B2%D0%B0%D0%BA%D0%B0.jpg?s=612x612&w=is&k=20&c=oalNKgW-U737WHg_WEmi0BTuZJb8DwtqOFPHoZJna2c=")
-                            .image,
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            userModel.userModel!.name,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                           userModel.userModel!.email,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Row(
-                    children: [
-                      Text(
-                        "5",
-                        style: TextStyle(color: Colors.amber),
-                        textAlign: TextAlign.center,
-                      ),
-                      Icon(
-                        Icons.star_rate_rounded,
-                        color: Colors.amber,
-                        size: 24,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 22,
-              ),
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileView()));
                 },
-                child: const Text(
-                  "Профиль",
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundColor: Colors.grey[300],
+                          backgroundImage: Image.network(
+                              "https://media.istockphoto.com/id/846685158/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D0%BB%D0%B8%D1%88%D0%BA%D0%BE%D0%BC-%D0%B3%D1%80%D0%BE%D0%BC%D0%BA%D0%BE-%D0%B4%D0%BB%D1%8F-%D1%87%D1%83%D0%B2%D0%B0%D0%BA%D0%B0.jpg?s=612x612&w=is&k=20&c=oalNKgW-U737WHg_WEmi0BTuZJb8DwtqOFPHoZJna2c=")
+                              .image,
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              userModel.userModel!.name,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                             userModel.userModel!.email,
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Row(
+                      children: [
+                        Text(
+                          "5",
+                          style: TextStyle(color: Colors.amber),
+                          textAlign: TextAlign.center,
+                        ),
+                        Icon(
+                          Icons.star_rate_rounded,
+                          color: Colors.amber,
+                          size: 24,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 22,
+              ),
+               InkWell(
+                 onTap: () {
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=> const MyOrdersView()));
+                 },
+                 child: const Text(
+                  "Заявки",
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: Colors.black),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              const Text(
-                "Заявки",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
+                               ),
+               ),
               const SizedBox(
                 height: 16,
               ),
@@ -140,9 +141,11 @@ class DraverWidget extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              const InkWell(
-
-                  child: Text(
+               InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ChatListView()));
+                },
+                  child: const Text(
                     "Чат",
                     style: TextStyle(
                         fontSize: 16,
@@ -258,7 +261,7 @@ class DraverWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-              ) : SizedBox(),
+              ) : const SizedBox(),
               const SizedBox(
                 height: 28,
               )

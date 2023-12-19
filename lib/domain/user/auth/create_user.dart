@@ -51,7 +51,10 @@ class CreateUser extends ChangeNotifier {
       'reviews': reviews,
       'email_succes': email_succes,
     });
-    var data = jsonDecode(response.data);
+    var data = await jsonDecode(response.data);
+    uid = data['uid'].toString();
+    print(uid.runtimeType);
+    notifyListeners();
     return data['uid'];
   }
   Future<dynamic> authUserFromEmail(String email, String password)  async {

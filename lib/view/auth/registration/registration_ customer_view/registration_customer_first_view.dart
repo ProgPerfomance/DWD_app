@@ -91,7 +91,7 @@ class RegistrationCustomerFirstView extends StatelessWidget {
                 const SizedBox(height: 30,),
                 GestureDetector(
                   onTap: () async {
-                   createUserModel.createUser(name: nameController.text,  email: emailController.text, age: null, freelancer: false, last_login: DateTime.now().toString(), password_hash: passwordController.text, city: cityController.text, country: null, date_of_burn: null, avatar: null, spheres: null, skills: null, education: null, experience: null, about_me: null, client_visiting: null, servises: null, rating: null, reviews: null, email_succes: true);
+                  await createUserModel.createUser(name: nameController.text,  email: emailController.text, age: null, freelancer: false, last_login: DateTime.now().toString(), password_hash: passwordController.text, city: cityController.text, country: null, date_of_burn: null, avatar: null, spheres: null, skills: null, education: null, experience: null, about_me: null, client_visiting: null, servises: null, rating: null, reviews: null, email_succes: true);
                      Navigator.push(context, MaterialPageRoute(builder: (context) => const RegistrationCustomerSecondScreen()));
                   },
                   child: Container(

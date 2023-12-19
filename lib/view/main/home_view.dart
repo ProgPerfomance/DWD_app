@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled1/domain/get_order_from_id.dart';
-import 'package:untitled1/domain/get_orders_list.dart';
+import 'package:untitled1/domain/order/get_order_from_id.dart';
+import 'package:untitled1/domain/order/get_orders_list.dart';
 import 'package:untitled1/domain/user/auth/create_user.dart';
 import 'package:untitled1/view/main/create_order/create_order_select_category.dart';
-import 'package:untitled1/view/main/profile/profile_view.dart';
+import 'package:untitled1/view/main/profile/other_user_profile_view.dart';
+import 'package:untitled1/view/main/profile/my_profile/profile_view.dart';
 import 'package:untitled1/view/main/response_order_view.dart';
 import 'package:untitled1/view/widgets/draver_widget.dart';
 
@@ -202,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               item.responses.length,
                                               (index) => GestureDetector(
                                                 onTap: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileView()));
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => OtherUserProfileView(uid: int.parse(item.responses[index].uid))));
                                                 },
                                                 child: Image.network(
                                                       'https://i.pinimg.com/originals/2e/2e/21/2e2e2125ee53807c2d77b34773f84b5c.jpg',
@@ -478,7 +479,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ResponseOrderView(
-                                            id: index,
+                                        uid: item.uid,
+                                            id: int.parse(item.id),
                                            name: item.name,
                                         address: null,
                                         city: item.city,

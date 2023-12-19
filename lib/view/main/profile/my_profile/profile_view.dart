@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/view/main/profile/my_profile/edit_profile_view.dart';
 
-import '../../../domain/user/get_user_profile.dart';
+import '../../../../domain/user/get_user_profile.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -29,7 +30,10 @@ class ProfileView extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Image.asset('assets/design/images/settings.png'),
+                InkWell(onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> EditProfileView()));
+                },
+                    child: Image.asset('assets/design/images/settings.png')),
               ],
           ),
             ),
@@ -55,18 +59,18 @@ class ProfileView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(userModel.userModel!.name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),),
-                              SizedBox(height: 3,),
-                              Text('Монтажник',
+                              const SizedBox(height: 3,),
+                              const Text('Монтажник',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Color(0xff808080),
                               ),),
-                              SizedBox(height: 8,),
-                              Row(
+                              const SizedBox(height: 8,),
+                              const Row(
                                 children: [
                                   Icon(
                                     Icons.star_rate_rounded,
@@ -88,45 +92,45 @@ class ProfileView extends StatelessWidget {
                       Container(height: 1,color: const Color(0xffCBCBCB),
                       width: MediaQuery.of(context).size.width -40,),
                       const SizedBox(height: 16,),
-                      userModel.userModel!.skills != null ? Text('Навыки:',
+                      userModel.userModel!.skills != null ? const Text('Навыки:',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Color(0xff333333),
-                      ),) : SizedBox(),
-                      userModel.userModel!.skills != null ? Text(userModel.userModel!.skills) : SizedBox(),
+                      ),) : const SizedBox(),
+                      userModel.userModel!.skills != null ? Text(userModel.userModel!.skills) : const SizedBox(),
                       const SizedBox(height: 12,),
-                      userModel.userModel!.education != null ? Text('Образование:',
+                      userModel.userModel!.education != null ? const Text('Образование:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
-                        ),) : SizedBox(),
-                      userModel.userModel!.education != null ? Text(userModel.userModel!.education) : SizedBox(),
+                        ),) : const SizedBox(),
+                      userModel.userModel!.education != null ? Text(userModel.userModel!.education) : const SizedBox(),
                       const SizedBox(height: 12,),
-                      userModel.userModel!.experience != null ? Text('Опыт:',
+                      userModel.userModel!.experience != null ? const Text('Опыт:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
-                        ),) : SizedBox(),
-                      userModel.userModel!.experience != null ? Text(userModel.userModel!.education) : SizedBox(),
+                        ),) : const SizedBox(),
+                      userModel.userModel!.experience != null ? Text(userModel.userModel!.education) : const SizedBox(),
                       const SizedBox(height: 12,),
-                      userModel.userModel!.about_me != null ? Text('О себе:',
+                      userModel.userModel!.about_me != null ? const Text('О себе:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
-                        ),) : SizedBox(),
-                      userModel.userModel!.about_me != null ? Text(userModel.userModel!.about_me) : SizedBox(),
+                        ),) : const SizedBox(),
+                      userModel.userModel!.about_me != null ? Text(userModel.userModel!.about_me) : const SizedBox(),
                       const SizedBox(height: 12,),
-                      userModel.userModel!.client_visiting != null ? Text('Выезд к клиенту:',
+                      userModel.userModel!.client_visiting != null ? const Text('Выезд к клиенту:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
-                        ),) : SizedBox(),
-                      userModel.userModel!.client_visiting != null ? Text(userModel.userModel!.client_visiting) : SizedBox(),
+                        ),) : const SizedBox(),
+                      userModel.userModel!.client_visiting != null ? Text(userModel.userModel!.client_visiting) : const SizedBox(),
                       const SizedBox(height: 12,),
                       const Text('Услуги и цены:',
                         style: TextStyle(

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/domain/chat/create_chat.dart';
 import 'package:untitled1/domain/response_from_order.dart';
 import 'package:untitled1/domain/user/auth/create_user.dart';
 import 'package:untitled1/view/main/home_view.dart';
 import 'package:untitled1/view/widgets/custom_textfield_widget.dart';
-import '../../domain/get_order_from_id.dart';
+import '../../domain/order/get_order_from_id.dart';
 FocusNode _focusNode = FocusNode();
 TextEditingController priceCo = TextEditingController();
 TextEditingController dateCO = TextEditingController();
 TextEditingController kom = TextEditingController();
 
-class ResponseOrderView extends StatelessWidget {
+class ResponseOrderView extends StatefulWidget {
   final id;
+  final uid;
   final description;
   final orderStatus;
   final city;
@@ -23,6 +26,7 @@ class ResponseOrderView extends StatelessWidget {
   const ResponseOrderView(
       {super.key,
       required this.id,
+        required this.uid,
       required this.name,
       required this.city,
       required this.sees,
@@ -33,11 +37,15 @@ class ResponseOrderView extends StatelessWidget {
       required this.description});
 
   @override
+  State<ResponseOrderView> createState() => _ResponseOrderViewState();
+}
+
+class _ResponseOrderViewState extends State<ResponseOrderView> {
+  @override
   Widget build(BuildContext context) {
     final testModel = context.read<GetOrderFromId>();
-    testModel.getOrderFromId(id);
+    testModel.getOrderFromId(widget.id);
     final userModel = context.watch<CreateUser>();
-    GlobalKey<ScaffoldState> sk;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -52,7 +60,7 @@ class ResponseOrderView extends StatelessWidget {
                       },
                       child: Image.asset('assets/design/images/arrowleft.png')),
                   Text(
-                    'Заявка номер $id',
+                    'Заявка номер ${widget.id}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -71,7 +79,7 @@ class ResponseOrderView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          orderStatus,
+                          widget.orderStatus,
                           style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
@@ -80,7 +88,7 @@ class ResponseOrderView extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              sees.toString(),
+                              widget.sees.toString(),
                               style: const TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
@@ -98,7 +106,7 @@ class ResponseOrderView extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      name,
+                      widget.name,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -107,7 +115,7 @@ class ResponseOrderView extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          city,
+                          widget.city,
                           style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -138,7 +146,7 @@ class ResponseOrderView extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      description,
+                      widget.description,
                       style: const TextStyle(
                         color: Color(0xff333333),
                       ),
@@ -155,7 +163,7 @@ class ResponseOrderView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      wishes,
+                      widget.wishes,
                       style: const TextStyle(
                         color: Color(0xff333333),
                       ),
@@ -184,7 +192,8 @@ class ResponseOrderView extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 4,
               ),
               BottonSh(
-                id: id,
+                uid2: widget.uid,
+                id: widget.id,
                 uid: userModel.uid,
               ),
             ],
@@ -195,14 +204,21 @@ class ResponseOrderView extends StatelessWidget {
   }
 }
 
-class BottonSh extends StatelessWidget {
+class BottonSh extends StatefulWidget {
   final id;
   final uid;
-  const BottonSh({super.key, required this.id, required this.uid});
+  final uid2;
+  const BottonSh({super.key, required this.id, required this.uid, required this.uid2});
 
+  @override
+  State<BottonSh> createState() => _BottonShState();
+}
+
+class _BottonShState extends State<BottonSh> {
   @override
   Widget build(BuildContext context) {
     final createModel = context.read<ResponseFromOrder>();
+    final chatModel = context.read<CreateChat>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: GestureDetector(
@@ -265,10 +281,57 @@ class BottonSh extends StatelessWidget {
                             fontSize: 20,
                           ),
                         ),
-                        CustomTextFieldWidget(
-                            controller: dateCO,
-                            text: 'Выберите дату',
-                            password: false),
+                    GestureDetector(
+                      onTap: () {
+                        DatePicker.showDatePicker(
+                          context,
+                          pickerMode: DateTimePickerMode.datetime,
+                          initialDateTime:
+                          DateTime.now().add(const Duration(days: 1)),
+                          minDateTime: DateTime.now(),
+                          maxDateTime: DateTime.now().add(const Duration(days: 365)),
+                          locale: DateTimePickerLocale.en_us,
+                          dateFormat: "dd MMMM yyyy HH:mm",
+                          onChange: (dateTime, selectedIndex) {
+                            dateCO.text = dateTime.toString();
+                            setState(() {
+                            });
+                          },
+                          onConfirm: (dateTime, selectedIndex) {
+                            dateCO.text = dateTime.toString();
+                            //    deliveryDate = dateTime;
+                            //    date =
+                            //     '${dateTime.year}-${add0(dateTime.month)}-${add0(dateTime.day)} ${add0(dateTime.hour)}:${add0(dateTime.minute)}:${add0(dateTime.second)}';
+                          },
+                        );
+                      },
+                      child: TextField(
+
+                        controller: dateCO,
+                        decoration: InputDecoration(
+                          enabled: false,
+                          hintStyle: const TextStyle(
+                            color: Color(
+                              0xFFCBCBCB,
+                            ),
+                          ),
+                          hintText: 'Дата и время',
+                          isDense: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                            borderSide: const BorderSide(
+                              color: Colors.black,
+                            ),
+                          ),
+                      ),),
+                    ),
                         const SizedBox(
                           height: 12,
                         ),
@@ -313,7 +376,8 @@ class BottonSh extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            createModel.responseFromOrder(uid: int.parse(uid), pid: id, date_and_time: dateCO.text,timestamp: DateTime.now().toString(), price: int.parse(priceCo.text), comment: kom.text);
+                            chatModel.createChat(uid1: widget.uid, uid2: widget.uid2, pid: widget.id);
+                            createModel.responseFromOrder(uid: int.parse(widget.uid), pid: widget.id, date_and_time: dateCO.text,timestamp: DateTime.now().toString(), price: int.parse(priceCo.text), comment: kom.text);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:untitled1/view/main/create_order/create_order_set_adress.dart';
 
 import '../../widgets/custom_textfield_widget.dart';
@@ -37,7 +38,56 @@ class _CreateOrderSetTimeViewState extends State<CreateOrderSetTimeView> {
                 fontWeight: FontWeight.w600,
               ),),
               const SizedBox(height: 12,),
-              CustomTextFieldWidget(controller: timeController, text: 'Выберите дату и время', password: false),
+            GestureDetector(
+              onTap: () {
+                DatePicker.showDatePicker(
+                  context,
+                  pickerMode: DateTimePickerMode.datetime,
+                  initialDateTime:
+                  DateTime.now().add(const Duration(days: 1)),
+                  minDateTime: DateTime.now(),
+                  maxDateTime: DateTime.now().add(const Duration(days: 365)),
+                  locale: DateTimePickerLocale.en_us,
+                  dateFormat: "dd MMMM yyyy HH:mm",
+                  onChange: (dateTime, selectedIndex) {
+                    timeController.text = dateTime.toString();
+                    setState(() {
+                    });
+                  },
+                  onConfirm: (dateTime, selectedIndex) {
+                    timeController.text = dateTime.toString();
+                //    deliveryDate = dateTime;
+                //    date =
+               //     '${dateTime.year}-${add0(dateTime.month)}-${add0(dateTime.day)} ${add0(dateTime.hour)}:${add0(dateTime.minute)}:${add0(dateTime.second)}';
+                  },
+                );
+              },
+              child: TextField(
+                controller: timeController,
+                enabled: false,
+                decoration: InputDecoration(
+                  hintStyle: const TextStyle(
+                    color: Color(
+                      0xFFCBCBCB,
+                    ),
+                  ),
+                  hintText: 'Дата',
+                  isDense: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      12,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      12,
+                    ),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                    ),
+                  ),
+              ),),
+            ),
               SizedBox(height: MediaQuery.of(context).size.height / 1.7,),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),

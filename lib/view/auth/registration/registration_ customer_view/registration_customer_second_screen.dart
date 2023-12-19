@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled1/domain/user/auth/create_user.dart';
 import 'package:untitled1/view/main/home_view.dart';
 
 class RegistrationCustomerSecondScreen extends StatefulWidget {
@@ -12,6 +14,7 @@ class RegistrationCustomerSecondScreen extends StatefulWidget {
 class _RegistrationCustomerSecondScreenState extends State<RegistrationCustomerSecondScreen> {
   @override
   Widget build(BuildContext context) {
+    final userModel = context.read<CreateUser>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -88,6 +91,7 @@ class _RegistrationCustomerSecondScreenState extends State<RegistrationCustomerS
                 SizedBox(height: MediaQuery.of(context).size.height / 3.9,),
                 GestureDetector(
                   onTap: () {
+
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
                   },
                   child: Container(

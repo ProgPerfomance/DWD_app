@@ -21,7 +21,7 @@ dependencies:
   flutter_styled_toast:
   svg_flutter:
   crypto: ^3.0.3
-
+  flutter_cupertino_datetime_picker: ^3.0.0
   flutter_svg:
   pin_code_fields:
 dev_dependencies:
