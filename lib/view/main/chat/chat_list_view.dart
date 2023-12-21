@@ -4,6 +4,8 @@ import 'package:untitled1/domain/chat/get_user_chats.dart';
 import 'package:untitled1/domain/user/auth/create_user.dart';
 import 'package:untitled1/view/main/chat/chat_view.dart';
 
+import '../../../domain/chat/get_chat_messages.dart';
+
 class ChatListView extends StatelessWidget {
   const ChatListView({super.key});
 
@@ -13,6 +15,7 @@ class ChatListView extends StatelessWidget {
     final userModel = context.read<CreateUser>();
     chatsModel.getUserChats(userModel.uid);
     print(chatsModel.chats);
+
     return Scaffold(
       backgroundColor: const Color(0xffFAFAFA),
       body: SafeArea(
@@ -62,7 +65,9 @@ class ChatListView extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 3.0),
                               child: GestureDetector(
-                                onTap: () {
+                                onTap: () async {
+                                 await GetChatMessages().getChatMessages(data.cid);
+
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => ChatView(cid: data.cid,)));
                                 },
                                 child: Container(

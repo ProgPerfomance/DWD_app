@@ -23,65 +23,150 @@ class _ChatViewState extends State<ChatView> {
     final messageModel = context.read<SendMessage>();
     final userModel = context.read<CreateUser>();
     final getMessagesModel = context.read<GetChatMessages>();
-    timer(widget.cid);
     getMessagesModel.getChatMessages(widget.cid);
-    return Scaffold(
-      backgroundColor: const Color(0xffFAFAFA),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: List.generate(getMessagesModel.messages.length, (index) {
-              MessageModel msg = getMessagesModel.messages[index];
-              return Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  mainAxisAlignment: msg.uid == userModel.uid ? MainAxisAlignment.end : MainAxisAlignment.start,
-                  children: [
-                    Container(width: MediaQuery.of(context).size.width / 1.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: msg.uid == userModel.uid ? const Color(0xffEBEBEB).withOpacity(0.7) : const Color(0xffF0F2F5),
-                    ),child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(msg.msg_text),
-                    ),),
-                  ],
-                ),
-              );}),
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 70,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(12),
-            topRight: Radius.circular(12),
-          ),
-          border: Border.symmetric(vertical: BorderSide(color: Colors.black, width: 0.5), horizontal: BorderSide(color: Colors.black,width: 0.5),),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: messageController,
-            onSubmitted: (value) {
-              messageModel.sendMessage(cid: widget.cid, uid: userModel.uid, msg: messageController.text);
+    Future.delayed(Duration(milliseconds: 150), () {
+      setState(() {
 
-            },
+      });
+    });
+    return WillPopScope(
+        onWillPop: () {
+      Navigator.pop(context);
+      time.cancel();
+      GetChatMessages().messages.clear();
+      setState(() {
+      });
+      return Future.value(false);
+    },
+      child: Scaffold(
+        appBar: AppBar(
+
+        ),
+        backgroundColor: const Color(0xffFAFAFA),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height - 185,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children:
+                        List.generate(getMessagesModel.messages.length, (index) {
+                      MessageModel msg = getMessagesModel.messages[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: msg.uid == userModel.uid
+                              ? MainAxisAlignment.end
+                              : MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 1.3,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: msg.uid == userModel.uid
+                                    ? const Color(0xffEBEBEB).withOpacity(0.7)
+                                    : const Color(0xffF0F2F5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(msg.msg_text),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                  height: 60,
+                  width: double.infinity,
+                  color: Colors.white,
+                  child: Row(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlue,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: messageController,
+                          decoration: const InputDecoration(
+                              hintText: "Write message...",
+                              hintStyle: TextStyle(color: Colors.black54),
+                              border: InputBorder.none),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      FloatingActionButton(
+                        onPressed: () {
+                          messageModel.sendMessage(
+                              cid: widget.cid,
+                              uid: userModel.uid,
+                              msg: messageController.text);
+                          messageController.clear();
+                        },
+                        child: const Icon(
+                          Icons.send,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                        backgroundColor: Colors.blue,
+                        elevation: 0,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+
+  @override
+  void initState() {
+    GetChatMessages().getChatMessages(widget.cid);
+   timer(widget.cid);
+    super.initState();
+  }
+  var time =Timer.periodic(const Duration(seconds: 5), (timer) {});
   void timer(cid) {
-    Timer.periodic(Duration(seconds: 5), (timer) {
+   time  = Timer.periodic(const Duration(seconds: 5), (timer) {
       GetChatMessages().getChatMessages(cid);
-      setState(() {
-      });
+      setState(() {});
     });
   }
+  @override
+  void dispose() {
+    time.cancel();
+    GetChatMessages().messages.clear();
+    setState(() {
+    });
+    super.dispose();
+
+  }
 }
-
-
