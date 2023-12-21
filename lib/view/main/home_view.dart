@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/domain/order/get_order_from_id.dart';
@@ -27,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final userModel = context.watch<CreateUser>();
     watchModel.getAllOrders();
     watchModel.getMyOrders(int.parse(userModel.uid));
+  //  timer(int.parse(userModel.uid));
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
@@ -594,6 +597,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+
 }
 
 class ServicesWidget extends StatelessWidget {

@@ -76,7 +76,7 @@ class _ChatViewState extends State<ChatView> {
     );
   }
   void timer(cid) {
-    Timer.periodic(Duration(seconds: 3), (timer) {
+    Timer.periodic(Duration(seconds: 5), (timer) {
       GetChatMessages().getChatMessages(cid);
       setState(() {
       });
