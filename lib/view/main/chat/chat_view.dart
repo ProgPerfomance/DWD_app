@@ -24,7 +24,7 @@ class _ChatViewState extends State<ChatView> {
     final userModel = context.read<CreateUser>();
     final getMessagesModel = context.read<GetChatMessages>();
     getMessagesModel.getChatMessages(widget.cid);
-    Future.delayed(Duration(milliseconds: 150), () {
+    Future.delayed(const Duration(milliseconds: 30), () {
       setState(() {
 
       });
@@ -33,14 +33,13 @@ class _ChatViewState extends State<ChatView> {
         onWillPop: () {
       Navigator.pop(context);
       time.cancel();
-      GetChatMessages().messages.clear();
+      GetChatMessages().clearList();
       setState(() {
       });
       return Future.value(false);
     },
       child: Scaffold(
         appBar: AppBar(
-
         ),
         backgroundColor: const Color(0xffFAFAFA),
         body: SafeArea(

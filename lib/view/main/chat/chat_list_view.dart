@@ -15,7 +15,6 @@ class ChatListView extends StatelessWidget {
     final userModel = context.read<CreateUser>();
     chatsModel.getUserChats(userModel.uid);
     print(chatsModel.chats);
-
     return Scaffold(
       backgroundColor: const Color(0xffFAFAFA),
       body: SafeArea(

@@ -4,7 +4,6 @@ import 'package:untitled1/ServerRoutes.dart';
 
 class SendMessage extends ChangeNotifier {
   Dio dio = Dio();
-  List messages = [];
   Future<void> sendMessage({
     required cid,
     required uid,

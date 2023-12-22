@@ -20,4 +20,8 @@ class GetChatMessages extends ChangeNotifier {
     }
     notifyListeners();
    }
+   void clearList() {
+    messages.clear();
+    notifyListeners();
+   }
 }
