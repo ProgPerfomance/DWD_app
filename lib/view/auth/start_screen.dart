@@ -70,27 +70,7 @@ class StartView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 79,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  height: 52,
-                  width: MediaQuery.of(context).size.width - 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xffF14F44),),
-                  ),
-                  child: const Center(
-                    child: Text('Создать заказ',
-                    style: TextStyle(
-                        color: Color(0xffF14F44),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),),
-                  ),
 
-                ),
-              ),
             ],
           ),
         ),
@@ -98,3 +78,5 @@ class StartView extends StatelessWidget {
     );
   }
 }
+
+

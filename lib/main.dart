@@ -9,6 +9,7 @@ import 'package:untitled1/domain/order/create_order.dart';
 import 'package:untitled1/domain/get_categories_list.dart';
 import 'package:untitled1/domain/get_citys_list.dart';
 import 'package:untitled1/domain/order/get_order_from_id.dart';
+import 'package:untitled1/domain/order/get_orders_from_cat.dart';
 import 'package:untitled1/domain/order/get_orders_list.dart';
 import 'package:untitled1/domain/response_from_order.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SendForUserController()),
+        ChangeNotifierProvider(create: (context) => GetOrdersFromCategory()),
         ChangeNotifierProvider(create: (context) => GetUserChats()),
         ChangeNotifierProvider(create: (context) => SendMessage()),
         ChangeNotifierProvider(create: (context) => GetChatMessages()),
