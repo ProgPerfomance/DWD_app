@@ -15,10 +15,10 @@ import 'package:untitled1/domain/response_from_order.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
 import 'package:untitled1/view/auth/registration/registration_freelancer_view/set_freelancer_success.dart';
 import 'package:untitled1/view/auth/start_screen.dart';
-
+import 'package:untitled1/view/create_order/start_create_order_view.dart';
 import 'domain/user/auth/auth_user.dart';
 import 'domain/user/auth/create_user.dart';
-
+import 'package:untitled1/domain/get_catigories.dart';
 
 
 void main() {
@@ -45,11 +45,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => GetOrderFromId()),
         ChangeNotifierProvider(create: (context) => GetCategoriesList()),
         ChangeNotifierProvider(create: (context) => GetOrdersList()),
-        ChangeNotifierProvider(create: (context) => CreateOrder())
+        ChangeNotifierProvider(create: (context) => CreateOrder()),
+        ChangeNotifierProvider(create: (context) => GetCatigories()),
+
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: StartView(),
+        home: StartCreateOrder(),
+        //home: StartView(),
       ),
     );
   }

@@ -7,7 +7,7 @@ import '../ServerRoutes.dart';
 
 class GetCitysList extends ChangeNotifier {
   var allCityList = [];
-  var popularCityList = [];
+  List<City> popularCityList= [];
   var selectedCity = 'Москва';
   Dio dio = Dio();
   Future<void> getAllCitys() async {
@@ -25,7 +25,12 @@ class GetCitysList extends ChangeNotifier {
       final response = await dio.get(
           '${ServerRoutes.host}/popularallcitylist');
       final json = jsonDecode(response.data);
-      popularCityList = json['citys'];
+       final list = json['citys'];
+      if(list is List) {
+        for(int i = 0; i < popularCityList.length; i++) {
+          popularCityList.add(City(name: json['citys'][i]['name'], id: json['citys'][i]['id']));
+        }
+      }
       print(popularCityList);
       notifyListeners();
     }
@@ -34,4 +39,10 @@ class GetCitysList extends ChangeNotifier {
     selectedCity = city;
     notifyListeners();
   }
+}
+
+class City {
+  final name;
+  final id;
+  const City({required this.name, required this.id});
 }

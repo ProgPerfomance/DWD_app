@@ -79,7 +79,7 @@ class _CitysListViewState extends State<CitysListView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(watchModel.popularCityList.length, (index) => GestureDetector(
                   onTap: () {
-                    watchModel.selectCity(watchModel.popularCityList[index]['cityname']);
+                   // watchModel.selectCity(watchModel.popularCityList[index]['cityname']);
                     Navigator.pop(context);
                   },
                   child: Column(
