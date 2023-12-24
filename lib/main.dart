@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: StartCreateOrder(),
-        //home: StartView(),
+        //home: StartCreateOrder(),
+        home: StartView(),
       ),
     );
   }

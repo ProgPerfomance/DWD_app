@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/domain/get_categories_list.dart';
 import 'package:untitled1/view/main/create_order/create_order_set_name.dart';
+import 'package:untitled1/view/widgets/list_categories.dart';
+import 'package:awesome_extensions/awesome_extensions.dart';
+import '../../widgets/top_row_widget.dart';
 
 import 'create_order_select_podcategory.dart';
 
@@ -10,8 +13,8 @@ class CreateOrderSelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final watchModel = context.watch<GetCategoriesList>();
-    watchModel.getCategoriesList();
+   // final watchModel = context.watch<GetCategoriesList>();
+   // watchModel.getCategoriesList();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -19,9 +22,12 @@ class CreateOrderSelectCategory extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 16,
-              ),
+              //const SizedBox(
+               // height: 16,
+              //),
+              8.heightBox,
+              TopRowWidget(text: 'Создание заявки'),
+              8.heightBox,
               Container(
                 height: 41,
                 width: MediaQuery.of(context).size.width - 40,
@@ -51,12 +57,13 @@ class CreateOrderSelectCategory extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 12,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height - 183,
-                child: SingleChildScrollView(
+             // const SizedBox(
+              //  height: 12,
+             // ),
+             // SizedBox(
+               // height: MediaQuery.of(context).size.height - 183,
+                //child:
+                CatigoriesListWidget(),/*SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: List.generate(
@@ -117,8 +124,8 @@ class CreateOrderSelectCategory extends StatelessWidget {
                               ),
                             )),
                   ),
-                ),
-              )
+                ),*/
+              //)
             ],
           ),
         ),
