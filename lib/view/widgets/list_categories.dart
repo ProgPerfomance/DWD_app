@@ -44,7 +44,7 @@ class CatigoriesListWidget extends StatelessWidget {
 
               return ListTile(
                   onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderSetName(name: list.name,))),
-                  //leading: SizedBox(),
+                  //-*leading: SizedBox(),
                   title: Text(
                       list.name,
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
