@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/controller/send_for_user_controller.dart';
+import 'package:untitled1/domain/ads/create_adverb.dart';
 import 'package:untitled1/domain/chat/create_chat.dart';
 import 'package:untitled1/domain/chat/get_chat_messages.dart';
 import 'package:untitled1/domain/chat/get_user_chats.dart';
@@ -13,10 +14,7 @@ import 'package:untitled1/domain/order/get_orders_from_cat.dart';
 import 'package:untitled1/domain/order/get_orders_list.dart';
 import 'package:untitled1/domain/response_from_order.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
-import 'package:untitled1/view/auth/registration/registration_freelancer_view/set_freelancer_success.dart';
 import 'package:untitled1/view/auth/start_screen.dart';
-import 'package:untitled1/view/create_order/start_create_order_view.dart';
-import 'domain/user/auth/auth_user.dart';
 import 'domain/user/auth/create_user.dart';
 import 'package:untitled1/domain/get_catigories.dart';
 
@@ -47,7 +45,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => GetOrdersList()),
         ChangeNotifierProvider(create: (context) => CreateOrder()),
         ChangeNotifierProvider(create: (context) => GetCatigories()),
-
+        ChangeNotifierProvider(create: (context) => CreateAdverb()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

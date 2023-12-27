@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:untitled1/domain/get_categories_list.dart';
-import 'package:untitled1/view/main/create_order/create_order_set_name.dart';
 import 'package:untitled1/view/widgets/list_categories.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
 import '../../widgets/top_row_widget.dart';
 
-import 'create_order_select_podcategory.dart';
 
 class CreateOrderSelectCategory extends StatelessWidget {
   const CreateOrderSelectCategory({super.key});

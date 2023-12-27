@@ -39,5 +39,6 @@ flutter:
     - assets/design/images/
     - assets/svg/
     - image/
+    - assets/
 
 

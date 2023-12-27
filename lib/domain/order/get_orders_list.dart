@@ -29,7 +29,8 @@ class GetOrdersList extends ChangeNotifier {
           id: data['id'],
           orderStatus: data['order_status'],
           sees: data['sees'],
-          city: data['city'], responses: []));
+          city: data['city'],
+          responses: []));
     }
     // print(json);
     //  print(orders);
@@ -58,7 +59,16 @@ class GetOrdersList extends ChangeNotifier {
           orderStatus: data['order_status'],
           sees: data['sees'],
           city: data['city'],
-      responses: List.generate(responses.length, (index) => ResponseFromOrderModel(pid: responses[index]['pid'], id: responses[index]['id'], price: responses[index]['price'], uid: responses[index]['uid'], timestamp: responses[index]['timestamp'], date_and_time: responses[index]['date_and_time'], comment: responses[index]['comment']))));
+          responses: List.generate(
+              responses.length,
+              (index) => ResponseFromOrderModel(
+                  pid: responses[index]['pid'],
+                  id: responses[index]['id'],
+                  price: responses[index]['price'],
+                  uid: responses[index]['uid'],
+                  timestamp: responses[index]['timestamp'],
+                  date_and_time: responses[index]['date_and_time'],
+                  comment: responses[index]['comment']))));
     }
     print(myOrders);
   }

@@ -50,12 +50,12 @@ class _CreateOrderSetTimeViewState extends State<CreateOrderSetTimeView> {
                   locale: DateTimePickerLocale.en_us,
                   dateFormat: "dd MMMM yyyy HH:mm",
                   onChange: (dateTime, selectedIndex) {
-                    timeController.text = dateTime.toString();
+                    timeController.text = dateTime.toString().substring(0, 16);
                     setState(() {
                     });
                   },
                   onConfirm: (dateTime, selectedIndex) {
-                    timeController.text = dateTime.toString();
+                    timeController.text = dateTime.toString().substring(0, 16);
                 //    deliveryDate = dateTime;
                 //    date =
                //     '${dateTime.year}-${add0(dateTime.month)}-${add0(dateTime.day)} ${add0(dateTime.hour)}:${add0(dateTime.minute)}:${add0(dateTime.second)}';

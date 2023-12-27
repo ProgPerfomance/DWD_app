@@ -23,9 +23,11 @@ class ResponseOrderView extends StatefulWidget {
   final sees;
   final name;
   final category;
+  final freelancer;
   const ResponseOrderView(
       {super.key,
       required this.id,
+        required this.freelancer,
         required this.uid,
       required this.name,
       required this.city,
@@ -43,6 +45,7 @@ class ResponseOrderView extends StatefulWidget {
 class _ResponseOrderViewState extends State<ResponseOrderView> {
   @override
   Widget build(BuildContext context) {
+    print(widget.freelancer);
     final testModel = context.read<GetOrderFromId>();
     testModel.getOrderFromId(widget.id);
     final userModel = context.watch<CreateUser>();
@@ -191,11 +194,11 @@ class _ResponseOrderViewState extends State<ResponseOrderView> {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 4,
               ),
-              BottonSh(
+          widget.freelancer == '1' ?    BottonSh(
                 uid2: widget.uid,
                 id: widget.id,
                 uid: userModel.uid,
-              ),
+              ) : SizedBox(),
             ],
           ),
         ),

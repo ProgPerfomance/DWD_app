@@ -1,0 +1,135 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
+
+class AdverbModel {
+  final id;
+  final uid;
+  final timestamp;
+  final category;
+  final category_id;
+  final price;
+  final address;
+  final description;
+  final phone;
+  final messages;
+  final state;
+  final type;
+  final brand;
+  final model;
+  final color;
+  final engine;
+  final hp;
+  final nm;
+  final killometrs;
+  final drive_type;
+  final transmission;
+  final year;
+  final engine_volume;
+  final engine_cylinders;
+  final gears;
+  final tact_numbers;
+  final fuel_supply;
+  final build_type;
+  final order_type;
+  final flour;
+  final rights;
+  final repair;
+  final square;
+  final cpu;
+  final gpu;
+  final ram;
+  final memory_hard;
+  final sex;
+  final age;
+  final size;
+  final screen_size;
+  AdverbModel({
+    required this.size,
+    required this.price,
+    required this.id,
+    required this.phone,
+    required this.hp,
+    required this.messages,
+    required this.category,
+    required this.uid,
+    required this.year,
+    required this.sex,
+    required this.age,
+    required this.color,
+    required this.timestamp,
+    required this.description,
+    required this.address,
+    required this.model,
+    required this.brand,
+    required this.engine,
+    required this.state,
+    required this.build_type,
+    required this.category_id,
+    required this.cpu,
+    required this.drive_type,
+    required this.engine_cylinders,
+    required this.engine_volume,
+    required this.flour,
+    required this.fuel_supply,
+    required this.gears,
+    required this.gpu,
+    required this.killometrs,
+    required this.memory_hard,
+    required this.nm,
+    required this.order_type,
+    required this.ram,
+    required this.repair,
+    required this.rights,
+    required this.screen_size,
+    required this.square,
+    required this.tact_numbers,
+    required this.transmission ,
+    required this.type,
+  });
+}
+
+
+void a({
+    required   size,
+    required  price,
+    required  id,
+    required  phone,
+    required  hp,
+    required  messages,
+    required  category,
+    required  uid,
+    required  year,
+    required  sex,
+    required  age,
+    required  color,
+    required  timestamp,
+    required  description,
+    required  address,
+    required  model,
+    required  brand,
+    required  engine,
+    required  state,
+    required  build_type,
+    required  category_id,
+    required  cpu,
+    required  drive_type,
+    required  engine_cylinders,
+    required  engine_volume,
+    required  flour,
+    required  fuel_supply,
+    required  gears,
+    required  gpu,
+    required  killometrs,
+    required  memory_hard,
+    required  nm,
+    required  order_type,
+    required  ram,
+    required  repair,
+    required  rights,
+    required  screen_size,
+    required  square,
+    required  tact_numbers,
+    required  transmission ,
+    required  type,
+}  ) {}
+
+//id, uid,timestamp,category,category_id,price,address,description,phone,messages,state,type,brand,model,color,engine,hp,nm,killometrs,drive_type,transmission,year,engine_volume,engine_cylinders,gears,tact_nubmers,fuel_supply,build_type,order_type,flour,rights,repair,square,cpu,gpu,ram,memory_hard,sex,age,size,screen_size

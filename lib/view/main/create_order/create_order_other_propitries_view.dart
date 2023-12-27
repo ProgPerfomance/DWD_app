@@ -82,7 +82,7 @@ class _CreateOrderOtherPropiretiesViewState extends State<CreateOrderOtherPropir
                     Image.asset('assets/design/images/img.png'),
                     Image.asset('assets/design/images/img.png'),
                   ],),
-                  SizedBox(height: MediaQuery.of(context).size.height / 3.3,),
+                  SizedBox(height: MediaQuery.of(context).size.height / 5.3,),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: GestureDetector(

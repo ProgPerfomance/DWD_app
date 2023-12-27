@@ -7,12 +7,18 @@ import 'package:provider/provider.dart';
 import 'package:untitled1/domain/order/get_order_from_id.dart';
 import 'package:untitled1/domain/order/get_orders_list.dart';
 import 'package:untitled1/domain/user/auth/create_user.dart';
+import 'package:untitled1/domain/user/get_user_profile.dart';
 import 'package:untitled1/view/main/create_order/create_order_select_category.dart';
+import 'package:untitled1/view/main/last_orders_view.dart';
 import 'package:untitled1/view/main/orders_from_cat_view.dart';
+import 'package:untitled1/view/main/profile/my_profile/my_orders_view.dart';
 import 'package:untitled1/view/main/profile/other_user_profile_view.dart';
 import 'package:untitled1/view/main/profile/my_profile/profile_view.dart';
 import 'package:untitled1/view/main/response_order_view.dart';
+import 'package:untitled1/view/widgets/arenda_prodaja_card.dart';
 import 'package:untitled1/view/widgets/draver_widget.dart';
+
+import '../widgets/service_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,9 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
     final controller = TextEditingController();
     final watchModel = context.watch<GetOrdersList>();
     final userModel = context.watch<CreateUser>();
+    final profileModel = context.watch<GetUserProfile>();
+    profileModel.getUserProfile(int.parse(userModel.uid));
     watchModel.getAllOrders();
     watchModel.getMyOrders(int.parse(userModel.uid));
-  //  timer(int.parse(userModel.uid));
+    //  timer(int.parse(userModel.uid));
     return Scaffold(
       drawer: const DraverWidget(),
       body: SafeArea(
@@ -44,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.grey[300],
@@ -61,49 +70,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.02,
                       ),
-                      Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                        Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(20)),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.02,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          height: 22,
-                          decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(46)),
-                          child: const Padding(
-                            padding: EdgeInsets.only(
-                              left: 6.0,
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.02,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.near_me,
-                                  color: Colors.grey,
-                                  size: 15,
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Text(
-                                  "Москва",
-                                  style:
-                                      TextStyle(color: Colors.grey, fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ]),
+                          ]),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
                       ),
@@ -137,33 +110,54 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.89,
-                      height: 41,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(12)),
-                      child: MaterialButton(
-                        onPressed: () {
-                        },
-                        child: TextField(
-                          controller: controller,
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Поиск",
-                              prefixIcon: Icon(Icons.search),
-                              prefixStyle: TextStyle(color: Colors.grey)),
-                        ),
-                      )),
+                  Row(
+                    children: [
+                      Container(
+                          width: MediaQuery.of(context).size.width  - 100,
+                          height: 41,
+                          decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(12)),
+                          child: MaterialButton(
+                            onPressed: () {},
+                            child: TextField(
+                              controller: controller,
+                              decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Поиск",
+                                  prefixIcon: Icon(Icons.search),
+                                  prefixStyle: TextStyle(color: Colors.grey)),
+                            ),
+                          )),
+                      IconButton(onPressed: () {
+                        setState(() {
+                        });
+                      }, icon: Icon(Icons.refresh)),
+                    ],
+                  ),
                   const SizedBox(
                     height: 16,
                   ),
                   watchModel.myOrders.isEmpty
                       ? const SizedBox()
-                      : const Text(
-                          "Ваши заявки",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500),
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Ваши заявки",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w500),
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MyOrdersView()));
+                                },
+                                child: const Text('Показать все')),
+                          ],
                         ),
                   const SizedBox(
                     height: 10,
@@ -178,8 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: watchModel.myOrders.length,
                           itemBuilder: (context, index) {
                             final item = watchModel.myOrders[index];
-                            List _orders =
-                                watchModel.myOrders ?? [];
+                            List _orders = watchModel.myOrders ?? [];
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
@@ -200,20 +193,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text("${item.price_min}-${item.price_max}€"),
+                                          Text(
+                                              "${item.price_min}-${item.price_max}€"),
                                           Row(
                                             children: List.generate(
                                                 item.responses.length,
                                                 (index) => GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => OtherUserProfileView(uid: int.parse(item.responses[index].uid))));
-                                                  },
-                                                  child: Image.network(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) => OtherUserProfileView(
+                                                                    uid: int.parse(item
+                                                                        .responses[
+                                                                            index]
+                                                                        .uid))));
+                                                      },
+                                                      child: Image.network(
                                                         'https://i.pinimg.com/originals/2e/2e/21/2e2e2125ee53807c2d77b34773f84b5c.jpg',
                                                         width: 30,
                                                         height: 30,
                                                       ),
-                                                )),
+                                                    )),
                                           )
                                         ],
                                       ),
@@ -258,7 +259,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OrdersFromCatView(category: 'Ремонт и строительство',)));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const OrdersFromCatView(
+                                            category: 'Ремонт и строительство',
+                                          )));
                             },
                             child: ServicesWidget(
                               name: 'Ремонт\nи строительство',
@@ -275,7 +282,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OrdersFromCatView(category: 'Красота и здоровье',)));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const OrdersFromCatView(
+                                            category: 'Красота и здоровье',
+                                          )));
                             },
                             child: ServicesWidget(
                               name: 'Красота\nи здоровье',
@@ -302,10 +315,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(14)),
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OrdersFromCatView(category: 'Бытовые услуги',)));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const OrdersFromCatView(
+                                              category: 'Бытовые услуги',
+                                            )));
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 6.0, left: 6),
+                                padding:
+                                    const EdgeInsets.only(top: 6.0, left: 6),
                                 child: Stack(children: [
                                   Image.asset(
                                     "image/Img.png",
@@ -334,10 +354,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(14)),
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OrdersFromCatView(category: 'Консультация',)));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const OrdersFromCatView(
+                                              category: 'Консультация',
+                                            )));
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0, left: 8),
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, left: 8),
                                 child: Stack(children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 15.0),
@@ -369,10 +396,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(14)),
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OrdersFromCatView(category: 'Перевозки',)));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const OrdersFromCatView(
+                                              category: 'Перевозки',
+                                            )));
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0, left: 8),
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, left: 8),
                                 child: Stack(children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 15.0),
@@ -398,47 +432,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.89,
-                        height: 72,
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(221, 230, 251, 1),
-                            borderRadius: BorderRadius.circular(14)),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OrdersFromCatView(category: 'Аренда или продажа',)));
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Аренда или продажа",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black),
-                                    ),
-                                    Text(
-                                      "Недвижимости, автомобиля, вещей",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Image.asset("image/House.png")
-                            ],
-                          ),
-                        ),
-                      ),
+                      const ArendaProdajaCardWidget(),
                     ],
                   ),
                   const SizedBox(
@@ -477,12 +471,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  const Text(
-                    "Последние заявки",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Последние заявки",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      TextButton(onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const LastOrdersView()));
+                      }, child: const Text('Все заявки')),
+                    ],
                   ),
                   SizedBox(
                     height: 193,
@@ -500,15 +502,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => ResponseOrderView(
-                                          uid: item.uid,
+                                              freelancer: profileModel
+                                                  .userModel?.freelancer
+                                                  .toString(),
+                                              uid: item.uid,
                                               id: int.parse(item.id),
-                                             name: item.name,
-                                          address: null,
-                                          city: item.city,
-                                          category: item.category, sees: item.sees,
-                                          description: 'ffddfihd',
-                                          wishes: item.wishes, orderStatus: item.orderStatus,
-
+                                              name: item.name,
+                                              address: null,
+                                              city: item.city,
+                                              category: item.category,
+                                              sees: item.sees,
+                                              description: 'ffddfihd',
+                                              wishes: item.wishes,
+                                              orderStatus: item.orderStatus,
                                             )));
                               },
                               child: Container(
@@ -523,7 +529,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontSize: 10,
                                         fontWeight: FontWeight.w600),
                                   ),
-                                 subtitle: Text("${item.price_min}-${item.price_max}"),
+                                  subtitle: Text(
+                                      "${item.price_min}-${item.price_max}"),
                                   trailing: FittedBox(
                                     child: Row(
                                       children: [
@@ -536,7 +543,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           width: 8,
                                         ),
                                         Text(
-                                        item.city,
+                                          item.city,
                                           style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 8,
@@ -612,61 +619,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ]),
-        ),
-      ),
-    );
-  }
-
-
-}
-
-class ServicesWidget extends StatelessWidget {
-  final String name;
-  final String image;
-  final Color color;
-  final double width;
-  final double height;
-  final double sizew;
-  final double sizeh;
-  const ServicesWidget({
-    Key? key,
-    required this.name,
-    required this.image,
-    required this.color,
-    required this.width,
-    required this.height,
-    required this.sizew,
-    required this.sizeh,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(14)),
-      child: GestureDetector(
-        onTap: () {},
-        child: Padding(
-          padding: const EdgeInsets.only(left: 5.0, top: 8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                name,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500),
-              ),
-              Image.asset(
-                image,
-                width: sizew,
-                height: sizeh,
-              )
-            ],
-          ),
         ),
       ),
     );
