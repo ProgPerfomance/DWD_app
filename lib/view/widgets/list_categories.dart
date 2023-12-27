@@ -45,7 +45,7 @@ class CatigoriesListWidget extends StatelessWidget {
           //-*leading: SizedBox(),
           title: Text(
             list.name,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ));
     }
     return ExpansionTile(
@@ -53,7 +53,7 @@ class CatigoriesListWidget extends StatelessWidget {
       initiallyExpanded: false,
       title: Text(
         list.name,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       children: list.subcategories!
           .map((subcat) => _subcategoryBuild(subcat, context, 1))

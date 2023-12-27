@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/controller/fill_adverb_controller.dart';
 import 'package:untitled1/controller/send_for_user_controller.dart';
 import 'package:untitled1/domain/ads/create_adverb.dart';
 import 'package:untitled1/domain/chat/create_chat.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CreateOrder()),
         ChangeNotifierProvider(create: (context) => GetCatigories()),
         ChangeNotifierProvider(create: (context) => CreateAdverb()),
+        ChangeNotifierProvider(create: (context) => FillAdverbModel()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
