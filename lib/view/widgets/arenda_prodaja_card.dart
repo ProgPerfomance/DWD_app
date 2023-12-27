@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../main/avito_list_view.dart';
+import '../main/ads/avito_list_view.dart';
 import '../main/orders_from_cat_view.dart';
 
 class ArendaProdajaCardWidget extends StatelessWidget {

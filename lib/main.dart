@@ -15,6 +15,7 @@ import 'package:untitled1/domain/order/get_orders_list.dart';
 import 'package:untitled1/domain/response_from_order.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
 import 'package:untitled1/view/auth/start_screen.dart';
+import 'package:untitled1/view/main/ads/create_adverb/create_adverb_select_category_view.dart';
 import 'domain/user/auth/create_user.dart';
 import 'package:untitled1/domain/get_catigories.dart';
 
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         //home: StartCreateOrder(),
-        home: StartView(),
+        home: CreateAdverbSelectCategoryView(),
       ),
     );
   }

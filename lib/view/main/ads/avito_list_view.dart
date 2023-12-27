@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:untitled1/domain/ads/create_adverb.dart';
 import 'package:untitled1/model/ads_model.dart';
 
+import 'create_adverb/create_adverb_select_category_view.dart';
+
 class AvitoListView extends StatelessWidget {
   const AvitoListView({super.key});
 
@@ -15,8 +17,9 @@ class AvitoListView extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(onPressed: () {
-            createModel.createAdverb(AdverbModel(size: 'M', price: 1000, id: 0, phone: true, hp: 100, messages: true, category: 'cars', uid: '00', year: 0000, sex: '', age: null, color: null, timestamp: DateTime.now().toString(), description: '', address: '', model: '', brand: '', engine: '', state: '', build_type: '', category_id: 1001, cpu: '', drive_type: '', engine_cylinders: 0, engine_volume: 999, flour: null, fuel_supply: null, gears: null, gpu: null, killometrs: null, memory_hard: null, nm: null, order_type: null, ram: null, repair: null, rights: null, screen_size: null, square: null, tact_numbers: null, transmission: null, type: null));
-          }, icon: Icon(Icons.add)),
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateAdverbSelectCategoryView()));
+           // createModel.createAdverb(AdverbModel(size: 'M', price: 1000, id: 0, phone: true, hp: 100, messages: true, category: 'cars', uid: '00', year: 0000, sex: '', age: null, color: null, timestamp: DateTime.now().toString(), description: '', address: '', model: '', brand: '', engine: '', state: '', build_type: '', category_id: 1001, cpu: '', drive_type: '', engine_cylinders: 0, engine_volume: 999, flour: null, fuel_supply: null, gears: null, gpu: null, killometrs: null, memory_hard: null, nm: null, order_type: null, ram: null, repair: null, rights: null, screen_size: null, square: null, tact_numbers: null, transmission: null, type: null));
+          }, icon: const Icon(Icons.add)),
         ],
       ),
       body: SafeArea(
