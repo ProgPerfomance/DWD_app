@@ -85,5 +85,10 @@ class AdverbModel {
     this.transmission,
     this.type,
   });
+  @override
+  String toString() {
+    // TODO: implement toString
+    return '$size, $price, $type, $transmission,$tact_numbers, $square, $screen_size, $rights, $repair, $ram, $order_type, $nm, $state, $sex, $phone, $messages, $description, $age $address, $fuel_supply, $drive_type, $timestamp';
+  }
 }
 //id, uid,timestamp,category,category_id,price,address,description,phone,messages,state,type,brand,model,color,engine,hp,nm,killometrs,drive_type,transmission,year,engine_volume,engine_cylinders,gears,tact_nubmers,fuel_supply,build_type,order_type,flour,rights,repair,square,cpu,gpu,ram,memory_hard,sex,age,size,screen_size

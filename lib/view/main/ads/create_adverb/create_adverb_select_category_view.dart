@@ -26,7 +26,7 @@ class CreateAdverbSelectCategoryView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
-                  CategoryCardWidget(empty: item.pods.isEmpty, item: item),
+                  CategoryCardWidget(empty: item.pods.isEmpty, item: item, viewModel: item.viewModel,),
                 ],
               ),
             );
@@ -41,7 +41,8 @@ class CreateAdverbSelectCategoryView extends StatelessWidget {
 class CategoryCardWidget extends StatelessWidget {
   bool empty;
   AdverbCategoryModel item;
-  CategoryCardWidget({super.key, required this.empty, required this.item});
+  final viewModel;
+  CategoryCardWidget({super.key, required this.empty, required this.item, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +59,12 @@ class CategoryCardWidget extends StatelessWidget {
             children: List.generate(
                 item.pods.length,
                 (index) => CategoryCardWidget(
+                  viewModel: viewModel,
                     empty: item.pods[index].pods.isEmpty,
                     item: item.pods[index])))
         : GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => CreateAdverbSetNameView(categoryName: item.name)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => CreateAdverbSetNameView(categoryName: item.name, viewModel: item.viewModel,)));
       },
           child: ListTile(
               title: Text(

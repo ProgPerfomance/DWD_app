@@ -6,7 +6,8 @@ class CustomTextFieldWidget extends StatefulWidget {
   final controller;
   final text;
   final password;
-  const CustomTextFieldWidget({super.key,required this.controller, required this.text, required this.password});
+  var onChange;
+  CustomTextFieldWidget({super.key,required this.controller, required this.text, required this.password, this.onChange});
 
   @override
   State<CustomTextFieldWidget> createState() => _CustomTextFieldWidgetState();
@@ -17,6 +18,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
   Widget build(BuildContext context) {
     return  TextField(
          controller: widget.controller,
+      onChanged: widget.onChange,
       decoration: InputDecoration(
 
         hintStyle: const TextStyle(

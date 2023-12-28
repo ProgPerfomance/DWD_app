@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:untitled1/controller/fill_adverb_controller.dart';
 import 'package:untitled1/controller/send_for_user_controller.dart';
 import 'package:untitled1/domain/ads/create_adverb.dart';
+import 'package:untitled1/domain/ads/get_ads_list.dart';
 import 'package:untitled1/domain/chat/create_chat.dart';
 import 'package:untitled1/domain/chat/get_chat_messages.dart';
 import 'package:untitled1/domain/chat/get_user_chats.dart';
@@ -16,6 +17,7 @@ import 'package:untitled1/domain/order/get_orders_list.dart';
 import 'package:untitled1/domain/response_from_order.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
 import 'package:untitled1/view/auth/start_screen.dart';
+import 'package:untitled1/view/main/ads/avito_list_view.dart';
 import 'package:untitled1/view/main/ads/create_adverb/create_adverb_select_category_view.dart';
 import 'domain/user/auth/create_user.dart';
 import 'package:untitled1/domain/get_catigories.dart';
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => GetOrdersFromCategory()),
         ChangeNotifierProvider(create: (context) => GetUserChats()),
         ChangeNotifierProvider(create: (context) => SendMessage()),
+        ChangeNotifierProvider(create: (context) => GetAdsList()),
         ChangeNotifierProvider(create: (context) => GetChatMessages()),
         ChangeNotifierProvider(create: (context) => GetUserProfile()),
         ChangeNotifierProvider(create: (context) => CreateChat()),
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         //home: StartCreateOrder(),
-        home: CreateAdverbSelectCategoryView(),
+        home: StartView(),
       ),
     );
   }
