@@ -16,7 +16,7 @@ FocusNode _focusNode = FocusNode();
 TextEditingController _descriptionController = TextEditingController();
 TextEditingController _priceController = TextEditingController();
 TextEditingController _addressController = TextEditingController();
-bool _phone = false;
+bool _phone = true;
 bool _messages = true;
 
 class CreateAdverbDescriptionView extends StatefulWidget {
@@ -173,8 +173,8 @@ class _CreateAdverbDescriptionViewState
                     Checkbox(
                         value: _phone,
                         onChanged: (value) {
-                          adverbModel.adverbModel.phone = _phone;
                           _phone = !_phone;
+                          adverbModel.adverbModel.phone = _phone;
                           setState(() {});
                         }),
                     const Text(
@@ -191,8 +191,8 @@ class _CreateAdverbDescriptionViewState
                     Checkbox(
                         value: _messages,
                         onChanged: (value) {
-                          adverbModel.adverbModel.messages = _messages;
                           _messages = !_messages;
+                          adverbModel.adverbModel.messages = _messages;
                           setState(() {});
                         }),
                     const Text(
