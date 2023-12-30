@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/domain/get_citys_list.dart';
 import 'package:untitled1/view/auth/registration/registration_freelancer_view/citys_list_screen.dart';
@@ -98,18 +99,38 @@ class SetFreelancer1view extends StatelessWidget {
                 color: const Color(0xff808080),
               ),
               const SizedBox(height: 10,),
-               TextField(
-                controller: _dateOfBurnController,
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-                decoration: InputDecoration(
-                    hintText: 'Дата рождения',
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                      color: Color(0xff808080),
-                    )
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: () {
+                    DatePicker.showDatePicker(
+                      context,
+                      pickerMode: DateTimePickerMode.date,
+                      initialDateTime:
+                      DateTime.now().add(const Duration(days: 5)),
+                      minDateTime: DateTime(1950, 1, 0, 0, 0, 0, 0, 0),
+                      maxDateTime: DateTime.now(),
+                      locale: DateTimePickerLocale.ru,
+                      dateFormat: "dd MMMM yyyy",
+                      onChange: (dateTime, selectedIndex) {
+                        _dateOfBurnController.text = dateTime.toString();
+                      },
+                      onConfirm: (dateTime, selectedIndex) {
+                        _dateOfBurnController.text = dateTime.toString();
+                      },
+                    );
+                  },
+                  child: TextField(
+                    enabled: false,
+                    controller: _dateOfBurnController,
+                    decoration: const InputDecoration(
+                      hintText: 'Дата рождения',
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      )
+                  ),
+                  ),
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height /3,),

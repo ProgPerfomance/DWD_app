@@ -1,7 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/domain/order/get_order_from_id.dart';
@@ -13,11 +10,12 @@ import 'package:untitled1/view/main/last_orders_view.dart';
 import 'package:untitled1/view/main/orders_from_cat_view.dart';
 import 'package:untitled1/view/main/profile/my_profile/my_orders_view.dart';
 import 'package:untitled1/view/main/profile/other_user_profile_view.dart';
-import 'package:untitled1/view/main/profile/my_profile/profile_view.dart';
 import 'package:untitled1/view/main/response_order_view.dart';
+import 'package:untitled1/view/main/select_post_type.dart';
 import 'package:untitled1/view/widgets/arenda_prodaja_card.dart';
 import 'package:untitled1/view/widgets/draver_widget.dart';
 
+import '../../domain/order/add_order_see.dart';
 import '../widgets/service_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     profileModel.getUserProfile(int.parse(userModel.uid));
     watchModel.getAllOrders();
     watchModel.getMyOrders(int.parse(userModel.uid));
-    //  timer(int.parse(userModel.uid));
     return Scaffold(
       drawer: const DraverWidget(),
       body: SafeArea(
@@ -92,16 +89,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const CreateOrderSelectCategory()));
+                                        const SelectPostType()));
                           },
-                          child: const Text(
-                            "Создать заявку",
-                            softWrap: false,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16),
-                            textAlign: TextAlign.center,
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              "Создать",
+                              softWrap: false,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       )
@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       Container(
-                          width: MediaQuery.of(context).size.width  - 100,
+                          width: MediaQuery.of(context).size.width - 100,
                           height: 41,
                           decoration: BoxDecoration(
                               color: Colors.grey[300],
@@ -129,10 +129,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   prefixStyle: TextStyle(color: Colors.grey)),
                             ),
                           )),
-                      IconButton(onPressed: () {
-                        setState(() {
-                        });
-                      }, icon: Icon(Icons.refresh)),
+                      IconButton(
+                          onPressed: () {
+                            setState(() {});
+                          },
+                          icon: const Icon(Icons.refresh)),
                     ],
                   ),
                   const SizedBox(
@@ -199,11 +200,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: List.generate(
                                                 item.responses.length,
                                                 (index) => GestureDetector(
-                                                      onTap: () {
+                                                      onTap: () async {
+                                                       var   user =  await profileModel.getOtherUserProfile(int.parse(item.uid));
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
                                                                 builder: (context) => OtherUserProfileView(
+                                                                  user: user,
                                                                     uid: int.parse(item
                                                                         .responses[
                                                                             index]
@@ -481,9 +484,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 16,
                             fontWeight: FontWeight.w500),
                       ),
-                      TextButton(onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const LastOrdersView()));
-                      }, child: const Text('Все заявки')),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const LastOrdersView()));
+                          },
+                          child: const Text('Все заявки')),
                     ],
                   ),
                   SizedBox(
@@ -497,6 +506,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: GestureDetector(
                               onTap: () async {
+                                addOrderSee(item.id);
                                 await testModel.getOrderFromId(index);
                                 Navigator.push(
                                     context,

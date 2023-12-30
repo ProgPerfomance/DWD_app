@@ -4,6 +4,7 @@ import 'package:untitled1/controller/fill_adverb_controller.dart';
 import 'package:untitled1/controller/send_for_user_controller.dart';
 import 'package:untitled1/domain/ads/create_adverb.dart';
 import 'package:untitled1/domain/ads/get_ads_list.dart';
+import 'package:untitled1/domain/ads/get_my_adverbs.dart';
 import 'package:untitled1/domain/chat/create_chat.dart';
 import 'package:untitled1/domain/chat/get_chat_messages.dart';
 import 'package:untitled1/domain/chat/get_user_chats.dart';
@@ -17,8 +18,6 @@ import 'package:untitled1/domain/order/get_orders_list.dart';
 import 'package:untitled1/domain/response_from_order.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
 import 'package:untitled1/view/auth/start_screen.dart';
-import 'package:untitled1/view/main/ads/avito_list_view.dart';
-import 'package:untitled1/view/main/ads/create_adverb/create_adverb_select_category_view.dart';
 import 'domain/user/auth/create_user.dart';
 import 'package:untitled1/domain/get_catigories.dart';
 
@@ -44,6 +43,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CreateChat()),
         ChangeNotifierProvider(create: (context) => CreateUser()),
         ChangeNotifierProvider(create: (context) => GetCitysList()),
+        ChangeNotifierProvider(create: (context) => GetMyAdverbs()),
         ChangeNotifierProvider(create: (context) => ResponseFromOrder()),
         ChangeNotifierProvider(create: (context) => GetOrderFromId()),
         ChangeNotifierProvider(create: (context) => GetCategoriesList()),

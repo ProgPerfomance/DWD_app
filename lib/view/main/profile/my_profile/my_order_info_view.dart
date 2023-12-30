@@ -13,7 +13,7 @@ class MyOrderInfoView extends StatelessWidget {
     final orderModel = context.watch<GetOrdersList>().myOrders[id];
     final freelancerModel = context.read<GetUserProfile>();
     var users;
-    Future.delayed(Duration(milliseconds: 1), () async {
+    Future.delayed(const Duration(milliseconds: 1), () async {
       users =  List.generate(orderModel.responses.length, (index) async {
       var user =  await freelancerModel.getOtherUserProfile(orderModel.responses[index].uid);
         return {
@@ -62,9 +62,9 @@ class MyOrderInfoView extends StatelessWidget {
                     const Text('Открыта'),
                     Row(
                       children: [
-                        const Text(
-                          '10',
-                          style: TextStyle(
+                         Text(
+                          '${orderModel.sees}',
+                          style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               color: Color(0xffCBCBCB)),
@@ -80,9 +80,9 @@ class MyOrderInfoView extends StatelessWidget {
                 const SizedBox(
                   height: 6,
                 ),
-                const Text(
-                  'Нужен репетитор по математике',
-                  style: TextStyle(
+                 Text(
+                  orderModel.name,
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 22,
                   ),
@@ -190,10 +190,28 @@ class MyOrderInfoView extends StatelessWidget {
                             ),
                           );
                         }),
-                      ))
+                      )),
+                const SizedBox(height: 30,),
               ],
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar:  Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+        child: Container(
+          height: 57,
+          width: MediaQuery.of(context).size.width -40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.red,
+          ),
+          child: const Center(child: Text('Завершить заказ',
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Colors.white
+            ),)),
         ),
       ),
     );

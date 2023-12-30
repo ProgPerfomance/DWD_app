@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/domain/order/add_order_see.dart';
 import 'package:untitled1/view/main/response_order_view.dart';
 
 import '../../domain/order/get_order_from_id.dart';
@@ -32,6 +33,7 @@ class LastOrdersView extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () async {
+                      addOrderSee(item.id);
                       await testModel.getOrderFromId(index);
                       Navigator.push(
                           context,

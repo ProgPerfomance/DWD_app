@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:untitled1/domain/user/auth/create_user.dart';
 import 'package:untitled1/domain/user/get_user_profile.dart';
 import 'package:untitled1/view/main/chat/chat_list_view.dart';
+import 'package:untitled1/view/main/profile/my_profile/my_adverbs_view.dart';
 import 'package:untitled1/view/main/profile/my_profile/my_orders_view.dart';
 import 'package:untitled1/view/main/profile/my_profile/profile_view.dart';
 
@@ -117,6 +118,21 @@ class DraverWidget extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: Colors.black),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MyAdverbsView()));
+                },
+                child: const Text(
+                  "Мои объявления",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
+                ),
               ),
               const SizedBox(
                 height: 16,

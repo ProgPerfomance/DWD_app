@@ -3,12 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:untitled1/controller/fill_adverb_controller.dart';
 import 'package:untitled1/domain/ads/create_adverb.dart';
 import 'package:untitled1/domain/user/auth/create_user.dart';
-import 'package:untitled1/model/adverb/moto_adverb_model.dart';
 import 'package:untitled1/view/main/ads/avito_list_view.dart';
-import 'package:untitled1/view/view_model/adv_home_viewmodel.dart';
-import 'package:untitled1/view/view_model/adv_moto_viewmodel.dart';
-
-import '../../../view_model/adv_car_viewmodel.dart';
 import '../../../widgets/custom_textfield_widget.dart';
 
 FocusNode _focusNode = FocusNode();

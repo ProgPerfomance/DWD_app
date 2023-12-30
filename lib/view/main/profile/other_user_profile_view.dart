@@ -5,16 +5,12 @@ import 'package:untitled1/model/user_model.dart';
 
 class OtherUserProfileView extends StatelessWidget {
   final uid;
-  const OtherUserProfileView({super.key, required this.uid});
+  UserModel user;
+  OtherUserProfileView({super.key, required this.uid, required this.user});
 
   @override
   Widget build(BuildContext context) {
     final userModel = context.read<GetUserProfile>();
-    UserModel ?user;// UserModel(email: '', city: '', password_hash: '', name: '', email_succes: '', rating: 0, servises: '', client_visiting: '', about_me: '', experience: '', education: '', spheres: '', freelancer: '', skills: '', avatar: '', date_of_burn: '', country: '', age: '', last_login: '', reviews: '');
-    Future.delayed(Duration(milliseconds: 10), () async {
-      user =  await userModel.getOtherUserProfile(uid);
-    });
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -60,7 +56,7 @@ class OtherUserProfileView extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(user!.name,
+                              Text(user?.name,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -94,45 +90,45 @@ class OtherUserProfileView extends StatelessWidget {
                       Container(height: 1,color: const Color(0xffCBCBCB),
                         width: MediaQuery.of(context).size.width -40,),
                       const SizedBox(height: 16,),
-                      userModel.userModel!.skills != null ? const Text('Навыки:',
+                      userModel.userModel!.skills != 'null' ? const Text('Навыки:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
                         ),) : const SizedBox(),
-                      userModel.userModel!.skills != null ? Text(userModel.userModel!.skills) : const SizedBox(),
+                      userModel.userModel!.skills != 'null' ? Text(userModel.userModel!.skills) : const SizedBox(),
                       const SizedBox(height: 12,),
-                      userModel.userModel!.education != null ? const Text('Образование:',
+                      userModel.userModel!.education != 'null' ? const Text('Образование:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
                         ),) : const SizedBox(),
-                      userModel.userModel!.education != null ? Text(userModel.userModel!.education) : const SizedBox(),
+                      userModel.userModel!.education != 'null' ? Text(userModel.userModel!.education) : const SizedBox(),
                       const SizedBox(height: 12,),
-                      userModel.userModel!.experience != null ? const Text('Опыт:',
+                      userModel.userModel!.experience != 'null' ? const Text('Опыт:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
                         ),) : const SizedBox(),
-                      userModel.userModel!.experience != null ? Text(userModel.userModel!.education) : const SizedBox(),
+                      userModel.userModel!.experience != 'null' ? Text(userModel.userModel!.education) : const SizedBox(),
                       const SizedBox(height: 12,),
-                      userModel.userModel!.about_me != null ? const Text('О себе:',
+                      userModel.userModel!.about_me != 'null' ? const Text('О себе:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
                         ),) : const SizedBox(),
-                      userModel.userModel!.about_me != null ? Text(userModel.userModel!.about_me) : const SizedBox(),
+                      userModel.userModel!.about_me != 'null' ? Text(userModel.userModel!.about_me) : const SizedBox(),
                       const SizedBox(height: 12,),
-                      userModel.userModel!.client_visiting != null ? const Text('Выезд к клиенту:',
+                      userModel.userModel!.client_visiting != 'null' ? const Text('Выезд к клиенту:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff333333),
                         ),) : const SizedBox(),
-                      userModel.userModel!.client_visiting != null ? Text(userModel.userModel!.client_visiting) : const SizedBox(),
+                      userModel.userModel!.client_visiting != 'null' ? Text(userModel.userModel!.client_visiting) : const SizedBox(),
                       const SizedBox(height: 12,),
                       const Text('Услуги и цены:',
                         style: TextStyle(
@@ -150,7 +146,7 @@ class OtherUserProfileView extends StatelessWidget {
                       const SizedBox(height: 12,),
                       Container(
                         height: 33,
-                        width: 194,
+                        width: 223,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(46),
                             color: const Color(0xffEBEBEB)
@@ -170,37 +166,6 @@ class OtherUserProfileView extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 22,),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xffEBEBEB),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  height: 52,
-                  width: MediaQuery.of(context).size.width - 40,
-                  child: const Center(child: Text('Удалить профиль',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),)),
-                ),
-              ),
-              const SizedBox(height: 12,),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xffEBEBEB),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  height: 52,
-                  width: MediaQuery.of(context).size.width - 40,
-                  child: const Center(child: Text('Выйти', style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),)),
-                ),
-              )
             ],
           ),
         ),
