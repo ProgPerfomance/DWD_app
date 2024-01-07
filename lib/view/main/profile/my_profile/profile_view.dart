@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/view/main/profile/my_profile/edit_profile_view.dart';
-
 import '../../../../domain/user/get_user_profile.dart';
 
 class ProfileView extends StatelessWidget {
@@ -31,7 +30,7 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
                 InkWell(onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> EditProfileView()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const EditProfileView()));
                 },
                     child: Image.asset('assets/design/images/settings.png')),
               ],

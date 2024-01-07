@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled1/domain/ads/create_adverb.dart';
 import 'package:untitled1/domain/ads/get_ads_list.dart';
 import 'package:untitled1/model/user_model.dart';
 import 'package:untitled1/view/main/ads/adverb_view.dart';
