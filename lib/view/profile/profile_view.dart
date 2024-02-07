@@ -1,31 +1,34 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:untitled1/domain/get_user_info.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 import 'car_list_view.dart';
 import 'farorit_cars_view.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends GetView<UserInfoController> {
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
-   // final user = context.watch<AuthController>();
+    // final user = context.watch<AuthController>();
+    Get.put(UserInfoController());
+    controller.getUserInfo('2');
     return Scaffold(
       appBar: AppBar(
-       // iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.black,
-        title:
-          const Text(
-              'Profile',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w900,
-                color: Color(0xffffffff),
-              ),
-            ),
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+            color: Color(0xffffffff),
+          ),
+        ),
         centerTitle: true,
       ),
       backgroundColor: Colors.black,
@@ -41,13 +44,15 @@ class ProfileView extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-               const Center(
-                child: Text(
-              '',  //  user.userModel!.name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 18,
-                    color: Color(0xffffffff),
+              Center(
+                child: Obx(
+                  () => Text(
+                    controller.user.value['name'].toString(), //  user.userModel!.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 18,
+                      color: Color(0xffffffff),
+                    ),
                   ),
                 ),
               ),
@@ -59,7 +64,10 @@ class ProfileView extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const FavoritCarsView()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FavoritCarsView()));
                     },
                     child: Container(
                       height: 60,
@@ -115,7 +123,7 @@ class ProfileView extends StatelessWidget {
                 height: 40,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),//333
+                padding: const EdgeInsets.symmetric(horizontal: 16), //333
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -139,7 +147,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                 //      Get.bottomSheet(Container());
+                        //      Get.bottomSheet(Container());
                       },
                       child: const IconAndTextWidget(
                         icon: 'assets/icons/change_photo.svg',
@@ -174,23 +182,43 @@ class ProfileView extends StatelessWidget {
                     const SizedBox(
                       height: 24,
                     ),
-                    const IconAndTextWidget(
-                      icon: 'assets/icons/about_ass.svg',
-                      text: 'About us',
+                    GestureDetector(
+                      onTap: () {
+                        var url = Uri.parse('https://dubaiwd.com/');
+                        //     launchUrl(url); //https://www.facebook.com/DubaiWD/about
+                      },
+                      child: const IconAndTextWidget(
+                        icon: 'assets/icons/about_ass.svg',
+                        text: 'About us',
+                      ),
                     ),
                     const SizedBox(
                       height: 24,
                     ),
-                    const IconAndTextWidget(
-                      icon: 'assets/icons/faqsvg.svg',
-                      text: 'FAQ',
+                    GestureDetector(
+                      onTap: () {
+                        var url = Uri.parse(
+                            'https://www.facebook.com/DubaiWD/about'); //info@dubaiwd.com
+                        //    launchUrl(url); //
+                      },
+                      child: const IconAndTextWidget(
+                        icon: 'assets/icons/faqsvg.svg',
+                        text: 'FAQ',
+                      ),
                     ),
                     const SizedBox(
                       height: 24,
                     ),
-                    const IconAndTextWidget(
-                      icon: 'assets/icons/help_feedback.svg',
-                      text: 'Help & Feedback',
+                    GestureDetector(
+                      onTap: () {
+                        var url = Uri.parse(
+                            'https://info@dubaiwd.com'); //info@dubaiwd.com
+                        //  launchUrl(url); //
+                      },
+                      child: const IconAndTextWidget(
+                        icon: 'assets/icons/help_feedback.svg',
+                        text: 'Help & Feedback',
+                      ),
                     ),
                     const SizedBox(
                       height: 24,
@@ -222,7 +250,11 @@ class IconAndTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SvgPicture.asset(icon, height: 24,width: 24,),
+        SvgPicture.asset(
+          icon,
+          height: 24,
+          width: 24,
+        ),
         const SizedBox(
           width: 16,
         ),

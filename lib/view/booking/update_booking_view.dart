@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/controller/booking_service_controller.dart';
-import 'package:untitled1/domain/booking_domain.dart';
-import 'package:untitled1/domain/get_user_cars.dart';
-import 'package:untitled1/view/servise/select_car_booking_view.dart';
 
-import 'book_service_view.dart';
+import '../../domain/booking_domain.dart';
+import '../../domain/get_user_cars.dart';
+import '../servise/select_car_booking_view.dart';
 
 String _time = 'Select data & time';
 
@@ -18,13 +17,33 @@ TextEditingController _ownerNumberController = TextEditingController();
 TextEditingController _ownerEmailController = TextEditingController();
 String car = 'Select car';
 
-class BookServiceView extends GetView<GetUserCars> {
-  final int id;
-  const BookServiceView({super.key, required this.id});
+class UpdateBookingView extends GetView<GetUserCars> {
+  final id;
+  final pickup;
+  final delivery;
+  final ownerName;
+  final ownerNumber;
+  final ownerEmail;
+  final carNew;
+  const UpdateBookingView(
+      {super.key,
+      required this.id,
+      required this.carNew,
+      required this.delivery,
+      required this.pickup,
+      required this.ownerEmail,
+      required this.ownerName,
+      required this.ownerNumber});
 
   @override
   Widget build(BuildContext context) {
     Get.put(GetUserCars());
+   _pickupController.text = pickup.toString();
+     _deliveryController.text = delivery.toString();
+     _ownerNameController.text = ownerName.toString();
+     _ownerNumberController.text = ownerNumber.toString();
+     _ownerEmailController.text = ownerEmail.toString();
+     controller.car.value = carNew;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -208,7 +227,12 @@ class BookServiceView extends GetView<GetUserCars> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectCarBookingView(sell: false,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SelectCarBookingView(
+                                      sell: false,
+                                    )));
                       },
                       child: Row(
                         children: [
@@ -221,13 +245,15 @@ class BookServiceView extends GetView<GetUserCars> {
                           const SizedBox(
                             width: 24,
                           ),
-                        Obx( ()=>  Text(
-                           controller.car.value,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xff8687E7)),
-                          ),),
+                          Obx(
+                            () => Text(
+                              controller.car.value,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Color(0xff8687E7)),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -264,74 +290,68 @@ class BookServiceView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 24,
                     ),
-                    BookingCheckBoxWidget(
-                      text: 'Add a pickup for 99 AED',
-                      form: TextField(
-                        style: const TextStyle(
-                          color: Color(0xffffffff),
+                    TextField(
+                      style: const TextStyle(
+                        color: Color(0xffffffff),
+                      ),
+                      controller: _pickupController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color(0xff1D1D1D),
+                        hintStyle: const TextStyle(
+                          color: Color(
+                            0xff535353,
+                          ),
                         ),
-                        controller: _pickupController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xff1D1D1D),
-                          hintStyle: const TextStyle(
-                            color: Color(
-                              0xff535353,
-                            ),
+                        hintText: 'Pickup from',
+                        isDense: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xff7A7A7A), width: 1),
+                          borderRadius: BorderRadius.circular(
+                            12,
                           ),
-                          hintText: 'Pickup from',
-                          isDense: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color(0xff7A7A7A), width: 1),
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            12,
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ),
-                            borderSide: const BorderSide(
-                                color: Color(0xff7A7A7A), width: 1),
-                          ),
+                          borderSide: const BorderSide(
+                              color: Color(0xff7A7A7A), width: 1),
                         ),
                       ),
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    BookingCheckBoxWidget(
-                      text: 'Add a delivery for 99 AED',
-                      form: TextField(
-                        style: const TextStyle(
-                          color: Color(0xffffffff),
+                    TextField(
+                      style: const TextStyle(
+                        color: Color(0xffffffff),
+                      ),
+                      controller: _deliveryController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color(0xff1D1D1D),
+                        hintStyle: const TextStyle(
+                          color: Color(
+                            0xff535353,
+                          ),
                         ),
-                        controller: _deliveryController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xff1D1D1D),
-                          hintStyle: const TextStyle(
-                            color: Color(
-                              0xff535353,
-                            ),
+                        hintText: 'Delivery To',
+                        isDense: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xff7A7A7A), width: 1),
+                          borderRadius: BorderRadius.circular(
+                            12,
                           ),
-                          hintText: 'Delivery To',
-                          isDense: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color(0xff7A7A7A), width: 1),
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            12,
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ),
-                            borderSide: const BorderSide(
-                                color: Color(0xff7A7A7A), width: 1),
-                          ),
+                          borderSide: const BorderSide(
+                              color: Color(0xff7A7A7A), width: 1),
                         ),
                       ),
                     ),
@@ -349,7 +369,7 @@ class BookServiceView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 16,
                     ),
-                  const SelectDateWidget(),
+                    const SelectDateWidget(),
                     const SizedBox(
                       height: 28,
                     ),
@@ -482,7 +502,6 @@ SnackBar errorSnackBar = const SnackBar(
   backgroundColor: Colors.red,
 );
 
-
 class SelectDateWidget extends StatefulWidget {
   const SelectDateWidget({super.key});
 
@@ -493,16 +512,14 @@ class SelectDateWidget extends StatefulWidget {
 class _SelectDateWidgetState extends State<SelectDateWidget> {
   @override
   Widget build(BuildContext context) {
-    return   GestureDetector(
+    return GestureDetector(
       onTap: () {
         DatePicker.showDatePicker(
           context,
           pickerMode: DateTimePickerMode.datetime,
-          initialDateTime:
-          DateTime.now().add(const Duration(days: 1)),
+          initialDateTime: DateTime.now().add(const Duration(days: 1)),
           minDateTime: DateTime.now(),
-          maxDateTime:
-          DateTime.now().add(const Duration(days: 365)),
+          maxDateTime: DateTime.now().add(const Duration(days: 365)),
           locale: DateTimePickerLocale.en_us,
           dateFormat: "dd MMMM yyyy HH:mm",
           onChange: (dateTime, selectedIndex) {

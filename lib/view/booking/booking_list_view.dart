@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/booking_controller.dart';
+import 'package:untitled1/view/booking/update_booking_view.dart';
 import '../profile/profile_view.dart';
 
 class BookingListView extends GetView<BookingController> {
@@ -157,7 +158,7 @@ class BookingListView extends GetView<BookingController> {
                                                               width: 8,
                                                             ),
                                                             Text(
-                                                              '${time}',
+                                                              time,
                                                               style: TextStyle(
                                                                 fontSize: 13,
                                                                 fontWeight:
@@ -205,8 +206,15 @@ class BookingListView extends GetView<BookingController> {
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(4),
-                                                  color:
-                                                      const Color(0xffFA0E0E),
+                                                  color: item['status'] ==
+                                                          'Pending'
+                                                      ? const Color(0xffFA0E0E)
+                                                      : item['status'] ==
+                                                              'Approved'
+                                                          ? const Color(
+                                                              0xff40CC46)
+                                                          : const Color(
+                                                              0xff8875FF),
                                                 ),
                                                 child: Center(
                                                   child: Text(
@@ -236,10 +244,10 @@ class BookingListView extends GetView<BookingController> {
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                             ),
-                                            child: const Center(
+                                            child: Center(
                                               child: Text(
-                                                'Major Service',
-                                                style: TextStyle(
+                                                item['service_name'].toString(),
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.w900,
                                                   fontSize: 22,
                                                   color: Color(0xffffffff),
@@ -254,44 +262,75 @@ class BookingListView extends GetView<BookingController> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        2 -
-                                                    45,
-                                                height: 40,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.black
-                                                      .withOpacity(0.8),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                        'assets/icons/booking_cancel.svg'),
-                                                    const SizedBox(
-                                                      width: 4,
-                                                    ),
-                                                    const Text(
-                                                      'CANCEL',
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 16,
-                                                        color: Colors.white,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 20,
-                                              ),
-                                              Container(
+                                              GestureDetector(
+                                                onTap: () {
+                                                  showDialog<void>(
+                                                    context: context,
+                                                    barrierDismissible: false, // user must tap button!
+                                                    builder: (BuildContext context) {
+                                                      return AlertDialog(
+                                                        insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                                        backgroundColor: const Color(0xff2D2D2D).withOpacity(0.8),
+                                                        title: Center(child: Text('Are you sure you want to cancel your appointment?',style: TextStyle(
+                                                          fontWeight: FontWeight.w400,
+                                                          fontSize: 16,
+                                                          color: Colors.white.withOpacity(0.87),
+                                                        ),)),
+                                                        content: const Divider(),
+                                                        actions: [
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              controller.cancelBooking(
+                                                                  id: item['id']);
+                                                              Future.delayed(
+                                                                  const Duration(
+                                                                      milliseconds: 100),
+                                                                      () {
+                                                                    controller.getUserBooking();
+                                                                  });
+                                                              Navigator.pop(context);
+                                                            },
+                                                            child: Container(
+                                                              height: 52,
+                                                              width: MediaQuery.of(context).size.width / 2 - 64,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(12),
+                                                              ),
+                                                              child: const Center(
+                                                                child: Text('YES',style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: Color(0xff8687E7),
+                                                                ),),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              Navigator.pop(context);
+                                                            },
+                                                            child: Container(
+                                                              height: 52,
+                                                              width: MediaQuery.of(context).size.width / 2 - 32,
+                                                              decoration: BoxDecoration(
+                                                                color: const Color(0xff8875FF),
+                                                                borderRadius: BorderRadius.circular(12),
+                                                              ),
+                                                              child: const Center(
+                                                                child: Text('NO',style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: Colors.white,
+                                                                ),),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ]
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Container(
                                                   width: MediaQuery.of(context)
                                                               .size
                                                               .width /
@@ -302,21 +341,19 @@ class BookingListView extends GetView<BookingController> {
                                                     color: Colors.black
                                                         .withOpacity(0.8),
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
+                                                        BorderRadius.circular(8),
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                        MainAxisAlignment.center,
                                                     children: [
                                                       SvgPicture.asset(
-                                                          'assets/icons/booking_change.svg'),
+                                                          'assets/icons/booking_cancel.svg'),
                                                       const SizedBox(
                                                         width: 4,
                                                       ),
                                                       const Text(
-                                                        'CHANGE',
+                                                        'CANCEL',
                                                         style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w400,
@@ -325,7 +362,53 @@ class BookingListView extends GetView<BookingController> {
                                                         ),
                                                       )
                                                     ],
-                                                  ))
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 20,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateBookingView(id: item['id'], carNew: item['cid'], delivery: item['delivery'], pickup: item['pickup'], ownerEmail: item['owner_email'], ownerName: item['owner_name'], ownerNumber: item['owner_number'])));
+                                                },
+                                                child: Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                    .size
+                                                                    .width /
+                                                                2 -
+                                                            45,
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black
+                                                          .withOpacity(0.8),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        SvgPicture.asset(
+                                                            'assets/icons/booking_change.svg'),
+                                                        const SizedBox(
+                                                          width: 4,
+                                                        ),
+                                                        const Text(
+                                                          'CHANGE',
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontSize: 16,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    )),
+                                              )
                                             ],
                                           )
                                         ],

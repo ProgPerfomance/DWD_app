@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:untitled1/domain/auth_user_domain.dart';
 import '../../domain/get_cars_list_domain.dart';
 import '../profile/profile_view.dart';
 import 'car_page_view.dart';
@@ -233,7 +234,7 @@ class CarCatalogView extends GetView<GetCarList> {
                               top: 3.5,
                               child: GestureDetector(
                                 onTap: () {
-                                  item['liked'] == 'false' ?          controller.likeCar(item['id']) : controller.dislikeCar(item['like_id']);
+                                  item['liked'] == 'false' ?          controller.likeCar(item['id'], AuthUser().uid) : controller.dislikeCar(item['like_id']);
                                 },
                                   child: item['liked'] == 'false' ? SvgPicture.asset('assets/icons/unlike.svg',height: 20,width: 20,) : SvgPicture.asset('assets/icons/like.svg',height: 20,width: 20,))),
                         ],

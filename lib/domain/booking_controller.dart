@@ -14,4 +14,11 @@ class BookingController extends GetxController {
     bookingList.refresh();
     notifyChildrens();
   }
+  Future<void> cancelBooking({required id}) async {
+    dio.post('http://63.251.122.116:2308/updatebooking',
+        data: {
+          'id': id.toString(),
+          'status': 'Canceled',
+        });
+  }
 }

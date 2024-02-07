@@ -15,7 +15,6 @@ dependencies:
   provider:
   dio:
   get:
-
   svg_flutter:
 dev_dependencies:
   flutter_test:

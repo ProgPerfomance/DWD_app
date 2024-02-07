@@ -24,10 +24,10 @@ class AuthUser extends ChangeNotifier {
     required password_hash,
   }) async {
     dio.post('http://63.251.122.116:2308/reguser', data: {
-      'name': 'name',
-      'password_hash': 'password',
-      'phone': 'phone',
-      'email': 'email',
+      'name': name.toString(),
+      'password_hash': password_hash.toString(),
+      'phone': phone.toString(),
+      'email': email.toString(),
     });
   }
 }

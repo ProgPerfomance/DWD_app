@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/domain/auth_user_domain.dart';
-import 'package:untitled1/domain/get_user_info.dart';
-import 'package:untitled1/view/booking/booking_list_view.dart';
-import 'package:untitled1/view/chat/chat_list_view.dart';
-import 'package:untitled1/view/sell_car_view/sell_car_view.dart';
-import 'package:untitled1/view/servise/servise_view.dart';
+import 'package:untitled1/master_view/booking_master_view.dart';
+import 'package:untitled1/meneger_view/manager_chat_view.dart';
+import 'package:untitled1/meneger_view/manager_sell_car.dart';
+import 'package:untitled1/meneger_view/manager_servises_view.dart';
+import 'package:untitled1/meneger_view/meneger_booking_view.dart';
+import 'package:untitled1/meneger_view/meneger_catalog_view.dart';
 
-import 'buy_car/car_catalog_view.dart';
+import 'package:untitled1/view/chat/chat_list_view.dart';
 
 List screens = [
-  const CarCatalogView(),
-  const SellCarView(),
-  const ServiseView(),
-  const ChatListView(),
-  const BookingListView(),
+  const MenegerCarCatalogView(),
+  const ManagerSellCar(),
+  const ManagerServiceView(),
+  const ManagerChatListView(),
+  const BookingManagerView(),
 ];
 int selectedScreen = 0;
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class MenegerHomeView extends StatefulWidget {
+  const MenegerHomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<MenegerHomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  @override
-  void initState() {
-   UserInfoController().getUserInfo(AuthUser().uid);
-    super.initState();
-  }
+class _HomeViewState extends State<MenegerHomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +40,9 @@ class _HomeViewState extends State<HomeView> {
               color: const Color(0xff363636).withOpacity(0.93),
               child: Column(
                 children: [
-                  const SizedBox(height: 13,),
+                  const SizedBox(
+                    height: 13,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -67,7 +64,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               const SizedBox(height: 5.3,),
                               Text(
-                                'Buy',
+                                'Catalog',
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -96,7 +93,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               const SizedBox(height: 5.3,),
                               Text(
-                                'Sell',
+                                'Requests',
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -154,7 +151,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               const SizedBox(height: 5.3,),
                               Text(
-                                'Chat',
+                                '  Chat  ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
