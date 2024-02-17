@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/master_view/master_home.dart';
+import 'package:untitled1/meneger_view/meneger_home_view.dart';
 import '../../../domain/auth_user_domain.dart';
 import '../../home_view.dart';
 import '../forgot_password_view.dart';
@@ -150,17 +151,21 @@ class LoginView extends StatelessWidget {
                       password_hash: _passwordController.text,
                       email_or_phone: _emailController.text,
                     );
-                    if (_emailController.text != 'jek') {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeView()),
-                          (route) => false);
-                    } else {
+                    if (_emailController.text == 'jek') {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const MasterHomeView()),
+                          (route) => false);
+                    } else if (_emailController.text == 'admin') {
+                      MaterialPageRoute(
+                          builder: (context) => const MenegerHomeView());
+                      (route) => false;
+                    } else {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MenegerHomeView()),
                           (route) => false);
                     }
                   },

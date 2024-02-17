@@ -175,8 +175,8 @@ class ServiseView extends StatelessWidget {
                         id: 1,
                       ),
                       ServiceButton(
-                        text: 'Gearbox\nrepair',
-                        icon: 'assets/icons/gearbox.svg',
+                        text: 'Recovery',
+                        icon: 'assets/icons/recovery.svg',
                         id: 2,
                       ),
                       ServiceButton(
@@ -226,26 +226,58 @@ class ServiseView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 12.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ServiceButton(
                         text: 'Tinting',
                         icon: 'assets/icons/tinting.svg',
                         id: 8,
                       ),
-                      SizedBox(
-                        width: 24,
-                      ),
                       ServiceButton(
                         text: 'Detailing',
                         icon: 'assets/icons/detaling.svg',
                         id: 9,
                       ),
+                      ServiceButton(
+                        text: 'Insurance',
+                        icon: 'assets/icons/insurance.svg',
+                        id: 8,
+                      ),
+                      ServiceButton(
+                        text: 'Car Rent',
+                        icon: 'assets/icons/carrent.svg',
+                        id: 8,
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 173,
+                  height: 73,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width-24,
+                    height: 51,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: const Color(0xff363636)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset('assets/icons/urgent_car.svg'),
+                        const SizedBox(width: 8,),
+                        const Text('Urgent Call',style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.red,
+                        ),)
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 73,
                 ),
               ],
             ),
@@ -271,7 +303,7 @@ class ServiceButton extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => OpenServiseView(
-                  id: id,
+                      id: id,
                       special: false,
                       title: text,
                     )));

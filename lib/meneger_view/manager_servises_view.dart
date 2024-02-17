@@ -1,12 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:untitled1/meneger_view/manager_servises.dart';
+import 'package:untitled1/meneger_view/special_offers_models.dart';
 
 import '../view/servise/servise_view.dart';
 import 'meneger_profile_view.dart';
-import 'models/all_service_icons_model.dart';
-import 'models/all_service_text_model.dart';
-import 'models/special_offers_models.dart';
+
 
 
 class ManagerServiceView extends StatefulWidget {
