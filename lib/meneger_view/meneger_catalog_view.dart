@@ -1,14 +1,12 @@
 // ignore_for_file: invalid_use_of_protected_member
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/domain/auth_user_domain.dart';
+import 'package:untitled1/meneger_view/manager_add_car/manager_add_car_1_view.dart';
 import 'package:untitled1/meneger_view/meneger_car_page_view.dart';
 import 'package:untitled1/meneger_view/meneger_profile_view.dart';
 import '../../domain/get_cars_list_domain.dart';
-import '../view/buy_car/car_page_view.dart';
 
 class MenegerCarCatalogView extends GetView<GetCarList> {
   const MenegerCarCatalogView({super.key});
@@ -51,25 +49,30 @@ class MenegerCarCatalogView extends GetView<GetCarList> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24,),
-              Container(
-                width: MediaQuery.of(context).size.width -32,
-                height: 52,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: const Color(0xff363636),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/manager_add_purple.svg'),
-                    const SizedBox(width: 12,),
-                    const Text('Add new car',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff8875FF),
-                    ),),
-                  ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ManagerAddCar1View()));
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width -32,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: const Color(0xff363636),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset('assets/manager_add_purple.svg'),
+                      const SizedBox(width: 12,),
+                      const Text('Add new car',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff8875FF),
+                      ),),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 24,),

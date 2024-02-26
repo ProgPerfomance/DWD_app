@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
+import 'package:untitled1/domain/sell_car_request.dart';
 import 'package:untitled1/view/servise/select_car_booking_view.dart';
 import '../profile/create_car_view.dart';
 
@@ -161,6 +162,7 @@ class ConsignmentView extends GetView<GetUserCars> {
                     Center(
                       child: GestureDetector(
                         onTap: () {
+                          sellCarRequest(uid: 1, cid: 2, owner_name: userNameController.text, owner_email: emailController.text, owner_phone: phoneNubmerController.text, gcc: true, servise_history: true, any_car_accidents: true);
                           Navigator.pop(context);
                         },
                         child: Container(

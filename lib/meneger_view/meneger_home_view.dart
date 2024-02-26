@@ -62,7 +62,9 @@ class _HomeViewState extends State<MenegerHomeView> {
                                     ? const Color(0xff8875FF)
                                     : Colors.white,
                               ),
-                              const SizedBox(height: 5.3,),
+                              const SizedBox(
+                                height: 5.3,
+                              ),
                               Text(
                                 'Catalog',
                                 style: TextStyle(
@@ -91,7 +93,9 @@ class _HomeViewState extends State<MenegerHomeView> {
                                     ? const Color(0xff8875FF)
                                     : Colors.white,
                               ),
-                              const SizedBox(height: 5.3,),
+                              const SizedBox(
+                                height: 5.3,
+                              ),
                               Text(
                                 'Requests',
                                 style: TextStyle(
@@ -120,7 +124,9 @@ class _HomeViewState extends State<MenegerHomeView> {
                                     ? const Color(0xff8875FF)
                                     : Colors.white,
                               ),
-                              const SizedBox(height: 5.3,),
+                              const SizedBox(
+                                height: 5.3,
+                              ),
                               Text(
                                 'Service',
                                 style: TextStyle(
@@ -149,7 +155,9 @@ class _HomeViewState extends State<MenegerHomeView> {
                                     ? const Color(0xff8875FF)
                                     : Colors.white,
                               ),
-                              const SizedBox(height: 5.3,),
+                              const SizedBox(
+                                height: 5.3,
+                              ),
                               Text(
                                 '  Chat  ',
                                 style: TextStyle(
@@ -178,7 +186,9 @@ class _HomeViewState extends State<MenegerHomeView> {
                                   ? const Color(0xff8875FF)
                                   : Colors.white,
                             ),
-                            const SizedBox(height: 5.3,),
+                            const SizedBox(
+                              height: 5.3,
+                            ),
                             Text(
                               'Booking',
                               style: TextStyle(
