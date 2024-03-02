@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 
+import '../../domain/auth_user_domain.dart';
 import '../profile/create_car_view.dart';
 import '../servise/select_car_booking_view.dart';
 import 'consignment_view.dart';
 
-TextEditingController userNameController = TextEditingController();
-TextEditingController emailController = TextEditingController();
-TextEditingController phoneNubmerController = TextEditingController();
+TextEditingController _userNameController = TextEditingController();
+TextEditingController _emailController = TextEditingController();
+TextEditingController _phoneNubmerController = TextEditingController();
 
 class SellOnTheSpotView extends GetView<GetUserCars> {
   const SellOnTheSpotView({super.key});
@@ -17,6 +18,9 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
   @override
   Widget build(BuildContext context) {
     Get.put(GetUserCars());
+    _userNameController.text = userModel?.name;
+    _emailController.text  = userModel?.email;
+    _phoneNubmerController.text = userModel?.phone;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -75,7 +79,7 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                     ),
                     CreateCarField(
                       text: 'Owner name',
-                      controller: userNameController,
+                      controller: _userNameController,
                     ),
                     const SizedBox(
                       height: 16,
@@ -92,7 +96,7 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                     ),
                     CreateCarField(
                       text: 'Mobile number',
-                      controller: phoneNubmerController,
+                      controller: _phoneNubmerController,
                     ),
                     const SizedBox(
                       height: 16,
@@ -109,7 +113,7 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                     ),
                     CreateCarField(
                       text: 'Email',
-                      controller: emailController,
+                      controller: _emailController,
                     ),
                     const SizedBox(
                       height: 39,
@@ -149,15 +153,15 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 39,
                     ),
-                    const CheckBoxWidget(text: 'Any car accidents'),
-                    const SizedBox(
-                      height: 16,
-                    ),
                     const CheckBoxWidget(text: 'GCC'),
                     const SizedBox(
                       height: 16,
                     ),
-                    const CheckBoxWidget(text: 'Any car accidents'),
+                    const CheckBoxWidget(text: 'No accident'),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const CheckBoxWidget(text: 'Full service history'),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 10,
                     ),

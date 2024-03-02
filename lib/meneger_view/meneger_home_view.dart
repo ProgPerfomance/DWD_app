@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/master_view/booking_master_view.dart';
-import 'package:untitled1/meneger_view/manager_chat_view.dart';
 import 'package:untitled1/meneger_view/manager_sell_car.dart';
 import 'package:untitled1/meneger_view/manager_servises_view.dart';
 import 'package:untitled1/meneger_view/meneger_booking_view.dart';
 import 'package:untitled1/meneger_view/meneger_catalog_view.dart';
-
 import 'package:untitled1/view/chat/chat_list_view.dart';
+
 
 List screens = [
   const MenegerCarCatalogView(),
   const ManagerSellCar(),
   const ManagerServiceView(),
-  const ManagerChatListView(),
+  const ChatListView(),
   const BookingManagerView(),
 ];
 int selectedScreen = 0;

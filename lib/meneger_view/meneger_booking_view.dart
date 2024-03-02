@@ -9,12 +9,12 @@ import 'package:untitled1/meneger_view/meneger_profile_view.dart';
 
 bool newList = false;
 
-class BookingManagerView extends GetView<MasterBookingConroller> {
+class BookingManagerView extends GetView<MasterBookingController> {
   const BookingManagerView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(MasterBookingConroller());
+    Get.put(MasterBookingController());
     controller.getMasterBookingList();
 
     return Scaffold(
@@ -40,7 +40,10 @@ class BookingManagerView extends GetView<MasterBookingConroller> {
                         builder: (context) => const MenegerProfileView()),
                   );
                 },
-                child: Image.asset('assets/testava.png')),
+              child: const CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              ),),
           ),
         ],
       ),
@@ -54,7 +57,7 @@ class BookingManagerView extends GetView<MasterBookingConroller> {
             children: [
               GestureDetector(
                 onTap: () {
-                  controller.getMasterBookingList();
+                  controller.getManagerBookingList();
                   newList = false;
                 },
                 child: Container(

@@ -8,12 +8,12 @@ import 'package:untitled1/master_view/master_profile.dart';
 
 bool newList = false;
 
-class BookingMasterView extends GetView<MasterBookingConroller> {
+class BookingMasterView extends GetView<MasterBookingController> {
   const BookingMasterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.put(MasterBookingConroller());
+    Get.put(MasterBookingController());
     controller.getMasterBookingList();
 
     return Scaffold(

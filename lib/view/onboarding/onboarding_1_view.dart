@@ -72,7 +72,7 @@ class Onboarding1View extends StatelessWidget {
                 fontWeight: FontWeight.w900,
               ),)),
               const SizedBox(height: 24,),
-              Center(child: Text('You can easily find and buy a perfect car in DWD App',textAlign: TextAlign.center,
+              Center(child: Text('Where you can see our inventory of used cars or even request us to find your dream car',textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,

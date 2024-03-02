@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 import 'package:untitled1/domain/sell_car_request.dart';
 import 'package:untitled1/view/servise/select_car_booking_view.dart';
 import '../profile/create_car_view.dart';
 
-TextEditingController userNameController = TextEditingController();
-TextEditingController emailController = TextEditingController();
-TextEditingController phoneNubmerController = TextEditingController();
+TextEditingController _userNameController = TextEditingController();
+TextEditingController _emailController = TextEditingController();
+TextEditingController _phoneNubmerController = TextEditingController();
 
 class ConsignmentView extends GetView<GetUserCars> {
   const ConsignmentView({super.key});
@@ -16,6 +17,9 @@ class ConsignmentView extends GetView<GetUserCars> {
   @override
   Widget build(BuildContext context) {
     Get.put(GetUserCars());
+    _userNameController.text = userModel?.name;
+    _emailController.text  = userModel?.email;
+    _phoneNubmerController.text = userModel?.phone;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -74,7 +78,7 @@ class ConsignmentView extends GetView<GetUserCars> {
                     ),
                     CreateCarField(
                       text: 'Owner name',
-                      controller: userNameController,
+                      controller: _userNameController,
                     ),
                     const SizedBox(
                       height: 16,
@@ -91,7 +95,7 @@ class ConsignmentView extends GetView<GetUserCars> {
                     ),
                     CreateCarField(
                       text: 'Mobile number',
-                      controller: phoneNubmerController,
+                      controller: _phoneNubmerController,
                     ),
                     const SizedBox(
                       height: 16,
@@ -108,7 +112,7 @@ class ConsignmentView extends GetView<GetUserCars> {
                     ),
                     CreateCarField(
                       text: 'Email',
-                      controller: emailController,
+                      controller: _emailController,
                     ),
                     const SizedBox(
                       height: 39,
@@ -130,7 +134,7 @@ class ConsignmentView extends GetView<GetUserCars> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        SelectCarBookingView(sell: true)));
+                                        const SelectCarBookingView(sell: true)));
                           },
                           child: Obx(
                             () => Text(
@@ -147,22 +151,22 @@ class ConsignmentView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 39,
                     ),
-                    const CheckBoxWidget(text: 'Any car accidents'),
-                    const SizedBox(
-                      height: 16,
-                    ),
                     const CheckBoxWidget(text: 'GCC'),
                     const SizedBox(
                       height: 16,
                     ),
-                    const CheckBoxWidget(text: 'Any car accidents'),
+                    const CheckBoxWidget(text: 'No accident'),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const CheckBoxWidget(text: 'Full service history'),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 10,
                     ),
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          sellCarRequest(uid: 1, cid: 2, owner_name: userNameController.text, owner_email: emailController.text, owner_phone: phoneNubmerController.text, gcc: true, servise_history: true, any_car_accidents: true);
+                          sellCarRequest(uid: 1, cid: 2, owner_name: _userNameController.text, owner_email: _emailController.text, owner_phone: _phoneNubmerController.text, gcc: true, servise_history: true, any_car_accidents: true);
                           Navigator.pop(context);
                         },
                         child: Container(
@@ -199,7 +203,7 @@ class ConsignmentView extends GetView<GetUserCars> {
 bool press = false;
 
 class CheckBoxWidget extends StatefulWidget {
-  final text;
+  final String text;
   const CheckBoxWidget({super.key, required this.text});
   @override
   State<CheckBoxWidget> createState() => _CheckBoxWidgetState();

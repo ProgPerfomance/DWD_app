@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/controller/chat_controller.dart';
 
 import '../../../domain/auth_user_domain.dart';
 import '../../home_view.dart';
@@ -11,12 +14,12 @@ TextEditingController _emailContoller = TextEditingController();
 TextEditingController _phoneController = TextEditingController();
 TextEditingController _passwordController = TextEditingController();
 
-class RegistrationView extends StatelessWidget {
+class RegistrationView extends GetView<AuthController> {
   const RegistrationView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final readModel = context.read<AuthUser>();
+    Get.put(AuthController());
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -79,6 +82,9 @@ class RegistrationView extends StatelessWidget {
                   style: const TextStyle(
                     color: Color(0xffffffff),
                   ),
+                  inputFormatters: [
+                    MaskedInputFormatter('+### (##) ###-##-##')
+                  ],
                   controller: _phoneController,
                   decoration: InputDecoration(
                     filled: true,
@@ -179,17 +185,45 @@ class RegistrationView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    print(_emailContoller.text);
-                    readModel.createUser(
-                      password_hash: _passwordController.text,
-                      phone: _phoneController.text,
-                      email: _emailContoller.text,
-                      name: _nameController.text,
-                    );
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeView()));
+                    if(_emailContoller.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Email field is empty'),
+                        ),
+                      );}
+                      else if(_passwordController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Password field is empty'),
+                        ),
+                      );
+                    }
+                    else if(_nameController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Name field is empty'),
+                        ),
+                      );
+                    }
+                    else if(_phoneController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Phone field is empty'),
+                        ),
+                      );
+                    }
+                    else {
+                      controller.createUser(
+                        password_hash: _passwordController.text,
+                        phone: _phoneController.text,
+                        email: _emailContoller.text,
+                        name: _nameController.text,
+                      );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeView()));
+                    }
                   },
                   child: Container(
                     height: 52,

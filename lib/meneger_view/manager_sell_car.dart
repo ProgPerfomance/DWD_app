@@ -36,7 +36,10 @@ class ManagerSellCar extends GetView<SellCarManagerController> {
                         builder: (context) => const MenegerProfileView()),
                   );
                 },
-                child: Image.asset('assets/testava.png')),
+              child: const CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              ),),
           ),
         ],
       ),

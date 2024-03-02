@@ -1,10 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:untitled1/master_view/master_profile.dart';
-import 'package:untitled1/view/onboarding/onboarding_1_view.dart';
-import 'domain/auth_user_domain.dart';
-
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:untitled1/splash_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -14,12 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => AuthUser()),
-    ], child: const MaterialApp(
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  Onboarding1View(),
-    ));
+      home:  SplashScreen(),
+    );
   }
 
 }

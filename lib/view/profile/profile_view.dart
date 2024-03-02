@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, invalid_use_of_protected_member
+// ignore_for_file: prefer_typing_uninitialized_variables, invalid_use_of_protected_member, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/domain/get_user_info.dart';
+import 'package:untitled1/view/onboarding/onboarding_1_view.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 import 'car_list_view.dart';
@@ -17,7 +19,7 @@ class ProfileView extends GetView<UserInfoController> {
   Widget build(BuildContext context) {
     // final user = context.watch<AuthController>();
     Get.put(UserInfoController());
-    controller.getUserInfo('2');
+    controller.getUserInfo(userModel!.uid);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -40,7 +42,10 @@ class ProfileView extends GetView<UserInfoController> {
               const SizedBox(
                 height: 24,
               ),
-              Center(child: Image.asset('assets/avatargrad.png')),
+              const Center(child:CircleAvatar(
+                radius: 45,
+                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              ),),
               const SizedBox(
                 height: 16,
               ),
@@ -138,7 +143,7 @@ class ProfileView extends GetView<UserInfoController> {
                     const SizedBox(
                       height: 24,
                     ),
-                    const IconAndTextWidget(
+                     IconAndTextWidget(
                       icon: 'assets/icons/change_name.svg',
                       text: 'Change account name',
                     ),
@@ -149,7 +154,7 @@ class ProfileView extends GetView<UserInfoController> {
                       onTap: () {
                         //      Get.bottomSheet(Container());
                       },
-                      child: const IconAndTextWidget(
+                      child:  IconAndTextWidget(
                         icon: 'assets/icons/change_photo.svg',
                         text: 'Change account image',
                       ),
@@ -157,14 +162,14 @@ class ProfileView extends GetView<UserInfoController> {
                     const SizedBox(
                       height: 24,
                     ),
-                    const IconAndTextWidget(
+                     IconAndTextWidget(
                       icon: 'assets/icons/change_language.svg',
                       text: 'Change account language',
                     ),
                     const SizedBox(
                       height: 24,
                     ),
-                    const IconAndTextWidget(
+                     IconAndTextWidget(
                       icon: 'assets/icons/delete_account.svg',
                       text: 'Delete account',
                     ),
@@ -187,7 +192,7 @@ class ProfileView extends GetView<UserInfoController> {
                         var url = Uri.parse('https://dubaiwd.com/');
                         //     launchUrl(url); //https://www.facebook.com/DubaiWD/about
                       },
-                      child: const IconAndTextWidget(
+                      child:  IconAndTextWidget(
                         icon: 'assets/icons/about_ass.svg',
                         text: 'About us',
                       ),
@@ -201,7 +206,7 @@ class ProfileView extends GetView<UserInfoController> {
                             'https://www.facebook.com/DubaiWD/about'); //info@dubaiwd.com
                         //    launchUrl(url); //
                       },
-                      child: const IconAndTextWidget(
+                      child:  IconAndTextWidget(
                         icon: 'assets/icons/faqsvg.svg',
                         text: 'FAQ',
                       ),
@@ -215,7 +220,7 @@ class ProfileView extends GetView<UserInfoController> {
                             'https://info@dubaiwd.com'); //info@dubaiwd.com
                         //  launchUrl(url); //
                       },
-                      child: const IconAndTextWidget(
+                      child:  IconAndTextWidget(
                         icon: 'assets/icons/help_feedback.svg',
                         text: 'Help & Feedback',
                       ),
@@ -223,13 +228,25 @@ class ProfileView extends GetView<UserInfoController> {
                     const SizedBox(
                       height: 24,
                     ),
-                    const IconAndTextWidget(
+                     IconAndTextWidget(
                       icon: 'assets/icons/support_us.svg',
                       text: 'Support Us',
                     ),
                     const SizedBox(
                       height: 24,
                     ),
+                     GestureDetector(
+                       onTap: ()async {
+                         FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
+                          await flutterSecureStorage.delete(key: 'uid');
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const Onboarding1View()), (route) => false);
+                       },
+                       child: IconAndTextWidget(
+                        icon: 'assets/icons/meneger_logout.svg',
+                        text: 'Log out',
+                        color: Colors.red,
+                                           ),
+                     ),
                   ],
                 ),
               )
@@ -244,7 +261,8 @@ class ProfileView extends GetView<UserInfoController> {
 class IconAndTextWidget extends StatelessWidget {
   final icon;
   final text;
-  const IconAndTextWidget({super.key, required this.icon, required this.text});
+  Color? color;
+  IconAndTextWidget({super.key, required this.icon, required this.text, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -260,10 +278,10 @@ class IconAndTextWidget extends StatelessWidget {
         ),
         Text(
           text,
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
-              color: Color(0xffffffff)),
+              color: color ?? Colors.white),
         ),
 //'Change account name' 'assets/changename.png'
       ],

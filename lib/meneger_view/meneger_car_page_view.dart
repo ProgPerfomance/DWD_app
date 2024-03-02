@@ -149,54 +149,6 @@ class MenegerCarPageView extends GetView<GetCarInfoController> {
                     const SizedBox(
                       height: 24,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: const Color(0xff40CC46),
-                            ),
-                            height: 60,
-                            width: MediaQuery.of(context).size.width / 2 - 33,
-                            child: const Center(
-                              child: Text(
-                                'CALL',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color(0xffffffff)),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 24,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: const Color(0xff8875FF),
-                            ),
-                            height: 60,
-                            width: MediaQuery.of(context).size.width / 2 - 33,
-                            child: const Center(
-                              child: Text(
-                                'CHAT',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color(0xffffffff)),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
                     const Text(
                       'Car info',
                       style: TextStyle(
@@ -217,15 +169,15 @@ class MenegerCarPageView extends GetView<GetCarInfoController> {
                     TextCascadeWidget(
                         field: 'Transmission:',
                         parametr: transmission.toString()),
-                    TextCascadeWidget(
-                        field: 'Steering wheel:',
-                        parametr: steeringWheel.toString()),
+                    // TextCascadeWidget(
+                    //     field: 'Steering wheel:',
+                    //     parametr: steeringWheel.toString()),
                     TextCascadeWidget(
                         field: 'Motors Trim:', parametr: motorsTrim.toString()),
                     TextCascadeWidget(
                         field: 'Body:', parametr: body.toString()),
-                    TextCascadeWidget(
-                        field: 'State:', parametr: state.toString()),
+                    // TextCascadeWidget(
+                    //     field: 'State:', parametr: state.toString()),
                     TextCascadeWidget(field: 'Guarantee:', parametr: guarantee),
                     TextCascadeWidget(
                         field: 'Service contract:', parametr: serviceContract),

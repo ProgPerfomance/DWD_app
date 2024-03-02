@@ -31,7 +31,10 @@ class SellCarView extends StatelessWidget {
                         builder: (context) => const ProfileView()),
                   );
                 },
-                child: Image.asset('assets/testava.png')),
+              child: const CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              ),),
           ),
         ],
       ),
@@ -82,7 +85,7 @@ class SellCarView extends StatelessWidget {
                               height: 16,
                             ),
                             Text(
-                              'Letting us sell your car for you. You pay us a nominal fee and we handle every aspect of the sale on your behalf. Listing, selling, shipping.',
+                              'We sell your car on your behalf, against a fixed fee and we handle every aspect of the sale on your behalf, listing, documentation, viewing and detailing if needed',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -171,7 +174,7 @@ class SellCarView extends StatelessWidget {
                               height: 16,
                             ),
                             Text(
-                              'We will evaluate the car 360 and offer the best price for the purchase of your car. You can get this money quickly and not wait for the final buyer.',
+                              'We will evaluate your car and offer the best price, we pay you direct and in cash on the spot',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,

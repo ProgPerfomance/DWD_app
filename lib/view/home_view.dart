@@ -28,7 +28,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
-   UserInfoController().getUserInfo(AuthUser().uid);
+   UserInfoController().getUserInfo(userModel!.uid);
     super.initState();
   }
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svg_flutter/svg.dart';
 
 class ManagerSellCarInfo extends StatelessWidget {
   final String? ownerName;
@@ -21,6 +22,7 @@ class ManagerSellCarInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xff121212),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -33,7 +35,9 @@ class ManagerSellCarInfo extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: const Text(
                         'Back',
                         style: TextStyle(
@@ -57,11 +61,44 @@ class ManagerSellCarInfo extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 24,),
-              Text('Client details'),
-              Text(ownerName.toString()),
-              Text(ownerPhone.toString()),
-              Text(ownerEmail.toString()),
+              const SizedBox(height: 24,),
+              const Text('Client details',),
+              const SizedBox(height: 24,),
+              Row(
+                children: [
+                  SvgPicture.asset('assets/icons/person.svg'),
+                  const SizedBox(width: 4,),
+                  Text(ownerName.toString(),style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),),
+                ],
+              ),
+              const SizedBox(height: 4,),
+              Row(
+                children: [
+                  SvgPicture.asset('assets/icons/phone.svg'),
+                  const SizedBox(width: 4,),
+                  Text(ownerPhone.toString(),style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),),
+                ],
+              ),
+              const SizedBox(height: 4,),
+              Row(
+                children: [
+                  SvgPicture.asset('assets/icons/email.svg'),
+                  const SizedBox(width: 4,),
+                  Text(ownerEmail.toString(),style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),),
+                ],
+              ),
             ],
           ),
         ),

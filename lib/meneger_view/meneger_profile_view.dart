@@ -1,5 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:svg_flutter/svg.dart';
+
+import '../view/onboarding/onboarding_1_view.dart';
 
 class MenegerProfileView extends StatelessWidget {
   const MenegerProfileView({super.key});
@@ -30,7 +35,12 @@ class MenegerProfileView extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
-              Center(child: Image.asset('assets/avatargrad.png')),
+       const Center(
+         child: CircleAvatar(
+              radius: 45,
+              backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+            ),
+       ),
               const SizedBox(
                 height: 16,
               ),
@@ -146,10 +156,17 @@ class MenegerProfileView extends StatelessWidget {
                     const SizedBox(
                       height: 24,
                     ),
-                    const IconAndTextWidget(
-                      color: Colors.red,
-                      icon: 'assets/icons/meneger_logout.svg',
-                      text: 'Log out',
+                    GestureDetector(
+                      onTap: ()async {
+                         FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
+                         await flutterSecureStorage.delete(key: 'uid');
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const Onboarding1View()), (route) => false);
+                      },
+                      child: const IconAndTextWidget(
+                        color: Colors.red,
+                        icon: 'assets/icons/meneger_logout.svg',
+                        text: 'Log out',
+                      ),
                     ),
                     const SizedBox(
                       height: 24,

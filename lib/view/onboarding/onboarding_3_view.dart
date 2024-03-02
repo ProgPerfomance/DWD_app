@@ -77,7 +77,7 @@ class Onboarding3View extends StatelessWidget {
               ),
               Center(
                   child: Text(
-                'Find a service',
+                'Service your car',
                 style: TextStyle(
                   color: const Color(0xffffffff).withOpacity(0.87),
                   fontSize: 32,
@@ -89,7 +89,7 @@ class Onboarding3View extends StatelessWidget {
               ),
               Center(
                   child: Text(
-                'Find the best services in Dubai for your car and instantly make an appointment',
+                'Find the service needed for your car from our approved garages and book instantly',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.w400,

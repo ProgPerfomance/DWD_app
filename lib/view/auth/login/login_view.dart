@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/master_view/master_home.dart';
 import 'package:untitled1/meneger_view/meneger_home_view.dart';
@@ -12,12 +13,12 @@ import '../registration/registration_view.dart';
 TextEditingController _emailController = TextEditingController();
 TextEditingController _passwordController = TextEditingController();
 
-class LoginView extends StatelessWidget {
+class LoginView extends GetView<AuthController> {
   const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final authModel = context.read<AuthUser>();
+    Get.put(AuthController());
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -147,26 +148,28 @@ class LoginView extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height / 3.3),
                 GestureDetector(
                   onTap: () async {
-                    var check = await authModel.authUser(
+                    var check = await controller.authUser(
                       password_hash: _passwordController.text,
                       email_or_phone: _emailController.text,
                     );
-                    if (_emailController.text == 'jek') {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MasterHomeView()),
-                          (route) => false);
-                    } else if (_emailController.text == 'admin') {
-                      MaterialPageRoute(
-                          builder: (context) => const MenegerHomeView());
-                      (route) => false;
-                    } else {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MenegerHomeView()),
-                          (route) => false);
+                    if (check.rules != -1) {
+                      switch(check.rules) {
+                        case 0:
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeView()));
+                        case 3:
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const MenegerHomeView()));
+                          print('manager');
+                        case 1:
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const MasterHomeView()));
+                          print('master');
+                      }
+                    }
+                    else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Неверный логин или пароль'),
+                        ),
+                      );
                     }
                   },
                   child: Container(

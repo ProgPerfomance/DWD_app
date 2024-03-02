@@ -36,7 +36,10 @@ class BookingListView extends GetView<BookingController> {
                         builder: (context) => const ProfileView()),
                   );
                 },
-                child: Image.asset('assets/testava.png')),
+              child: const CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              ),),
           ),
         ],
       ),

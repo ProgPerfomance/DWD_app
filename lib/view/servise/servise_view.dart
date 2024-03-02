@@ -23,14 +23,17 @@ class ServiseView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ProfileView()),
-                  );
-                },
-                child: Image.asset('assets/testava.png')),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfileView()),
+                );
+              },
+              child: const CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              ),
+            ),
           ),
         ],
       ),
@@ -108,7 +111,7 @@ class ServiseView extends StatelessWidget {
                                         height: 8,
                                       ),
                                       const Text(
-                                        '39\$',
+                                        '39 AED',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w900,
                                           fontSize: 18,
@@ -118,10 +121,11 @@ class ServiseView extends StatelessWidget {
                                         height: 8,
                                       ),
                                       Stack(
+                                        alignment: AlignmentDirectional.center,
                                         children: [
                                           Image.asset('assets/line.png'),
                                           Text(
-                                            'was 49\$',
+                                            'was 49 AED',
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w400,
@@ -147,7 +151,7 @@ class ServiseView extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: Text(
-                    'All service',
+                    'Service',
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 18,
@@ -180,7 +184,7 @@ class ServiseView extends StatelessWidget {
                         id: 2,
                       ),
                       ServiceButton(
-                        text: 'Wheels',
+                        text: 'Wheels and\ntires',
                         icon: 'assets/icons/general2.svg',
                         id: 3,
                       ),
@@ -257,21 +261,25 @@ class ServiseView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width-24,
+                    width: MediaQuery.of(context).size.width - 24,
                     height: 51,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: const Color(0xff363636)
-                    ),
+                        borderRadius: BorderRadius.circular(5),
+                        color: const Color(0xff363636)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset('assets/icons/urgent_car.svg'),
-                        const SizedBox(width: 8,),
-                        const Text('Urgent Call',style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.red,
-                        ),)
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        const Text(
+                          'SOS service',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.red,
+                          ),
+                        )
                       ],
                     ),
                   ),

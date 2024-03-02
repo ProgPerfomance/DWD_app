@@ -13,7 +13,6 @@ class CarCatalogView extends GetView<GetCarList> {
   const CarCatalogView({super.key});
 
   @override
-
   Widget build(BuildContext context) {
     Get.put(GetCarList());
     controller.getCarList();
@@ -39,7 +38,10 @@ class CarCatalogView extends GetView<GetCarList> {
                         builder: (context) => const ProfileView()),
                   );
                 },
-                child: Image.asset('assets/testava.png')),
+              child: const CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              ),),
           ),
         ],
       ),
@@ -50,93 +52,6 @@ class CarCatalogView extends GetView<GetCarList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 29,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xff363636),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                height: 89,
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Brand, Model',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: SvgPicture.asset(
-                              'assets/icons/buy_car.svg',
-                              height: 18,
-                              width: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 13,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Container(
-                          height: 0.5,
-                          width: MediaQuery.of(context).size.width,
-                          color: const Color(0xff979797),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Options',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: SvgPicture.asset(
-                              'assets/icons/options.svg',
-                              height: 18,
-                              width: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              const Text(
-                'Personal for you',
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 18,
-                  color: Color(0xffffffff),
-                ),
-              ),
               const SizedBox(
                 height: 24,
               ),
@@ -168,116 +83,149 @@ class CarCatalogView extends GetView<GetCarList> {
               const SizedBox(
                 height: 24,
               ),
+              const Text(
+                'Personal for you',
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 18,
+                  color: Color(0xffffffff),
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height - 437,
-                child: Obx( () =>
-                 GridView.count(
+                child: Obx(
+                  () => GridView.count(
                     primary: false,
                     //   padding: const EdgeInsets.all(20),
                     crossAxisSpacing: 18,
                     mainAxisSpacing: 30,
                     crossAxisCount: 2,
                     childAspectRatio: (100 / 129),
-                    children: controller.cars.value.length < 2 ? [const CircularProgressIndicator(),const CircularProgressIndicator()] :
-
-                    List.generate(controller.cars.value.length, (index) {
-                      var item = controller.cars.value[index];
-                                List<int> img =[];
-                                List.generate(item['images'].length, (ind) {
-                        img.add(item['images'][ind]);
-                      });
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CarPageView(
-                                        liked: item['liked'],
-                                        transmission: item['transmission']
-                                            .toString(),
-                                        serviceContract: item[
-                                            'service_contact'],
-                                        name: item['name']
-                                            .toString(),
-                                        price_usd: item['price_usd'].toString(),
-                                        price_aed: item['price_aed'].toString(),
-                                        kilometrs: item['killometers']
-                                            .toString(),
-                                        year: item['year'].toString(),
-                                        body: item['body']
-                                            .toString(),
-                                        state: item['state']
-                                            .toString(),
-                                        motorsTrim: item['motor_trim']
-                                            .toString(),
-                                        guarantee: item['guarantee']
-                                            .toString(),
-                                        steeringWheel: item['steering_whell']
-                                            .toString(),
-                                        regionalSpecs: item[
-                                            'regional_specs'],
-                                        color: item['color']
-                                            .toString(),
-                                    id: item['id'],
-                                      )));
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-
-                      Stack(
-                        children: [
-
-                          Image.memory(Uint8List.fromList(img), height: 130,fit: BoxFit.fill,width: MediaQuery.of(context).size.width /2,),
-                          Positioned(
-                            right: 8,
-                              top: 3.5,
-                              child: GestureDetector(
-                                onTap: () {
-                                  item['liked'] == 'false' ?          controller.likeCar(item['id'], AuthUser().uid) : controller.dislikeCar(item['like_id']);
-                                },
-                                  child: item['liked'] == 'false' ? SvgPicture.asset('assets/icons/unlike.svg',height: 20,width: 20,) : SvgPicture.asset('assets/icons/like.svg',height: 20,width: 20,))),
-                        ],
-                      ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              '${item['price_aed']} AED '
-                                  .toString(), //anketss['price_euro'].toString(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xffffffff),
+                    children: controller.cars.value.length < 2
+                        ? [
+                            const CircularProgressIndicator(),
+                            const CircularProgressIndicator()
+                          ]
+                        : List.generate(controller.cars.value.length, (index) {
+                            var item = controller.cars.value[index];
+                            List<int> img = [];
+                            List.generate(item['images'].length, (ind) {
+                              img.add(item['images'][ind]);
+                            });
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CarPageView(
+                                              liked: item['liked'],
+                                              transmission: item['transmission']
+                                                  .toString(),
+                                              serviceContract:
+                                                  item['service_contact'],
+                                              name: item['name'].toString(),
+                                              price_usd:
+                                                  item['price_usd'].toString(),
+                                              price_aed:
+                                                  item['price_aed'].toString(),
+                                              kilometrs: item['killometers']
+                                                  .toString(),
+                                              year: item['year'].toString(),
+                                              body: item['body'].toString(),
+                                              state: item['state'].toString(),
+                                              motorsTrim:
+                                                  item['motor_trim'].toString(),
+                                              guarantee:
+                                                  item['guarantee'].toString(),
+                                              steeringWheel:
+                                                  item['steering_whell']
+                                                      .toString(),
+                                              regionalSpecs:
+                                                  item['regional_specs'],
+                                              color: item['color'].toString(),
+                                              id: item['id'],
+                                            )));
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Stack(
+                                    children: [
+                                      Image.memory(
+                                        Uint8List.fromList(img),
+                                        height: 130,
+                                        fit: BoxFit.fill,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                      ),
+                                      Positioned(
+                                          right: 8,
+                                          top: 3.5,
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                item['liked'] == 'false'
+                                                    ? controller.likeCar(
+                                                        item['id'],
+                                                        userModel!.uid)
+                                                    : controller.dislikeCar(
+                                                        item['like_id']);
+                                              },
+                                              child: item['liked'] == 'false'
+                                                  ? SvgPicture.asset(
+                                                      'assets/icons/unlike.svg',
+                                                      height: 20,
+                                                      width: 20,
+                                                    )
+                                                  : SvgPicture.asset(
+                                                      'assets/icons/like.svg',
+                                                      height: 20,
+                                                      width: 20,
+                                                    ))),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    '${item['price_aed']} AED '
+                                        .toString(), //anketss['price_euro'].toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: Color(0xffffffff),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    item['name'].toString(), // anketss['name'],
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                      color: Color(0xffffffff),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    // '${item['year']}, ${item['killometers']}',
+                                    '2003, ${item['killometers']}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 13,
+                                      color: Color(0xff7A7A7A),
+                                    ),
+                                  )
+                                ],
                               ),
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              item['name'].toString(), // anketss['name'],
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14,
-                                color: Color(0xffffffff),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                             // '${item['year']}, ${item['killometers']}',
-                              '2003, ${item['killometers']}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13,
-                                color: Color(0xff7A7A7A),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    }),
+                            );
+                          }),
                   ),
                 ),
               ),

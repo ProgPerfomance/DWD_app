@@ -3,6 +3,7 @@ import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_pic
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/booking_service_controller.dart';
+import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/domain/booking_domain.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 import 'package:untitled1/view/servise/select_car_booking_view.dart';
@@ -25,6 +26,9 @@ class BookServiceView extends GetView<GetUserCars> {
   @override
   Widget build(BuildContext context) {
     Get.put(GetUserCars());
+    _ownerNumberController.text = userModel?.phone;
+    _ownerEmailController.text = userModel?.email;
+    _ownerNameController.text = userModel?.name;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(

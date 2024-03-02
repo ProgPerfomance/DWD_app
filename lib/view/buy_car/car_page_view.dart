@@ -131,7 +131,7 @@ class CarPageView extends GetView<GetCarInfoController> {
                       height: 8,
                     ),
                     const Text(
-                      'cash or finance neg.',
+                      'Cash or finance',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -175,7 +175,7 @@ class CarPageView extends GetView<GetCarInfoController> {
                             width: MediaQuery.of(context).size.width / 2 - 33,
                             child: const Center(
                               child: Text(
-                                'CHAT',
+                                'Book for viewing',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -190,7 +190,7 @@ class CarPageView extends GetView<GetCarInfoController> {
                       height: 24,
                     ),
                     const Text(
-                      'Car info',
+                      'Car details',
                       style: TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 18,
@@ -209,16 +209,16 @@ class CarPageView extends GetView<GetCarInfoController> {
                     TextCascadeWidget(
                         field: 'Transmission:',
                         parametr: transmission.toString()),
-                    TextCascadeWidget(
-                        field: 'Steering wheel:',
-                        parametr: steeringWheel.toString()),
+                    // TextCascadeWidget(
+                    //     field: 'Steering wheel:',
+                    //     parametr: steeringWheel.toString()),
                     TextCascadeWidget(
                         field: 'Motors Trim:', parametr: motorsTrim.toString()),
                     TextCascadeWidget(
                         field: 'Body:', parametr: body.toString()),
-                    TextCascadeWidget(
-                        field: 'State:', parametr: state.toString()),
-                    TextCascadeWidget(field: 'Guarantee:', parametr: guarantee),
+                    // TextCascadeWidget(
+                    //     field: 'State:', parametr: state.toString()),
+                    TextCascadeWidget(field: 'Warranty:', parametr: guarantee),
                     TextCascadeWidget(
                         field: 'Service contract:', parametr: serviceContract),
                     const SizedBox(
