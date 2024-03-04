@@ -9,6 +9,7 @@ class ManagerSellCarInfo extends StatelessWidget {
   final String? year;
   final String? model;
   final String? brand;
+  final String? regNumber;
   const ManagerSellCarInfo(
       {super.key,
       required this.year,
@@ -17,7 +18,9 @@ class ManagerSellCarInfo extends StatelessWidget {
       required this.model,
       required this.brand,
       required this.carName,
-      required this.ownerPhone});
+      required this.ownerPhone,
+        required this.regNumber,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +65,17 @@ class ManagerSellCarInfo extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24,),
-              const Text('Client details',),
+              const Text('Client details',
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 13,
+                color: Colors.white,
+              ),),
               const SizedBox(height: 24,),
               Row(
                 children: [
                   SvgPicture.asset('assets/icons/person.svg'),
-                  const SizedBox(width: 4,),
+                  const SizedBox(width: 5,),
                   Text(ownerName.toString(),style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -75,11 +83,11 @@ class ManagerSellCarInfo extends StatelessWidget {
                   ),),
                 ],
               ),
-              const SizedBox(height: 4,),
+              const SizedBox(height: 8,),
               Row(
                 children: [
                   SvgPicture.asset('assets/icons/phone.svg'),
-                  const SizedBox(width: 4,),
+                  const SizedBox(width: 5,),
                   Text(ownerPhone.toString(),style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -87,16 +95,32 @@ class ManagerSellCarInfo extends StatelessWidget {
                   ),),
                 ],
               ),
-              const SizedBox(height: 4,),
+              const SizedBox(height: 8,),
               Row(
                 children: [
                   SvgPicture.asset('assets/icons/email.svg'),
-                  const SizedBox(width: 4,),
-                  Text(ownerEmail.toString(),style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),),
+                  const SizedBox(width: 5,),
+                  Text(ownerEmail.toString(),style: _style),
+                ],
+              ),
+              const SizedBox(height: 8,),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SvgPicture.asset('assets/icons/car.svg'),
+                  const SizedBox(width: 5,),
+                 Column(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Text('Name: $carName',
+                     style: _style,),
+                     Text('Brand: $brand',style: _style,),
+                     Text('Model: $model',style: _style,),
+                     Text('Year: $year',style: _style,),
+                     Text('Reg number: $regNumber',style: _style,),
+                   ],
+                 )
                 ],
               ),
             ],
@@ -106,3 +130,10 @@ class ManagerSellCarInfo extends StatelessWidget {
     );
   }
 }
+
+
+TextStyle _style =  const TextStyle(
+color: Colors.white,
+fontSize: 16,
+fontWeight: FontWeight.w400,
+);

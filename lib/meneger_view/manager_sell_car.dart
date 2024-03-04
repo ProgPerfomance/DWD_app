@@ -69,7 +69,7 @@ class ManagerSellCar extends GetView<SellCarManagerController> {
                     var item = controller.carList[index];
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ManagerSellCarInfo(year: item['year'], ownerEmail: item['owner_email'], ownerName: item['owner_name'], model: item['model'], brand: item['brand'], carName: item['name'], ownerPhone: item['owner_phone'])));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ManagerSellCarInfo(year: item['year'], ownerEmail: item['owner_email'], ownerName: item['owner_name'], model: item['model'], brand: item['brand'], carName: item['name'], ownerPhone: item['owner_phone'], regNumber: item['car_reg'],)));
                       },
                       child: Column(
                         children: [

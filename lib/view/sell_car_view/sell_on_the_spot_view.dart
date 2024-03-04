@@ -17,6 +17,9 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
 
   @override
   Widget build(BuildContext context) {
+    bool gcc = false;
+    bool noAccident = false;
+    bool fullServiceHistory = false;
     Get.put(GetUserCars());
     _userNameController.text = userModel?.name;
     _emailController.text  = userModel?.email;
@@ -153,15 +156,15 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 39,
                     ),
-                    const CheckBoxWidget(text: 'GCC'),
+                    CheckBoxWidget(text: 'GCC', variable: 0,),
                     const SizedBox(
                       height: 16,
                     ),
-                    const CheckBoxWidget(text: 'No accident'),
+                    CheckBoxWidget(text: 'No accident', variable: 1,),
                     const SizedBox(
                       height: 16,
                     ),
-                    const CheckBoxWidget(text: 'Full service history'),
+                    CheckBoxWidget(text: 'Full service history', variable: 2,),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 10,
                     ),

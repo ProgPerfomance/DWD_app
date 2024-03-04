@@ -11,14 +11,19 @@ TextEditingController _userNameController = TextEditingController();
 TextEditingController _emailController = TextEditingController();
 TextEditingController _phoneNubmerController = TextEditingController();
 
+bool gcc = false;
+bool noAccident = false;
+bool fullServiceHistory = false;
+
 class ConsignmentView extends GetView<GetUserCars> {
   const ConsignmentView({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     Get.put(GetUserCars());
     _userNameController.text = userModel?.name;
-    _emailController.text  = userModel?.email;
+    _emailController.text = userModel?.email;
     _phoneNubmerController.text = userModel?.phone;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
@@ -134,7 +139,8 @@ class ConsignmentView extends GetView<GetUserCars> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const SelectCarBookingView(sell: true)));
+                                        const SelectCarBookingView(
+                                            sell: true)));
                           },
                           child: Obx(
                             () => Text(
@@ -151,22 +157,40 @@ class ConsignmentView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 39,
                     ),
-                    const CheckBoxWidget(text: 'GCC'),
+                    CheckBoxWidget(
+                      text: 'GCC',
+                      variable: 0,
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
-                    const CheckBoxWidget(text: 'No accident'),
+                    CheckBoxWidget(
+                      text: 'No accident',
+                      variable: 1,
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
-                    const CheckBoxWidget(text: 'Full service history'),
+                    CheckBoxWidget(
+                      text: 'Full service history',
+                      variable: 2,
+                    ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 10,
                     ),
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          sellCarRequest(uid: 1, cid: 2, owner_name: _userNameController.text, owner_email: _emailController.text, owner_phone: _phoneNubmerController.text, gcc: true, servise_history: true, any_car_accidents: true);
+                          sellCarRequest(
+                              uid: userModel!.uid,
+                              cid: 2,
+                              owner_name: _userNameController.text,
+                              owner_email: _emailController.text,
+                              owner_phone: _phoneNubmerController.text,
+                              gcc: gcc,
+                              servise_history: fullServiceHistory,
+                              any_car_accidents: noAccident);
+                          gcc =false;
                           Navigator.pop(context);
                         },
                         child: Container(
@@ -200,11 +224,11 @@ class ConsignmentView extends GetView<GetUserCars> {
   }
 }
 
-bool press = false;
-
 class CheckBoxWidget extends StatefulWidget {
   final String text;
-  const CheckBoxWidget({super.key, required this.text});
+  int variable;
+  var _variable = false;
+  CheckBoxWidget({super.key, required this.text, required this.variable});
   @override
   State<CheckBoxWidget> createState() => _CheckBoxWidgetState();
 }
@@ -216,10 +240,20 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
       children: [
         GestureDetector(
             onTap: () {
-              press = !press;
+              switch(widget.variable) {
+                case 0:
+                  gcc = !gcc;
+                 widget._variable = gcc;
+                case 1:
+                  noAccident = !noAccident;
+                  widget._variable = noAccident;
+                case 2:
+                  fullServiceHistory = !fullServiceHistory;
+                  widget._variable = fullServiceHistory;
+              }
               setState(() {});
             },
-            child: press == false
+            child: widget._variable == false
                 ? Container(
                     height: 24,
                     width: 24,
