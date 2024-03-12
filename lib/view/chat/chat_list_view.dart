@@ -57,7 +57,7 @@ class ChatListView extends GetView<ChatController> {
                         final item = controller.chats[index];
                        return GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatView(chatId: item['cid'],)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatView(chatId: item['cid'],opponentName: item['opponent_name'].toString(),)));
                         },
                         child: SizedBox(
                           child: Column(

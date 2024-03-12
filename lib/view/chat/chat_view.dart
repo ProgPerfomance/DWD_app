@@ -9,7 +9,9 @@ TextEditingController messageController = TextEditingController();
 
 class ChatView extends GetView<ChatController> {
   final chatId;
-  const ChatView({super.key, required this.chatId});
+  final opponentName;
+  const ChatView({super.key, required this.chatId,
+  required this.opponentName});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +21,9 @@ class ChatView extends GetView<ChatController> {
       appBar: AppBar(
         backgroundColor: const Color(0xff121212),
         centerTitle: true,
-        title: const Text(
-          'DWD',
-          style: TextStyle(
+        title: Text(
+          opponentName,
+          style: const TextStyle(
               fontWeight: FontWeight.w900,
               fontSize: 20,
               color: Color(0xffffffff)),
@@ -52,7 +54,7 @@ class ChatView extends GetView<ChatController> {
                  alignment:   item['uid'] == userModel!.uid ? Alignment.centerLeft : Alignment.centerRight,
 
                  child: Container(
-                    child: Text(item['msg_text'].toString(),style: TextStyle(
+                    child: Text(item['msg_text'].toString(),style: const TextStyle(
                       color: Colors.white,
                     ),),
                               ),

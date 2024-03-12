@@ -39,12 +39,14 @@ class AuthController extends GetxController {
     required phone,
     required email,
     required password_hash,
+    required rules,
   }) async {
    final response = await dio.post('http://63.251.122.116:2308/reguser', data: {
       'name': name.toString(),
       'password_hash': password_hash.toString(),
       'phone': phone.toString(),
       'email': email.toString(),
+     'rules': rules.toString(),
     });
    print(response.data);
    final data = jsonDecode(response.data);

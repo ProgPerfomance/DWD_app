@@ -214,6 +214,7 @@ class RegistrationView extends GetView<AuthController> {
                     }
                     else {
                       controller.createUser(
+                        rules: 0,
                         password_hash: _passwordController.text,
                         phone: _phoneController.text,
                         email: _emailContoller.text,

@@ -1,12 +1,8 @@
-
 import 'package:flutter/material.dart';
-import 'package:untitled1/meneger_view/manager_servises.dart';
-import 'package:untitled1/meneger_view/special_offers_models.dart';
-
+import 'package:untitled1/meneger_view/manager_services/all_garages.dart';
+import '../view/servise/open_sevise_view.dart';
 import '../view/servise/servise_view.dart';
 import 'meneger_profile_view.dart';
-
-
 
 class ManagerServiceView extends StatefulWidget {
   const ManagerServiceView({super.key});
@@ -49,209 +45,238 @@ class _ServiceViewState extends State<ManagerServiceView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const MenegerProfileView()),
+                        builder: (context) => const ManagerAllGarages()),
                   );
                 },
-                child: const Text('All garages',style: TextStyle(color: Color(0xff8875FF)),)),
+                child: const Text(
+                  'All garages',
+                  style: TextStyle(color: Color(0xff8875FF)),
+                )),
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 16),
+      body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 13, bottom: 35),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 35),
-                      child: Row(
-                        children: [
-                          Text("Special offers", style: middleLeadingStyle),
-                        ],
-                      ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: Text(
+                    'Special offers',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xffffffff),
                     ),
-                    Container(
-                      height: 140,
-                      child: ListView(
+                  ),
+                ),
+                const SizedBox(
+                  height: 34,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: SizedBox(
+                    height: 150,
+                    child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Wrap(
-                                spacing: 16,
-                                children: List.generate(
-                                  nameMajorService.length,
-                                  (index) => SizedBox(
-                                      height: 140,
-                                      width: 150,
-                                      child: ElevatedButton(
-                                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const GeneralRepairView())),
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStatePropertyAll<Color>(
-                                                    index == 0
-                                                        ? Colors.green
-                                                        : Colors.white),
-                                            shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
+                        itemCount: 33,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const OpenServiseView(
+                                              id: 0,
+                                              special: true,
+                                              title: 'Major Service',
+                                            )));
+                              },
+                              child: Container(
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: index == 0
+                                      ? const Color(0xff2B9129)
+                                      : Colors.white,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Major Service',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 24,
+                                          color: index == 0
+                                              ? const Color(0xffffffff)
+                                              : const Color(0xff8875FF),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      const Text(
+                                        '39 AED',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      Stack(
+                                        alignment: AlignmentDirectional.center,
+                                        children: [
+                                          Image.asset('assets/line.png'),
+                                          Text(
+                                            'was 49 AED',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w400,
+                                              color: index == 0
+                                                  ? const Color(0xffffffff)
+                                                  : const Color(0xff7A7A7A),
                                             ),
                                           ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 20),
-                                            child: Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Wrap(
-                                                  direction: Axis.vertical,
-                                                  spacing: 4,
-                                                  children: [
-                                                    Text(
-                                                      nameMajorService[index],
-                                                      style: index == 0
-                                                          ? firstBigLeadingStyle
-                                                          : bigLeadingStyle,
-                                                    ),
-                                                    Text(
-                                                      newMajorService[index],
-                                                      style: const TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          color: Colors.black),
-                                                    ),
-                                                    Text(
-                                                      lastMajorService[index],
-                                                      style: index == 0
-                                                          ? firstSmallLeadingStyle
-                                                          : smallLeadingStyle,
-                                                    )
-                                                  ],
-                                                )),
-                                          ))),
-                                )),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
                 ),
-              ),
-              const Column(
-                children: [
-                  SizedBox(
-                    height: 48,
+                const SizedBox(
+                  height: 48,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Text(
+                    'Service',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 18,
+                      color: Color(0xffffffff),
+                    ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Text(
-                      'All service',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 18,
-                        color: Color(0xffffffff),
+                ),
+                const SizedBox(
+                  height: 42,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ServiceButton(
+                        text: 'General\nrepair',
+                        icon: 'assets/icons/general_repair.svg',
+                        id: 0,
                       ),
-                    ),
+                      ServiceButton(
+                        text: 'Interval\nservice',
+                        icon: 'assets/icons/interval_service.svg',
+                        id: 1,
+                      ),
+                      ServiceButton(
+                        text: 'Recovery',
+                        icon: 'assets/icons/recovery.svg',
+                        id: 2,
+                      ),
+                      ServiceButton(
+                        text: 'Wheels and\ntires',
+                        icon: 'assets/icons/general2.svg',
+                        id: 3,
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 42,
+                ),
+                const SizedBox(
+                  height: 16,
+                ), //  text: 'General\nrepair','Interval\nservice', 'Gearbox\nrepair','Wheels','Brakes','Battery', 'AC repair', 'Wrapping &\nPPF',   text: 'Tinting', text: 'Detailing',
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ServiceButton(
+                        text: 'Brakes',
+                        icon: 'assets/icons/brakes.svg',
+                        id: 4,
+                      ),
+                      ServiceButton(
+                        text: 'Battery',
+                        icon: 'assets/icons/battary.svg',
+                        id: 5,
+                      ),
+                      ServiceButton(
+                        text: 'AC repair',
+                        icon: 'assets/icons/ac.svg',
+                        id: 6,
+                      ),
+                      ServiceButton(
+                        text: 'Wrapping &\nPPF',
+                        icon: 'assets/icons/ppf.svg',
+                        id: 7,
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ServiceButton(
-                          text: 'General\nrepair',
-                          icon: 'assets/icons/general_repair.svg',
-                          id: 0,
-                        ),
-                        ServiceButton(
-                          text: 'Interval\nservice',
-                          icon: 'assets/icons/interval_service.svg',
-                          id: 1,
-                        ),
-                        ServiceButton(
-                          text: 'Gearbox\nrepair',
-                          icon: 'assets/icons/gearbox.svg',
-                          id: 2,
-                        ),
-                        ServiceButton(
-                          text: 'Wheels',
-                          icon: 'assets/icons/general2.svg',
-                          id: 3,
-                        ),
-                      ],
-                    ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ServiceButton(
+                        text: 'Tinting',
+                        icon: 'assets/icons/tinting.svg',
+                        id: 8,
+                      ),
+                      ServiceButton(
+                        text: 'Detailing',
+                        icon: 'assets/icons/detaling.svg',
+                        id: 9,
+                      ),
+                      ServiceButton(
+                        text: 'Insurance',
+                        icon: 'assets/icons/insurance.svg',
+                        id: 8,
+                      ),
+                      ServiceButton(
+                        text: 'Car Rent',
+                        icon: 'assets/icons/carrent.svg',
+                        id: 8,
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 16,
-                  ), //  text: 'General\nrepair','Interval\nservice', 'Gearbox\nrepair','Wheels','Brakes','Battery', 'AC repair', 'Wrapping &\nPPF',   text: 'Tinting', text: 'Detailing',
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ServiceButton(
-                          text: 'Brakes',
-                          icon: 'assets/icons/brakes.svg',
-                          id: 4,
-                        ),
-                        ServiceButton(
-                          text: 'Battery',
-                          icon: 'assets/icons/battary.svg',
-                          id: 5,
-                        ),
-                        ServiceButton(
-                          text: 'AC repair',
-                          icon: 'assets/icons/ac.svg',
-                          id: 6,
-                        ),
-                        ServiceButton(
-                          text: 'Wrapping &\nPPF',
-                          icon: 'assets/icons/ppf.svg',
-                          id: 7,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ServiceButton(
-                          text: 'Tinting',
-                          icon: 'assets/icons/tinting.svg',
-                          id: 8,
-                        ),
-                        SizedBox(
-                          width: 24,
-                        ),
-                        ServiceButton(
-                          text: 'Detailing',
-                          icon: 'assets/icons/detaling.svg',
-                          id: 9,
-                        ),
-                      ],
-                    ),
-                  ),
-          
-                ],
-              ),
-            ],
+                ),
+                const SizedBox(
+                  height: 73,
+                ),
+              ],
+            ),
           ),
         ),
       ),

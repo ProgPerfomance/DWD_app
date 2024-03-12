@@ -88,8 +88,14 @@ class ServiseView extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color: index == 0
-                                      ? const Color(0xff2B9129)
+                                      ? null
                                       : Colors.white,
+                                  gradient: index == 0 ? const LinearGradient(colors: [
+                                    Color(0xff8875FF),
+                                    Color(0xff40CC46)
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter):null,
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
