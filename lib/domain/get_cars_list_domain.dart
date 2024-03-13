@@ -12,10 +12,8 @@ class GetCarList extends GetxController {
   Future<void> getCarList() async {
     final response =
         await dio.post('http://63.251.122.116:2308/getcars', data: {
-      'id': '2',
+      'id': userModel!.uid.toString(),
     });
-    print(response.data);
-    log(response.data.toString());
     cars.value = jsonDecode(response.data);
     notifyChildrens();
     cars.refresh();
@@ -24,16 +22,20 @@ class GetCarList extends GetxController {
 
   Future<void> likeCar(pid, uid) async {
     dio.post('http://63.251.122.116:2308/likecar', data: {
-      'uid': uid,
-      'cid': pid,
+      'uid': uid.toString(),
+      'cid': pid.toString(),
     });
-    getCarList();
+   Future.delayed(const Duration(milliseconds: 35),() {
+     getCarList();
+   });
   }
 
   Future<void> dislikeCar(id) async {
     dio.post('http://63.251.122.116:2308/dislikecar', data: {
-      'id': id,
+      'id': id.toString(),
     });
-    getCarList();
+    Future.delayed(const Duration(milliseconds: 35),() {
+      getCarList();
+    });
   }
 }

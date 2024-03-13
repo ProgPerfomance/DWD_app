@@ -17,6 +17,7 @@ dependencies:
   get:
   svg_flutter:
   image_picker:
+  file_picker: ^4.0.0
   flutter_secure_storage:
   flutter_multi_formatter: ^2.12.1
 dev_dependencies:

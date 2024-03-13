@@ -221,7 +221,6 @@ class CarCatalogView extends GetView<GetCarList> {
                                         height: 4,
                                       ),
                                       Text(
-                                        // '${item['year']}, ${item['killometers']}',
                                         '2003, ${item['killometers']}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w400,

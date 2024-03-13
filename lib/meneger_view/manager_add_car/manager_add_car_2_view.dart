@@ -67,7 +67,7 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color(0xff7A7A7A), //0xff7A7A7A
+                          color: Color(0xff7A7A7A),
                         ),
                       ),
                     ),
