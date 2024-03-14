@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/domain/get_user_info.dart';
@@ -33,6 +34,7 @@ class _HomeViewState extends State<HomeView> {
   }
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       body: Stack(
         children: [
@@ -67,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               const SizedBox(height: 5.3,),
                               Text(
-                                'Buy',
+                                translate.buy,
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -96,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               const SizedBox(height: 5.3,),
                               Text(
-                                'Sell',
+                                translate.sell,
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -125,7 +127,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               const SizedBox(height: 5.3,),
                               Text(
-                                'Service',
+                                translate.service,
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -154,7 +156,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               const SizedBox(height: 5.3,),
                               Text(
-                                'Chat',
+                                translate.chat,
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -183,7 +185,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             const SizedBox(height: 5.3,),
                             Text(
-                              'Booking',
+                              translate.booking,
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,

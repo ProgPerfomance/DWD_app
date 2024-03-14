@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/get_car_info_controller.dart';
+import 'package:untitled1/server_routes.dart';
 
 class MenegerCarPageView extends GetView<GetCarInfoController> {
   final String name;
@@ -24,6 +25,8 @@ class MenegerCarPageView extends GetView<GetCarInfoController> {
   final String guarantee;
   final String year;
   final String serviceContract;
+  final String ccid;
+  final String description;
   const MenegerCarPageView(
       {super.key,
       required this.transmission,
@@ -41,7 +44,9 @@ class MenegerCarPageView extends GetView<GetCarInfoController> {
       required this.name,
       required this.year,
       required this.liked,
-      required this.id});
+      required this.id,
+        required this.description,
+      required this.ccid});
 
   @override
   Widget build(BuildContext context) {
@@ -50,74 +55,32 @@ class MenegerCarPageView extends GetView<GetCarInfoController> {
       controller.getCarInfo(id);
     });
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          centerTitle: true,
+          title: Text(
+            name,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
         backgroundColor: Colors.black,
         body: SafeArea(
             child: SingleChildScrollView(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset('assets/arrowleft.png')),
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xffffffff),
-                      ),
-                    ),
-                    SvgPicture.asset('assets/icons/upload.svg'),
-                    liked == 'false'
-                        ? GestureDetector(
-                            onTap: () {},
-                            child: SvgPicture.asset(
-                              'assets/icons/unlike.svg',
-                              height: 24,
-                              width: 24,
-                              color: Colors.white,
-                            ))
-                        : GestureDetector(
-                            onTap: () {},
-                            child: SvgPicture.asset(
-                              'assets/icons/like.svg',
-                              height: 24,
-                              width: 24,
-                            )),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
               SizedBox(
                 height: 244,
-                child: Obx(
-                  () => controller.images.value.isEmpty
-                      ? const CircularProgressIndicator()
-                      : PageView(
-                          children: List.generate(
-                              controller.images.value.length, (index) {
-                            List<int> intList = [];
-                            List a = (controller.images.value[index]);
-                            List.generate(
-                                a.length,
-                                (ind) => intList
-                                    .add(controller.images.value[index][ind]));
-                            return Image.memory(
-                              Uint8List.fromList(intList),
-                              width: MediaQuery.of(context).size.width,
-                              fit: BoxFit.cover,
-                            );
-                          }),
-                        ),
+                child: PageView(
+                  children: List.generate(controller.images.value, (index) {
+                    return Image.network(
+                      'http://63.251.122.116:2308/get_photo?path=$ccid&ind=${index + 1}',
+                      width: MediaQuery.of(context).size.width,
+                      fit: BoxFit.cover,
+                    );
+                  }),
                 ),
               ),
               const SizedBox(
@@ -194,16 +157,17 @@ class MenegerCarPageView extends GetView<GetCarInfoController> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Almost new, my favorite car!!!!\nPower Windows, Power Locks, Keyless Entry, , Power Seats Air Conditioning, Climate Control, Aux Audio In, Premium Sound System, Power Mirrors, Fog Lights, Premium Wheels/Rims, Performance Tyres, Panoramic, Back DVD, Lane Assistant, Crash Assistant, Blind Spot, Radar, lane assistant, radar assistant, crash assistant, Auto pilot, Auto Park in & Out, Fully Loaded',
-                      style: TextStyle(
+                     Text(
+                    description,  style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color(0xffffffff)),
                     ),
-                    const SizedBox(height: 24,),
+                    const SizedBox(
+                      height: 24,
+                    ),
                     Container(
-                      width: MediaQuery.of(context).size.width -32,
+                      width: MediaQuery.of(context).size.width - 32,
                       height: 52,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -212,14 +176,19 @@ class MenegerCarPageView extends GetView<GetCarInfoController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset('assets/icons/manager_edit_purple.svg'),
-                          const SizedBox(width: 12,),
-                          const Text('Change',
+                          SvgPicture.asset(
+                              'assets/icons/manager_edit_purple.svg'),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          const Text(
+                            'Change',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
                               color: Color(0xff8875FF),
-                            ),),
+                            ),
+                          ),
                         ],
                       ),
                     ),

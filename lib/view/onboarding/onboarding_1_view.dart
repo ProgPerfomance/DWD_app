@@ -1,14 +1,16 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:untitled1/view/welcome_view.dart';
-
+import '../../controller/translate_controller.dart';
+import '../../domain/get_user_info.dart';
 import 'onboarding_2_view.dart';
-
 class Onboarding1View extends StatelessWidget {
   const Onboarding1View({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -23,7 +25,7 @@ class Onboarding1View extends StatelessWidget {
                   onTap: (){
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const WelcomeView()), (route) => false);
                   },
-                  child: const Text('Skip', style: TextStyle(
+                  child:  Text(translate.skip, style: const TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                     color: Color(0xff7A7A7A),
@@ -65,14 +67,14 @@ class Onboarding1View extends StatelessWidget {
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 12,),
-              Center(child: Text('Buy a car',
+              Center(child: Text(translate.onboarding1Title,
               style: TextStyle(
                 color: const Color(0xffffffff).withOpacity(0.87),
                 fontSize: 32,
                 fontWeight: FontWeight.w900,
               ),)),
               const SizedBox(height: 24,),
-              Center(child: Text('Where you can see our inventory of used cars or even request us to find your dream car',textAlign: TextAlign.center,
+              Center(child: Text(translate.onboarding1Description,textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -94,12 +96,12 @@ class Onboarding1View extends StatelessWidget {
                         color: const Color(0xff8875FF),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Center(
-                        child: Text('Next',
-                        style: TextStyle(
+                      child: Center(
+                        child: Text(translate.next,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xfffffffff),
+                          color: Color(0xffffffff),
                         ),),
 
                       ),

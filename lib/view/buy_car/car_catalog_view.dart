@@ -118,16 +118,14 @@ class CarCatalogView extends GetView<GetCarList> {
                               ]
                             : List.generate(controller.cars.value.length, (index) {
                                 var item = controller.cars.value[index];
-                                List<int> img = [];
-                                List.generate(item['images'].length, (ind) {
-                                  img.add(item['images'][ind]);
-                                });
+
                                 return GestureDetector(
                                   onTap: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => CarPageView(
+                                              ccid: item['ccid'],
                                                   liked: item['liked'],
                                                   transmission: item['transmission']
                                                       .toString(),
@@ -154,6 +152,7 @@ class CarCatalogView extends GetView<GetCarList> {
                                                       item['regional_specs'],
                                                   color: item['color'].toString(),
                                                   id: item['id'],
+                                              description: item['description'],
                                                 )));
                                   },
                                   child: Column(
@@ -161,14 +160,13 @@ class CarCatalogView extends GetView<GetCarList> {
                                     children: [
                                       Stack(
                                         children: [
-                                          Image.memory(
-                                            Uint8List.fromList(img),
-                                            height: 130,
-                                            fit: BoxFit.fill,
-                                            width:
-                                                MediaQuery.of(context).size.width /
-                                                    2,
-                                          ),
+                                          Image.network(
+                                            'http://63.251.122.116:2308/test_photo?path=${item['ccid']}',
+                                              height: 130,
+                                              fit: BoxFit.fill,
+                                              width:
+                                              MediaQuery.of(context).size.width / 2,
+                                            ),
                                           Positioned(
                                               right: 8,
                                               top: 3.5,
@@ -221,7 +219,7 @@ class CarCatalogView extends GetView<GetCarList> {
                                         height: 4,
                                       ),
                                       Text(
-                                        '2003, ${item['killometers']}',
+                                        '${item['year']}, ${item['killometers']}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13,

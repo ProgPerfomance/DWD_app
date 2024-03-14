@@ -6,6 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/get_car_info_controller.dart';
+import 'package:untitled1/domain/get_cars_list_domain.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../domain/auth_user_domain.dart';
+import '../../server_routes.dart';
 
 class CarPageView extends GetView<GetCarInfoController> {
   final String name;
@@ -14,6 +19,7 @@ class CarPageView extends GetView<GetCarInfoController> {
   final price_usd;
   final price_aed;
   final String color;
+  final  String description;
   final kilometrs;
   final String regionalSpecs;
   final String transmission;
@@ -24,6 +30,7 @@ class CarPageView extends GetView<GetCarInfoController> {
   final String guarantee;
   final String year;
   final String serviceContract;
+  final String ccid;
   const CarPageView(
       {super.key,
       required this.transmission,
@@ -41,75 +48,60 @@ class CarPageView extends GetView<GetCarInfoController> {
       required this.name,
       required this.year,
       required this.liked,
-      required this.id});
+        required this.ccid,
+      required this.id,
+      required this.description});
 
   @override
   Widget build(BuildContext context) {
     Get.put(GetCarInfoController());
+    final carController = Get.put(GetCarList());
     Future.delayed(const Duration(milliseconds: 100), () {
       controller.getCarInfo(id);
     });
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: Text(name,style: const TextStyle(
+          color: Colors.white,
+        ),),
+        actions: [
+          SvgPicture.asset('assets/icons/upload.svg'),
+          const SizedBox(width: 8,),
+          liked == 'false'
+              ? GestureDetector(
+              onTap: () {
+              },
+              child: SvgPicture.asset('assets/icons/unlike.svg',height: 24,width: 24, color: Colors.white,))
+              : GestureDetector(
+              onTap: () {},
+              child: SvgPicture.asset('assets/icons/like.svg', height: 24,width: 24,)),
+          const SizedBox(width: 8,),
+        ],
+      ),
       backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset('assets/arrowleft.png')),
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xffffffff),
-                      ),
-                    ),
-                    SvgPicture.asset('assets/icons/upload.svg'),
-                    liked == 'false'
-                        ? GestureDetector(
-                            onTap: () {
-                            },
-                            child: SvgPicture.asset('assets/icons/unlike.svg',height: 24,width: 24, color: Colors.white,))
-                        : GestureDetector(
-                            onTap: () {},
-                            child: SvgPicture.asset('assets/icons/like.svg', height: 24,width: 24,)),
-                  ],
-                ),
-              ),
               const SizedBox(
                 height: 24,
               ),
               SizedBox(
                 height: 244,
                 child: Obx(
-                  () => controller.images.value.isEmpty
-                      ? const CircularProgressIndicator()
-                      : PageView(
-                          children: List.generate(
-                              controller.images.value.length, (index) {
-                            List<int> intList = [];
-                            List a = (controller.images.value[index]);
-                            List.generate(
-                                a.length,
-                                (ind) => intList
-                                    .add(controller.images.value[index][ind]));
-                            return Image.memory(
-                              Uint8List.fromList(intList),
-                              width: MediaQuery.of(context).size.width,
-                              fit: BoxFit.cover,
-                            );
-                          }),
-                        ),
+                  () =>
+                       PageView(
+                    children: List.generate(
+                        controller.images.value , (index) {
+                      return Image.network(
+                        'http://63.251.122.116:2308/get_photo?path=$ccid&ind=${index+1}',
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,);
+                    }),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -146,20 +138,25 @@ class CarPageView extends GetView<GetCarInfoController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: const Color(0xff40CC46),
-                            ),
-                            height: 60,
-                            width: MediaQuery.of(context).size.width / 2 - 33,
-                            child: const Center(
-                              child: Text(
-                                'CALL',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color(0xffffffff)),
+                          GestureDetector(
+                            onTap: (){
+                             callNumber('+79522652799');
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: const Color(0xff40CC46),
+                              ),
+                              height: 60,
+                              width: MediaQuery.of(context).size.width / 2 - 33,
+                              child: const Center(
+                                child: Text(
+                                  'CALL',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: Color(0xffffffff)),
+                                ),
                               ),
                             ),
                           ),
@@ -175,7 +172,7 @@ class CarPageView extends GetView<GetCarInfoController> {
                             width: MediaQuery.of(context).size.width / 2 - 33,
                             child: const Center(
                               child: Text(
-                                'Book for viewing',
+                                'BOOK',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -234,9 +231,10 @@ class CarPageView extends GetView<GetCarInfoController> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Almost new, my favorite car!!!!\nPower Windows, Power Locks, Keyless Entry, , Power Seats Air Conditioning, Climate Control, Aux Audio In, Premium Sound System, Power Mirrors, Fog Lights, Premium Wheels/Rims, Performance Tyres, Panoramic, Back DVD, Lane Assistant, Crash Assistant, Blind Spot, Radar, lane assistant, radar assistant, crash assistant, Auto pilot, Auto Park in & Out, Fully Loaded',
-                      style: TextStyle(
+                     Text(
+                      description,
+                   //   'Almost new, my favorite car!!!!\nPower Windows, Power Locks, Keyless Entry, , Power Seats Air Conditioning, Climate Control, Aux Audio In, Premium Sound System, Power Mirrors, Fog Lights, Premium Wheels/Rims, Performance Tyres, Panoramic, Back DVD, Lane Assistant, Crash Assistant, Blind Spot, Radar, lane assistant, radar assistant, crash assistant, Auto pilot, Auto Park in & Out, Fully Loaded',
+                      style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color(0xffffffff)),
@@ -254,220 +252,152 @@ class CarPageView extends GetView<GetCarInfoController> {
                     const SizedBox(
                       height: 24,
                     ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: const Color(0xff8875FF)),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 3),
-                                  child: Text(
-                                    'Still for sale?',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xffffffff),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: const Color(0xff8875FF)),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 3),
-                                  child: Text(
-                                    'Is exchange possible?',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xffffffff),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: const Color(0xff8875FF)),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 3),
-                                  child: Text(
-                                    'Is bargaining appropriate?',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xffffffff),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: const Color(0xff8875FF)),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 3),
-                                  child: Text(
-                                    'Where can I watch it?',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xffffffff),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: const Color(0xff8875FF)),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 3),
-                                  child: Text(
-                                    'What is the reason for sale?',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xffffffff),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: const Color(0xff7A7A7A)),
-                                child: const Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 8.0, vertical: 3),
-                                    child: Text(
-                                      'Other',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Color(0xffffffff)),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          const Text(
-                            'Personal for you',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 18,
-                                color: Color(0xffffffff)),
-                          ),
-                        ],
-                      ),
-                    ),
+                   const AskSellerWidget(),
                     const SizedBox(
                       height: 32,
                     ),
+                    const Text(
+                      'Personal for you',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 18,
+                          color: Color(0xffffffff)),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
                     SizedBox(
-                      height: 1000,
-                      child: GridView.count(
+                      height: MediaQuery.of(context).size.height - 437,
+                      child: Obx(
+                            () => GridView.count(
                           primary: false,
-                          padding: const EdgeInsets.all(20),
-                          crossAxisSpacing: 24,
-                          mainAxisSpacing: 20,
+                          //   padding: const EdgeInsets.all(20),
+                          crossAxisSpacing: 18,
+                          mainAxisSpacing: 30,
                           crossAxisCount: 2,
-                          childAspectRatio: (100 / 117),
-                          children: List.generate(
-                              10,
-                              (index) => GestureDetector(
-                                    onTap: () {
-                                      //        Navigator.push(context, MaterialPageRoute(builder: (context) => const CarPageView()));
-                                    },
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Image.asset('assets/testcar.png'),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        const Text(
-                                          '249,000 AED',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16,
-                                            color: Color(0xffffffff),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        const Text(
-                                          'Volvo XC90 T8 AWD',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14,
-                                            color: Color(0xfffffffff),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        const Text(
-                                          '2021, 60 000 km',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13,
-                                            color: Color(0xff7A7A7A),
-                                          ),
-                                        )
-                                      ],
+                          childAspectRatio: (100 / 129),
+                          children: carController.cars.value.length < 2
+                              ? [
+                            const CircularProgressIndicator(),
+                            const CircularProgressIndicator()
+                          ]
+                              : List.generate(carController.cars.value.length, (index) {
+                            var item = carController.cars.value[index];
+
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CarPageView(
+                                          ccid: item['ccid'],
+                                          liked: item['liked'],
+                                          transmission: item['transmission']
+                                              .toString(),
+                                          serviceContract:
+                                          item['service_contact'],
+                                          name: item['name'].toString(),
+                                          price_usd:
+                                          item['price_usd'].toString(),
+                                          price_aed:
+                                          item['price_aed'].toString(),
+                                          kilometrs: item['killometers']
+                                              .toString(),
+                                          year: item['year'].toString(),
+                                          body: item['body'].toString(),
+                                          state: item['state'].toString(),
+                                          motorsTrim:
+                                          item['motor_trim'].toString(),
+                                          guarantee:
+                                          item['guarantee'].toString(),
+                                          steeringWheel:
+                                          item['steering_whell']
+                                              .toString(),
+                                          regionalSpecs:
+                                          item['regional_specs'],
+                                          color: item['color'].toString(),
+                                          id: item['id'],
+                                          description: item['description'],
+                                        )));
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Stack(
+                                    children: [
+                                      Image.network(
+                                        'http://63.251.122.116:2308/test_photo?path=${item['ccid']}',
+                                        height: 130,
+                                        fit: BoxFit.fill,
+                                        width:
+                                        MediaQuery.of(context).size.width / 2,
+                                      ),
+                                      Positioned(
+                                          right: 8,
+                                          top: 3.5,
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                item['liked'] == 'false'
+                                                    ? carController.likeCar(
+                                                    item['id'],
+                                                    userModel!.uid)
+                                                    : carController.dislikeCar(
+                                                    item['like_id']);
+                                              },
+                                              child: item['liked'] == 'false'
+                                                  ? SvgPicture.asset(
+                                                'assets/icons/unlike.svg',
+                                                height: 20,
+                                                width: 20,
+                                              )
+                                                  : SvgPicture.asset(
+                                                'assets/icons/like.svg',
+                                                height: 20,
+                                                width: 20,
+                                              ))),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    '${item['price_aed']} AED '
+                                        .toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: Color(0xffffffff),
                                     ),
-                                  ))),
-                    )
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    item['name'].toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                      color: Color(0xffffffff),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                   '${item['year']}, ${item['killometers']}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 13,
+                                      color: Color(0xff7A7A7A),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -510,5 +440,167 @@ class TextCascadeWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+
+class AskSellerWidget extends StatelessWidget {
+  const AskSellerWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: const Color(0xff8875FF)),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 3),
+                  child: Text(
+                    'Still for sale?',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: const Color(0xff8875FF)),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 3),
+                  child: Text(
+                    'Is exchange possible?',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: const Color(0xff8875FF)),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 3),
+                  child: Text(
+                    'Is bargaining appropriate?',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: const Color(0xff8875FF)),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 3),
+                  child: Text(
+                    'Where can I watch it?',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: const Color(0xff8875FF)),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 3),
+                  child: Text(
+                    'What is the reason for sale?',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color(0xff7A7A7A)),
+                child: const Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 3),
+                    child: Text(
+                      'Other',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: Color(0xffffffff)),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void callNumber(String phoneNumber) async {
+  String telUrl = 'tel:$phoneNumber';
+  if (await canLaunch(telUrl)) {
+    await launch(telUrl);
+  } else {
+    throw 'Could not launch $telUrl';
   }
 }

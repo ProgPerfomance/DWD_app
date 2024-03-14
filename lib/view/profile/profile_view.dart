@@ -4,55 +4,64 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:untitled1/controller/translate_controller.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/domain/get_user_info.dart';
+import 'package:untitled1/translate/eng_model.dart';
+import 'package:untitled1/translate/ru_model.dart';
 import 'package:untitled1/view/onboarding/onboarding_1_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 import 'car_list_view.dart';
 import 'farorit_cars_view.dart';
+
+TextEditingController _nameController = TextEditingController();
 
 class ProfileView extends GetView<UserInfoController> {
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final user = context.watch<AuthController>();
     Get.put(UserInfoController());
     controller.getUserInfo(userModel!.uid);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Profile',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w900,
-            color: Color(0xffffffff),
+    _nameController.text = userModel!.name;
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Text(
+            controller.translateModel.value.Profile,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w900,
+              color: Color(0xffffffff),
+            ),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 24,
-              ),
-              const Center(child:CircleAvatar(
-                radius: 45,
-                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
-              ),),
-              const SizedBox(
-                height: 16,
-              ),
-              Center(
-                child: Obx(
-                  () => Text(
-                    controller.user.value['name'].toString(), //  user.userModel!.name,
+        backgroundColor: Colors.black,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 24,
+                ),
+                const Center(
+                  child: CircleAvatar(
+                    radius: 45,
+                    backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Center(
+                  child: Text(
+                    controller.user.value['name']
+                        .toString(), //  user.userModel!.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 18,
@@ -60,197 +69,440 @@ class ProfileView extends GetView<UserInfoController> {
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const FavoritCarsView()));
-                    },
-                    child: Container(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width / 2 - 47,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: const Color(0xff363636),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'WISHLIST',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 13,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CarListView()));
-                    },
-                    child: Container(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width / 2 - 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: const Color(0xff8875FF),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'MY CARS',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16), //333
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                const SizedBox(
+                  height: 24,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Settings',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 13,
-                        color: Color(0xffAFAFAF),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FavoritCarsView()));
+                      },
+                      child: Container(
+                        height: 60,
+                        width: MediaQuery.of(context).size.width / 2 - 47,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: const Color(0xff363636),
+                        ),
+                        child: Center(
+                          child: Text(
+                            controller.translateModel.value.WISHLIST,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(
-                      height: 24,
-                    ),
-                     IconAndTextWidget(
-                      icon: 'assets/icons/change_name.svg',
-                      text: 'Change account name',
-                    ),
-                    const SizedBox(
-                      height: 24,
+                      width: 13,
                     ),
                     GestureDetector(
                       onTap: () {
-                        //      Get.bottomSheet(Container());
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CarListView()));
                       },
-                      child:  IconAndTextWidget(
-                        icon: 'assets/icons/change_photo.svg',
-                        text: 'Change account image',
+                      child: Container(
+                        height: 60,
+                        width: MediaQuery.of(context).size.width / 2 - 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: const Color(0xff8875FF),
+                        ),
+                        child: Center(
+                          child: Text(
+                            controller.translateModel.value.MY_CARS,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                     IconAndTextWidget(
-                      icon: 'assets/icons/change_language.svg',
-                      text: 'Change account language',
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                     IconAndTextWidget(
-                      icon: 'assets/icons/delete_account.svg',
-                      text: 'Delete account',
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    const Text(
-                      'Information',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 13,
-                        color: Color(0xffAFAFAF),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        var url = Uri.parse('https://dubaiwd.com/');
-                        //     launchUrl(url); //https://www.facebook.com/DubaiWD/about
-                      },
-                      child:  IconAndTextWidget(
-                        icon: 'assets/icons/about_ass.svg',
-                        text: 'About us',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        var url = Uri.parse(
-                            'https://www.facebook.com/DubaiWD/about'); //info@dubaiwd.com
-                        //    launchUrl(url); //
-                      },
-                      child:  IconAndTextWidget(
-                        icon: 'assets/icons/faqsvg.svg',
-                        text: 'FAQ',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        var url = Uri.parse(
-                            'https://info@dubaiwd.com'); //info@dubaiwd.com
-                        //  launchUrl(url); //
-                      },
-                      child:  IconAndTextWidget(
-                        icon: 'assets/icons/help_feedback.svg',
-                        text: 'Help & Feedback',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                     IconAndTextWidget(
-                      icon: 'assets/icons/support_us.svg',
-                      text: 'Support Us',
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                     GestureDetector(
-                       onTap: ()async {
-                         FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
-                          await flutterSecureStorage.delete(key: 'uid');
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const Onboarding1View()), (route) => false);
-                       },
-                       child: IconAndTextWidget(
-                        icon: 'assets/icons/meneger_logout.svg',
-                        text: 'Log out',
-                        color: Colors.red,
-                                           ),
-                     ),
                   ],
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16), //333
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        controller.translateModel.value.Settings,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 13,
+                          color: Color(0xffAFAFAF),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog<void>(
+                              useSafeArea: false,
+                              context: context,
+                              barrierDismissible:
+                                  false, // user must tap button!
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor:
+                                      const Color(0xff2D2D2D).withOpacity(0),
+                                  contentPadding: EdgeInsets.zero,
+                                  insetPadding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
+                                  content: Container(
+                                      height: 238,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        color: const Color(0xff2D2D2D)
+                                            .withOpacity(0.9),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 24,
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              'Change account name',
+                                              style: TextStyle(
+                                                color: Colors.white
+                                                    .withOpacity(0.87),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          Center(
+                                            child: Container(
+                                              height: 1,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  64,
+                                              color: const Color(0xff979797),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 24,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12.0),
+                                            child: TextField(
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                              controller: _nameController,
+                                              decoration: InputDecoration(
+                                                filled: true,
+                                                fillColor:
+                                                    const Color(0xff1D1D1D),
+                                                hintStyle: const TextStyle(
+                                                  color: Color(
+                                                    0xff535353,
+                                                  ),
+                                                ),
+                                                hintText: 'Your name',
+                                                isDense: true,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color: Color(0xff7A7A7A),
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    12,
+                                                  ),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    12,
+                                                  ),
+                                                  borderSide: const BorderSide(
+                                                      color: Color(0xff7A7A7A),
+                                                      width: 1),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 24,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: SizedBox(
+                                                    height: 52,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                    .size
+                                                                    .width /
+                                                                2 -
+                                                            52,
+                                                    child: const Center(
+                                                      child: Text(
+                                                        'Cancel',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize: 16,
+                                                          color:
+                                                              Color(0xff8875FF),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    controller.changeName(
+                                                        userModel!.uid,
+                                                        _nameController.text);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Container(
+                                                    height: 52,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                    .size
+                                                                    .width /
+                                                                2 -
+                                                            52,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                      color: const Color(
+                                                          0xff8875FF),
+                                                    ),
+                                                    child: const Center(
+                                                      child: Text(
+                                                        'Save',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                );
+                              });
+                        },
+                        child: IconAndTextWidget(
+                          icon: 'assets/icons/change_name.svg',
+                          text: controller
+                              .translateModel.value.Change_account_name,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          //      Get.bottomSheet(Container());
+                        },
+                        child: IconAndTextWidget(
+                          icon: 'assets/icons/change_photo.svg',
+                          text: controller
+                              .translateModel.value.Change_account_Image,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.bottomSheet(Container(
+                            height: 300,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: const Color(0xff363636).withOpacity(0.8),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 24,
+                                ),
+                                const Center(
+                                  child: Text(
+                                    'Change app Language',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                                Center(
+                                  child: Container(
+                                    height: 1,
+                                    width:
+                                        MediaQuery.of(context).size.width - 48,
+                                    color: const Color(0xff7A7A7A),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      controller.changeLaunguage(ruModel);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Russian')),
+                                TextButton(
+                                    onPressed: () {
+                                      controller.changeLaunguage(engModel);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('English')),
+                              ],
+                            ),
+                          ));
+                        },
+                        child: IconAndTextWidget(
+                          icon: 'assets/icons/change_language.svg',
+                          text: controller
+                              .translateModel.value.Change_app_language,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      IconAndTextWidget(
+                        icon: 'assets/icons/delete_account.svg',
+                        text: controller.translateModel.value.Delete_account,
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      Text(
+                        controller.translateModel.value.Information,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 13,
+                          color: Color(0xffAFAFAF),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          var url = Uri.parse('https://dubaiwd.com/');
+                          launchUrl(
+                              url); //https://www.facebook.com/DubaiWD/about
+                        },
+                        child: IconAndTextWidget(
+                          icon: 'assets/icons/about_ass.svg',
+                          text: controller.translateModel.value.About_us,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          var url = Uri.parse(
+                              'https://www.facebook.com/DubaiWD/about'); //info@dubaiwd.com
+                          launchUrl(url); //
+                        },
+                        child: IconAndTextWidget(
+                          icon: 'assets/icons/faqsvg.svg',
+                          text: controller.translateModel.value.FAQ,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          var url = Uri.parse(
+                              'https://info@dubaiwd.com'); //info@dubaiwd.com
+                          launchUrl(url); //
+                        },
+                        child: IconAndTextWidget(
+                          icon: 'assets/icons/help_feedback.svg',
+                          text: controller.translateModel.value.Help_Feedback,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      IconAndTextWidget(
+                        icon: 'assets/icons/support_us.svg',
+                        text: controller.translateModel.value.Support_US,
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          FlutterSecureStorage flutterSecureStorage =
+                              const FlutterSecureStorage();
+                          await flutterSecureStorage.delete(key: 'uid');
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const Onboarding1View()),
+                              (route) => false);
+                        },
+                        child: IconAndTextWidget(
+                          icon: 'assets/icons/meneger_logout.svg',
+                          text: controller.translateModel.value.Log_out,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -262,7 +514,8 @@ class IconAndTextWidget extends StatelessWidget {
   final icon;
   final text;
   Color? color;
-  IconAndTextWidget({super.key, required this.icon, required this.text, this.color});
+  IconAndTextWidget(
+      {super.key, required this.icon, required this.text, this.color});
 
   @override
   Widget build(BuildContext context) {

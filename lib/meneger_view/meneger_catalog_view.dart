@@ -80,7 +80,7 @@ class MenegerCarCatalogView extends GetView<GetCarList> {
               ),
               const SizedBox(height: 24,),
               SizedBox(
-                height: MediaQuery.of(context).size.height - 437,
+                height: MediaQuery.of(context).size.height - 297,
                 child: Obx(
                   () => GridView.count(
                     primary: false,
@@ -96,10 +96,6 @@ class MenegerCarCatalogView extends GetView<GetCarList> {
                           ]
                         : List.generate(controller.cars.value.length, (index) {
                             var item = controller.cars.value[index];
-                            List<int> img = [];
-                            List.generate(item['images'].length, (ind) {
-                              img.add(item['images'][ind]);
-                            });
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -108,10 +104,12 @@ class MenegerCarCatalogView extends GetView<GetCarList> {
                                         builder: (context) =>
                                             MenegerCarPageView(
                                               liked: item['liked'],
+
                                               transmission: item['transmission']
                                                   .toString(),
                                               serviceContract:
                                                   item['service_contact'],
+                                              description: item['description'],
                                               name: item['name'].toString(),
                                               price_usd:
                                                   item['price_usd'].toString(),
@@ -133,13 +131,13 @@ class MenegerCarCatalogView extends GetView<GetCarList> {
                                                   item['regional_specs'],
                                               color: item['color'].toString(),
                                               id: item['id'],
+                                              ccid: item['ccid'],
                                             )));
                               },
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.memory(
-                                    Uint8List.fromList(img),
+                                  Image.network('http://63.251.122.116:2308/test_photo?path=${item['ccid']}',
                                     height: 130,
                                     fit: BoxFit.fill,
                                     width:
@@ -172,8 +170,7 @@ class MenegerCarCatalogView extends GetView<GetCarList> {
                                     height: 4,
                                   ),
                                   Text(
-                                    // '${item['year']}, ${item['killometers']}',
-                                    '2003, ${item['killometers']}',
+                                    '${item['year']}, ${item['killometers']}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 13,

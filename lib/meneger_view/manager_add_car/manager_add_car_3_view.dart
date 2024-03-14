@@ -1,9 +1,49 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled1/meneger_view/meneger_home_view.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../server_routes.dart';
+
 FocusNode _focusNode = FocusNode();
 TextEditingController descriptionController = TextEditingController();
+
 class ManagerAddCar3View extends StatefulWidget {
-  const ManagerAddCar3View({super.key});
+  final String model;
+  final String price_AED;
+  final String price_USD;
+  final String color;
+  final String miliege;
+  final String regionalSpecs;
+  final String transmission;
+  final String motorTrim;
+  final String body;
+  final String gurantee;
+  final String serviceContact;
+  final String brand;
+  final String year;
+  final String name;
+  final  photos;
+  const ManagerAddCar3View(
+      {super.key,
+      required this.model,
+      required this.motorTrim,
+      required this.price_AED,
+      required this.color,
+      required this.gurantee,
+      required this.miliege,
+      required this.regionalSpecs,
+      required this.serviceContact,
+      required this.body,
+        required this.brand,
+      required this.transmission,
+        required this.price_USD,
+        required this.photos,
+        required this.year,
+        required this.name,
+      });
 
   @override
   State<ManagerAddCar3View> createState() => _ManagerAddCar3ViewState();
@@ -66,20 +106,28 @@ class _ManagerAddCar3ViewState extends State<ManagerAddCar3View> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24,),
-                const Text('3/3 Description',
+                const SizedBox(
+                  height: 24,
+                ),
+                const Text(
+                  '3/3 Description',
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
-                      color: Colors.white
-                  ),),
-                const SizedBox(height: 24,),
+                      color: Colors.white),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
                 TextField(
                   focusNode: _focusNode,
                   maxLines: 10,
                   minLines: 5,
                   maxLength: 1000,
                   controller: descriptionController,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: const Color(0xff1D1D1D),
@@ -103,11 +151,18 @@ class _ManagerAddCar3ViewState extends State<ManagerAddCar3View> {
                         color: Colors.black,
                       ),
                     ),
-                  ),),
-                SizedBox(height: 24,),
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MenegerHomeView()));
+                    _uploadImages();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MenegerHomeView()));
                   },
                   child: Container(
                     height: 52,
@@ -117,11 +172,13 @@ class _ManagerAddCar3ViewState extends State<ManagerAddCar3View> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
-                      child: Text('Save',
+                      child: Text(
+                        'Save',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
-                        ),),
+                        ),
+                      ),
                     ),
                   ),
                 )
@@ -132,4 +189,55 @@ class _ManagerAddCar3ViewState extends State<ManagerAddCar3View> {
       ),
     );
   }
+  Future<void> _uploadImages() async {
+    Uuid uuid = const Uuid();
+    String ccid = await uuid.v1();
+    if (widget.photos.isEmpty) {
+      print('No images selected.');
+      return;
+    }
+
+    List<Map<String, dynamic>> images = [];
+    int index=1;
+    for (var imageFile in widget.photos) {
+      String fileName = imageFile.path.split('/').last;
+      List<int> bytes = await imageFile.readAsBytes();
+      String base64Image = base64Encode(bytes);
+      images.add({'name': '$index.jpg', 'data': base64Image});
+     index++;
+    }
+
+    var folderName = ccid;
+
+    Dio dio = Dio();
+    final response = await dio.post(
+      '${ServerRoutes.host}/create_car',
+      options: Options(headers: {
+        'folder-name': folderName,
+      }),
+      data: jsonEncode({
+        'images': images,
+        'ccid': ccid.toString(),
+        'brand': widget.brand.toString(),
+        'body': widget.body.toString(),
+        'price_aed': widget.price_AED.toString(),
+        'price_usd': widget.price_USD.toString(),
+        'model': widget.model.toString(),
+        'killometers': widget.miliege.toString(),
+        'color': widget.color.toString(),
+        'regional_specs': widget.regionalSpecs.toString(),
+        'steering_whell': false.toString(),
+        'motor_trim': widget.motorTrim.toString(),
+        'guarantee': widget.gurantee.toString(),
+        'service_contact': widget.serviceContact.toString(),
+        'description': descriptionController.text.toString(),
+        'name': widget.name.toString(),
+        'year': widget.year.toString(),
+        'transmission': widget.transmission.toString(),
+      }),
+    );
+    print(response.data);
+  }
 }
+
+

@@ -9,14 +9,27 @@ import 'auth_user_domain.dart';
 class GetCarList extends GetxController {
   Dio dio = Dio();
   RxList cars = [].obs;
+  RxList wishList = [].obs;
   Future<void> getCarList() async {
     final response =
         await dio.post('http://63.251.122.116:2308/getcars', data: {
       'id': userModel!.uid.toString(),
     });
     cars.value = jsonDecode(response.data);
+
     notifyChildrens();
     cars.refresh();
+    notifyChildrens();
+  }
+  Future<void> getWishlist() async {
+    final response =
+    await dio.post('http://63.251.122.116:2308/getWishlist', data: {
+      'uid': userModel!.uid.toString(),
+    });
+    wishList.value = jsonDecode(response.data);
+
+    notifyChildrens();
+    wishList.refresh();
     notifyChildrens();
   }
 
@@ -36,6 +49,7 @@ class GetCarList extends GetxController {
     });
     Future.delayed(const Duration(milliseconds: 35),() {
       getCarList();
+      getWishlist();
     });
   }
 }

@@ -1,13 +1,13 @@
-import 'dart:convert';
+
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:svg_flutter/svg.dart';
-
 import 'manager_add_car_2_view.dart';
+
 final ImagePicker imagePicker = ImagePicker();
 List<XFile> _imageFileList = [];
+
 class ManagerAddCar1View extends StatefulWidget {
   const ManagerAddCar1View({super.key});
 
@@ -68,13 +68,16 @@ class _ManagerAddCar1ViewState extends State<ManagerAddCar1View> {
                   ],
                 ),
               ),
-              const SizedBox(height: 24,),
-              const Text('1/3 Car info',
+              const SizedBox(
+                height: 24,
+              ),
+              const Text(
+                '1/3 Car info',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w900,
-                    color: Colors.white
-                ),),
+                    color: Colors.white),
+              ),
               SizedBox(
                 height: 300,
                 child: Column(
@@ -86,53 +89,58 @@ class _ManagerAddCar1ViewState extends State<ManagerAddCar1View> {
                             child: GridView.builder(
                                 itemCount: _imageFileList.length + 1,
                                 gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3),
-                                itemBuilder:
-                                    (BuildContext context, int index) {
-                                  return index == 0 ? GestureDetector(
-                                    onTap: () {
-                                      _pickImages();
-                                      setState(() {});
-                                    },
-                                    child: Container(
-                                      height: 99,
-                                      width: 99,
-                                      decoration: BoxDecoration(
-                                          color: const Color(0xff1D1D1D),
-                                          borderRadius: BorderRadius.circular(
-                                              5),
-                                          border: Border.all(
-                                              color: const Color(0xff8875FF))
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
-                                        children: [
-                                          SvgPicture.asset(
-                                              'assets/icons/add_sell_car.svg'),
-                                          const Text(
-                                            'Add photo', style: TextStyle(
-                                            color: Color(0xff8875FF),
-                                          ),),
-                                        ],
-                                      ),
-                                    ),
-                                  ) : Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Image.file(
-                                      File(_imageFileList[index - 1].path),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  );
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return index == 0
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            _pickImages();
+                                            setState(() {});
+                                          },
+                                          child: Container(
+                                            height: 99,
+                                            width: 99,
+                                            decoration: BoxDecoration(
+                                                color: const Color(0xff1D1D1D),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    color: const Color(
+                                                        0xff8875FF))),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                    'assets/icons/add_sell_car.svg'),
+                                                const Text(
+                                                  'Add photo',
+                                                  style: TextStyle(
+                                                    color: Color(0xff8875FF),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Image.file(
+                                            File(
+                                                _imageFileList[index - 1].path),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        );
                                 }))),
                   ],
                 ),
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               GestureDetector(
                 onTap: () async {
-                  _uploadImages();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -143,20 +151,19 @@ class _ManagerAddCar1ViewState extends State<ManagerAddCar1View> {
                 },
                 child: Container(
                   height: 52,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width - 32,
+                  width: MediaQuery.of(context).size.width - 32,
                   decoration: BoxDecoration(
                     color: const Color(0xff8875FF),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Center(
-                    child: Text('Next',
+                    child: Text(
+                      'Next',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
-                      ),),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -173,36 +180,5 @@ class _ManagerAddCar1ViewState extends State<ManagerAddCar1View> {
     setState(() {
       _imageFileList = pickedImages;
     });
-  }
-
-  Future<void> _uploadImages() async {
-    if (_imageFileList.isEmpty) {
-      print('No images selected.');
-      return;
-    }
-
-    List<Map<String, dynamic>> images = [];
-    for (var imageFile in _imageFileList) {
-      String fileName = imageFile.path
-          .split('/')
-          .last;
-      List<int> bytes = await imageFile.readAsBytes();
-      String base64Image = base64Encode(bytes);
-      images.add({'name': fileName, 'data': base64Image});
-    }
-
-    // Название новой папки
-    var folderName = '3';
-
-    // Отправляем POST запрос на сервер для загрузки изображений
-    var httpClient = HttpClient();
-    var request = await httpClient.post('63.251.122.116', 2308, '/upload_images');
-    request.headers.add('folder-name', folderName);
-    request.write(jsonEncode(images));
-    var response = await request.close();
-
-    // Читаем ответ от сервера
-    var responseBody = await utf8.decodeStream(response);
-    print('Server Response: $responseBody');
   }
 }

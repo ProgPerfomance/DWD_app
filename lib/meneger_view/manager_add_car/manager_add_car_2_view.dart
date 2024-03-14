@@ -1,24 +1,23 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../model/transmission_model.dart';
 import 'manager_add_car_3_view.dart';
-final _modelContoller =TextEditingController();
-final _priceController = TextEditingController();
+
+final _modelContoller = TextEditingController();
+final _priceUSDController = TextEditingController();
+final _priceAEDController = TextEditingController();
 final _colorController = TextEditingController();
 final _miliegeController = TextEditingController();
 final _regionalSpecsController = TextEditingController();
 final _transmissionController = TextEditingController();
 final _motorRimController = TextEditingController();
 final _bodyController = TextEditingController();
-final _stateController = TextEditingController();
 final _guranteeController = TextEditingController();
 final _serviceContactController = TextEditingController();
-
+final _brandController = TextEditingController();
+final _yearController = TextEditingController();
+final _nameController = TextEditingController();
 class ManagerAddCar2View extends StatefulWidget {
-  final List images;
+  final images;
   const ManagerAddCar2View({super.key, required this.images});
 
   @override
@@ -74,26 +73,29 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                   ],
                 ),
               ),
-              const SizedBox(height: 24,),
+              const SizedBox(
+                height: 24,
+              ),
               const Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Text('2/3 Car info',
+                child: Text(
+                  '2/3 Car info',
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
-                      color: Colors.white
-                  ),),
+                      color: Colors.white),
+                ),
               ),
               Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
                   child: Column(children: [
                     Column(children: [
                       const Padding(
                         padding: EdgeInsets.only(bottom: 8),
                         child: Align(
                             alignment: Alignment.centerLeft,
-                            child: Text("Model",
+                            child: Text("Brand",
                                 style: TextStyle(
                                     fontSize: 23,
                                     color: Colors.white,
@@ -108,28 +110,33 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                 borderRadius: BorderRadius.circular(12)),
                             child: ExpansionTile(
                               title: Text(
-                                _modelContoller.text,
+                                _brandController.text,
                                 style: const TextStyle(color: Colors.white),
                               ),
                               expandedCrossAxisAlignment:
-                              CrossAxisAlignment.start,
+                                  CrossAxisAlignment.start,
                               children: List.generate(
                                   cars.length,
-                                      (index) => GestureDetector(
-                                    onTap: () {
-                                      _modelContoller.text = cars[index];
-                                      setState(() {});
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                          const EdgeInsets.all(4.0),
-                                          child: Text(cars[index],style: const TextStyle(  color: Colors.white,),),
+                                  (index) => GestureDetector(
+                                        onTap: () {
+                                          _brandController.text = cars[index];
+                                          setState(() {});
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                cars[index],
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  )),
+                                      )),
                             )),
                       ),
                     ]),
@@ -138,7 +145,7 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                         padding: EdgeInsets.only(bottom: 8),
                         child: Align(
                             alignment: Alignment.centerLeft,
-                            child: Text("Price",
+                            child: Text("Car name",
                                 style: TextStyle(
                                     fontSize: 23,
                                     color: Colors.white,
@@ -158,7 +165,94 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   enabledBorder: InputBorder.none,
                                   contentPadding:
                                   EdgeInsetsDirectional.only(start: 10)),
-                              controller: _priceController,
+                              controller: _nameController,
+                            )),
+                      ),
+                    ]),
+                    Column(children: [
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Price AED",
+                                style: TextStyle(
+                                    fontSize: 23,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white),
+                                color: const Color(0x00212121),
+                                borderRadius: BorderRadius.circular(12)),
+                            child: TextField(
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  contentPadding:
+                                      EdgeInsetsDirectional.only(start: 10)),
+                              controller: _priceAEDController,
+                            )),
+                      ),
+                    ]),
+                    Column(children: [
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Price USD",
+                                style: TextStyle(
+                                    fontSize: 23,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white),
+                                color: const Color(0x00212121),
+                                borderRadius: BorderRadius.circular(12)),
+                            child: TextField(
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  contentPadding:
+                                      EdgeInsetsDirectional.only(start: 10)),
+                              controller: _priceUSDController,
+                            )),
+                      ),
+                    ]),
+                    Column(children: [
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Model",
+                                style: TextStyle(
+                                    fontSize: 23,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white),
+                                color: const Color(0x00212121),
+                                borderRadius: BorderRadius.circular(12)),
+                            child: TextField(
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  contentPadding:
+                                      EdgeInsetsDirectional.only(start: 10)),
+                              controller: _modelContoller,
                             )),
                       ),
                     ]),
@@ -186,9 +280,37 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   focusedBorder: InputBorder.none,
                                   enabledBorder: InputBorder.none,
                                   contentPadding:
-                                  EdgeInsetsDirectional.only(start: 10)),
+                                      EdgeInsetsDirectional.only(start: 10)),
                               controller: _colorController,
-
+                            )),
+                      ),
+                    ]),
+                    Column(children: [
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Year",
+                                style: TextStyle(
+                                    fontSize: 23,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white),
+                                color: const Color(0x00212121),
+                                borderRadius: BorderRadius.circular(12)),
+                            child: TextField(
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  contentPadding:
+                                      EdgeInsetsDirectional.only(start: 10)),
+                              controller: _yearController,
                             )),
                       ),
                     ]),
@@ -216,7 +338,7 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   focusedBorder: InputBorder.none,
                                   enabledBorder: InputBorder.none,
                                   contentPadding:
-                                  EdgeInsetsDirectional.only(start: 10)),
+                                      EdgeInsetsDirectional.only(start: 10)),
                               controller: _miliegeController,
                             )),
                       ),
@@ -245,7 +367,7 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   focusedBorder: InputBorder.none,
                                   enabledBorder: InputBorder.none,
                                   contentPadding:
-                                  EdgeInsetsDirectional.only(start: 10)),
+                                      EdgeInsetsDirectional.only(start: 10)),
                               controller: _regionalSpecsController,
                             )),
                       ),
@@ -275,20 +397,27 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                               ),
                               children: List.generate(
                                   transmissions.length,
-                                      (index) => GestureDetector(
-                                    onTap: () {
-                                      setState(() {});
-                                      _transmissionController.text = transmissions[index];
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: Text(transmissions[index],style: const TextStyle(  color: Colors.white,),),
+                                  (index) => GestureDetector(
+                                        onTap: () {
+                                          setState(() {});
+                                          _transmissionController.text =
+                                              transmissions[index];
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                transmissions[index],
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  )),
+                                      )),
                             )),
                       ),
                     ]),
@@ -311,14 +440,14 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                 color: const Color(0x00212121),
                                 borderRadius: BorderRadius.circular(12)),
                             child: TextField(
-                                style: const TextStyle(color: Colors.white),
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    contentPadding:
-                                    EdgeInsetsDirectional.only(start: 10)),
-                                controller: _motorRimController,
-                               )),
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  contentPadding:
+                                      EdgeInsetsDirectional.only(start: 10)),
+                              controller: _motorRimController,
+                            )),
                       ),
                     ]),
                     Column(children: [
@@ -345,7 +474,7 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   focusedBorder: InputBorder.none,
                                   enabledBorder: InputBorder.none,
                                   contentPadding:
-                                  EdgeInsetsDirectional.only(start: 10)),
+                                      EdgeInsetsDirectional.only(start: 10)),
                               controller: _bodyController,
                             )),
                       ),
@@ -370,15 +499,14 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   color: const Color(0x00212121),
                                   borderRadius: BorderRadius.circular(12)),
                               child: TextField(
-                                  style: const TextStyle(color: Colors.white),
-                                  decoration: const InputDecoration(
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      contentPadding:
-                                      EdgeInsetsDirectional.only(
-                                          start: 10)),
-                                  controller: _guranteeController,
-                               )),
+                                style: const TextStyle(color: Colors.white),
+                                decoration: const InputDecoration(
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    contentPadding:
+                                        EdgeInsetsDirectional.only(start: 10)),
+                                controller: _guranteeController,
+                              )),
                         ),
                         Column(children: [
                           const Padding(
@@ -399,26 +527,48 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                     color: const Color(0x00212121),
                                     borderRadius: BorderRadius.circular(12)),
                                 child: TextField(
-                                    style: const TextStyle(color: Colors.white),
-                                    decoration: const InputDecoration(
-                                        focusedBorder: InputBorder.none,
-                                        enabledBorder: InputBorder.none,
-                                        contentPadding:
-                                        EdgeInsetsDirectional.only(
-                                            start: 10)),
-                                    controller: _serviceContactController,
-                                   )),
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: const InputDecoration(
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      contentPadding:
+                                          EdgeInsetsDirectional.only(
+                                              start: 10)),
+                                  controller: _serviceContactController,
+                                )),
                           ),
                         ])
                       ])
                     ]),
                   ])),
-              const SizedBox(height: 24,),
+              const SizedBox(
+                height: 24,
+              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child:  GestureDetector(
+                child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ManagerAddCar3View()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ManagerAddCar3View(
+                                  model: _modelContoller.text,
+                                  motorTrim: _motorRimController.text,
+                                  price_USD: _priceUSDController.text,
+                                  color: _colorController.text,
+                                  gurantee: _guranteeController.text,
+                                  miliege: _miliegeController.text,
+                                  regionalSpecs: _regionalSpecsController.text,
+                                  serviceContact:
+                                      _serviceContactController.text,
+                                  body: _bodyController.text,
+                                  transmission: _transmissionController.text,
+                                  brand: _brandController.text,
+                                  photos: widget.images,
+                                  price_AED: _priceAEDController.text,
+                                  year: _yearController.text,
+                              name: _nameController.text,
+                                )));
                   },
                   child: Container(
                     height: 52,
@@ -428,11 +578,13 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
-                      child: Text('Next',
+                      child: Text(
+                        'Next',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
-                        ),),
+                        ),
+                      ),
                     ),
                   ),
                 ),

@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/domain/get_user_info.dart';
 import 'package:untitled1/master_view/master_home.dart';
 import 'package:untitled1/meneger_view/meneger_home_view.dart';
+import '../../../controller/translate_controller.dart';
 import '../../../domain/auth_user_domain.dart';
 import '../../home_view.dart';
 import '../forgot_password_view.dart';
@@ -18,6 +20,7 @@ class LoginView extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     Get.put(AuthController());
     return Scaffold(
       backgroundColor: const Color(0xff121212),
@@ -31,10 +34,10 @@ class LoginView extends GetView<AuthController> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 8,
                 ),
-                const Center(
+                Center(
                   child: Text(
-                    'Login',
-                    style: TextStyle(
+                    translate.login,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 32,
                       color: Color(0xffffffff),
@@ -46,7 +49,7 @@ class LoginView extends GetView<AuthController> {
                 ),
                 Center(
                   child: Text(
-                    'Welcome back to DWD!',
+                    translate.welcomeBack,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -70,7 +73,7 @@ class LoginView extends GetView<AuthController> {
                         0xff535353,
                       ),
                     ),
-                    hintText: 'Mobile number or Email',
+                    hintText: translate.mobileNumberOrEmail,
                     isDense: true,
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -104,7 +107,7 @@ class LoginView extends GetView<AuthController> {
                         0xff535353,
                       ),
                     ),
-                    hintText: 'Password',
+                    hintText: translate.password,
                     isDense: true,
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -135,9 +138,9 @@ class LoginView extends GetView<AuthController> {
                                       const ForgotPasswordView()),
                               (route) => false);
                         },
-                        child: const Text(
-                          'Forgot password',
-                          style: TextStyle(
+                        child:  Text(
+                          translate.forgotPassword,
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 13,
                             color: Color(0xffffffff),

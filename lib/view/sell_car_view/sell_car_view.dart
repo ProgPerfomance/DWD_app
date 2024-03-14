@@ -241,6 +241,7 @@ class SellCarView extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 48,),
             ],
           ),
         ),
@@ -362,7 +363,7 @@ class SellCarBanner extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );

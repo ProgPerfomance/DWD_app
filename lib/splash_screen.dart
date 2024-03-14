@@ -29,26 +29,43 @@ class _SplashScreenState extends State<SplashScreen> {
       if(uid != '') {
         Dio dio = Dio();
       var response = await dio.post('http://63.251.122.116:2308/getuserinfo',
-        data: {'uid': int.parse(uid)});
-      final data = await jsonDecode(response.data);
-      userModel = await UserModel(email: data['email'], phone: data['phone'], cid: data['cid'], uid: int.parse(uid), name: data['name'], rules: data['rules']);
-        switch(data['rules']) {
+        data: {'uid': uid.toString()});
+      if (response.statusCode == 200) {
+        final data = await jsonDecode(response.data);
+        userModel = await UserModel(email: data['email'],
+            phone: data['phone'],
+            cid: data['cid'],
+            uid: int.parse(uid),
+            name: data['name'],
+            rules: data['rules']);
+        switch (data['rules']) {
           case '0':
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeView()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomeView()));
           case '3':
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> const MenegerHomeView()));
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => const MenegerHomeView()));
             print('manager');
           case '1':
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> const MasterHomeView()));
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => const MasterHomeView()));
             print('master');
         }
       }
       else {
         Navigator.push(context, MaterialPageRoute(builder: (context)=> const Onboarding1View()));
       }
+      }
+      else {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> const Onboarding1View()));
+      }
     });
     return Scaffold(
-
+      body: TextButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> const Onboarding1View()));
+        }, child: Text('Если не грузит'),
+      ),
     );
   }
 }

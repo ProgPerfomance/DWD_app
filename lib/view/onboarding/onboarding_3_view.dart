@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../controller/translate_controller.dart';
+import '../../domain/get_user_info.dart';
 import '../welcome_view.dart';
 
 class Onboarding3View extends StatelessWidget {
@@ -6,6 +9,7 @@ class Onboarding3View extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -15,14 +19,14 @@ class Onboarding3View extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
                Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
                 child: GestureDetector(
                   onTap: (){
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const WelcomeView()), (route) => false);
                   },
-                  child: const Text(
-                    'Skip',
-                    style: TextStyle(
+                  child: Text(
+                    translate.skip,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
                       color: Color(0xff7A7A7A),
@@ -77,7 +81,7 @@ class Onboarding3View extends StatelessWidget {
               ),
               Center(
                   child: Text(
-                'Service your car',
+                  translate.onboarding3Title,
                 style: TextStyle(
                   color: const Color(0xffffffff).withOpacity(0.87),
                   fontSize: 32,
@@ -89,7 +93,7 @@ class Onboarding3View extends StatelessWidget {
               ),
               Center(
                   child: Text(
-                'Find the service needed for your car from our approved garages and book instantly',
+                translate.onboarding3Description,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.w400,
@@ -107,11 +111,11 @@ class Onboarding3View extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 24.0),
+                      child:  Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
                         child: Text(
-                          'Back',
-                          style: TextStyle(
+                          translate.back,
+                          style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 16,
                               color: Color(0xff7A7A7A)),
@@ -133,10 +137,10 @@ class Onboarding3View extends StatelessWidget {
                         color: const Color(0xff8875FF),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          'Next',
-                          style: TextStyle(
+                         translate.next,
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
                             color: Color(0xffffffff),

@@ -251,13 +251,33 @@ class ServiseView extends StatelessWidget {
                       ServiceButton(
                         text: 'Insurance',
                         icon: 'assets/icons/insurance.svg',
-                        id: 8,
+                        id: 10,
                       ),
                       ServiceButton(
                         text: 'Car Rent',
                         icon: 'assets/icons/carrent.svg',
-                        id: 8,
+                        id: 11,
                       ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ServiceButton(
+                        text: 'Storage',
+                        icon: 'assets/icons/storage.svg',
+                        id: 11,
+                      ),
+                     SizedBox(width: 72,),
+                      SizedBox(width: 72,),
+                      SizedBox(width: 72,),
                     ],
                   ),
                 ),
