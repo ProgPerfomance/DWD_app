@@ -256,7 +256,7 @@ class SellCarBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 330,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
           gradient: LinearGradient(colors: [
@@ -279,31 +279,32 @@ class SellCarBanner extends StatelessWidget {
             height: 24,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   children: [
                     SvgPicture.asset('assets/1_sellb.svg'),
                     const SizedBox(
-                      height: 24,
+                      height: 16,
                     ),
                     const Text(
-                      'Your smoothest\nexperience',
+                      'Transparency',
                       style: TextStyle(
                         color: Colors.white,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 8,
                     ),
                     const Text(
-                      'Your smoothest\nexperience',
+                      'We price your car\naccurately, avoiding\nfake offers and fake\nadverts.',
                       style: TextStyle(
                           fontWeight: FontWeight.w200,
-                          fontSize: 13,
+                          fontSize: 12,
                           color: Colors.white),
                       textAlign: TextAlign.center,
                     )
@@ -313,23 +314,23 @@ class SellCarBanner extends StatelessWidget {
                   children: [
                     SvgPicture.asset('assets/2_sellb.svg'),
                     const SizedBox(
-                      height: 24,
+                      height: 16,
                     ),
                     const Text(
-                      'Your smoothest\nexperience',
+                      'Safety',
                       style: TextStyle(
                         color: Colors.white,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 8,
                     ),
                     const Text(
-                      'Your smoothest\nexperience',
+                      'We ensure legal\ntransactions and full\npayments,\nprotecting you from\nfraud.',
                       style: TextStyle(
                           fontWeight: FontWeight.w200,
-                          fontSize: 13,
+                          fontSize: 12,
                           color: Colors.white),
                       textAlign: TextAlign.center,
                     )
@@ -339,23 +340,23 @@ class SellCarBanner extends StatelessWidget {
                   children: [
                     SvgPicture.asset('assets/3_sellb.svg'),
                     const SizedBox(
-                      height: 24,
+                      height: 16,
                     ),
                     const Text(
-                      'Your smoothest\nexperience',
+                      'Trust',
                       style: TextStyle(
                         color: Colors.white,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 8,
                     ),
                     const Text(
-                      'Your smoothest\nexperience',
+                      'We secure the best\noffer for your car\nand provide 24/7\nafter-sale support.',
                       style: TextStyle(
                           fontWeight: FontWeight.w200,
-                          fontSize: 13,
+                          fontSize: 12,
                           color: Colors.white),
                       textAlign: TextAlign.center,
                     )

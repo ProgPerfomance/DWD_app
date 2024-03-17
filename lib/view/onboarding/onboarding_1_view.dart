@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/view/welcome_view.dart';
 import '../../controller/translate_controller.dart';
-import '../../domain/get_user_info.dart';
+import '../../controller/get_user_info.dart';
 import 'onboarding_2_view.dart';
 class Onboarding1View extends StatelessWidget {
   const Onboarding1View({super.key});

@@ -37,4 +37,16 @@ TranslateModel ruModel = const TranslateModel(
   buy: 'Купить',
   service: 'Сервисы',
   chat: 'Чат',
+    generalRepair: 'Общий ремонт',
+    recovery: 'Эвакуатор',
+    specialOffers: 'Специальные предложения',
+    storage: 'Парковка',
+    tinting: 'Тонировка',
+    detailing: 'Детейлинг', acRepair: 'Климат контроль',
+    allServices: 'Все сервисы', battery: 'Батарея',
+    brakes: 'Тормоза', carRent: 'Аренда авто',
+    insurance: 'Страховка',
+    intervalService: 'ТО',
+    wheels: 'Колёса',
+    wrapping: 'Плёнка & PPF'
 );

@@ -183,7 +183,7 @@ class ConsignmentView extends GetView<GetUserCars> {
                         onTap: () {
                           sellCarRequest(
                               uid: userModel!.uid,
-                              cid: 2,
+                              cid: controller.sellCarId.value,
                               owner_name: _userNameController.text,
                               owner_email: _emailController.text,
                               owner_phone: _phoneNubmerController.text,

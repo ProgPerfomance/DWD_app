@@ -53,6 +53,6 @@ class AuthController extends GetxController {
    FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
    flutterSecureStorage.write(key: 'uid', value: data['uid'].toString());
    userModel = UserModel(email: data['email'], phone: data['phone'], cid: null, uid: data['uid'], name: name, rules: data['rules']);
-   ChatController().createChat(uid1: data['uid'], uid2: 0, cid: -1);
+   ChatController().createChat(uid1: data['uid'], uid2: 0, cid: -1, type: 'support');
   }
 }

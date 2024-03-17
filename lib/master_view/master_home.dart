@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/master_view/booking_master_view.dart';
+import 'package:untitled1/master_view/master_offers_view.dart';
 import 'package:untitled1/master_view/master_profile.dart';
 import 'package:untitled1/view/booking/booking_list_view.dart';
 import 'package:untitled1/view/chat/chat_list_view.dart';
@@ -9,6 +10,7 @@ import 'package:untitled1/view/servise/servise_view.dart';
 
 List screens = [
   const BookingMasterView(),
+  const MasterOffersView(),
   const ChatListView(),
 ];
 int selectedScreen = 0;
@@ -74,8 +76,40 @@ class _HomeViewState extends State<MasterHomeView> {
                         ),
                       ),
                       GestureDetector(
+                        onTap: () {
+                          selectedScreen = 1;
+                          setState(() {});
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/my_offers.svg',
+                              height: 24,
+                              width: 24,
+                              color: selectedScreen == 1
+                                  ? const Color(0xff8875FF)
+                                  : Colors.white,
+                            ),
+                            const SizedBox(
+                              height: 5.3,
+                            ),
+                            Text(
+                              'My offers',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: selectedScreen == 1
+                                    ? const Color(0xff8875FF)
+                                    : Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
                           onTap: () {
-                            selectedScreen = 1;
+                            selectedScreen = 2;
                             setState(() {});
                           },
                           child: Column(
@@ -85,7 +119,7 @@ class _HomeViewState extends State<MasterHomeView> {
                                 'assets/icons/chat.svg',
                                 height: 24,
                                 width: 24,
-                                color: selectedScreen == 1
+                                color: selectedScreen == 2
                                     ? const Color(0xff8875FF)
                                     : Colors.white,
                               ),
@@ -97,7 +131,7 @@ class _HomeViewState extends State<MasterHomeView> {
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  color: selectedScreen == 1
+                                  color: selectedScreen == 2
                                       ? const Color(0xff8875FF)
                                       : Colors.white,
                                 ),

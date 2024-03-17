@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/translate_controller.dart';
-import '../domain/get_user_info.dart';
+import '../controller/get_user_info.dart';
 import 'auth/login/login_view.dart';
 import 'auth/registration/registration_view.dart';
 

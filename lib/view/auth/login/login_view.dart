@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled1/domain/get_user_info.dart';
+import 'package:untitled1/controller/get_user_info.dart';
 import 'package:untitled1/master_view/master_home.dart';
 import 'package:untitled1/meneger_view/meneger_home_view.dart';
 import '../../../controller/translate_controller.dart';
@@ -158,12 +158,12 @@ class LoginView extends GetView<AuthController> {
                     if (check.rules != -1) {
                       switch(check.rules) {
                         case 0:
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeView()));
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const HomeView()), (route)=> false);
                         case 3:
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const MenegerHomeView()));
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const MenegerHomeView()), (route)=> false);
                           print('manager');
                         case 1:
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const MasterHomeView()));
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const MasterHomeView()), (route)=> false);
                           print('master');
                       }
                     }

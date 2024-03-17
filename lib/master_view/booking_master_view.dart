@@ -48,53 +48,28 @@ class BookingMasterView extends GetView<MasterBookingController> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  controller.getMasterBookingList();
-                  newList = false;
-                },
-                child: Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width / 2.57,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: const Color(0xff363636),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'ALL REQUEST',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      ),
+          Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    controller.getMasterBookingList();
+                    controller.newList.value = false;
+                  },
+                  child: Container(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width / 2.57,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: controller.newList.value == false
+                          ? const Color(0xff8874ff)
+                          : const Color(0xff363636),
                     ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              GestureDetector(
-                onTap: () {
-                  newList = true;
-                  controller.getNewMasterBookingList();
-                },
-                child: Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width / 2.57,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: const Color(0xff8874ff),
-                  ),
-                  child: Center(
-                    child: Obx( () =>
-                       Text(
-                      controller.newBooking.value > 0 ? 'NEW (${controller.newBooking.value})' : 'NEW',
-                        style: const TextStyle(
+                    child: const Center(
+                      child: Text(
+                        'ALL REQUEST',
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
@@ -103,16 +78,53 @@ class BookingMasterView extends GetView<MasterBookingController> {
                     ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 16,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    controller.newList.value = true;
+                    controller.getNewMasterBookingList();
+                  },
+                  child: Container(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width / 2.57,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: controller.newList.value == true
+                          ? const Color(0xff8874ff)
+                          : const Color(0xff363636),
+                    ),
+                    child: Center(
+                      child: Obx(
+                        () => Text(
+                          controller.newBooking.value > 0
+                              ? 'NEW (${controller.newBooking.value})'
+                              : 'NEW',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height - 199,
             child: Obx(
               () => ListView(
-                children:
-                    List.generate(controller.bookingList.value.length, (index) {
-                  var item = controller.bookingList.value[index];
+                children: List.generate(
+                    controller.newList.value == true
+                        ? controller.masterNewBookingList.value.length
+                        : controller.bookingList.value.length, (index) {
+                  var item = controller.newList.value == true
+                      ? controller.managerNewBookingList.value[index]
+                      : controller.bookingList.value[index];
                   String date = item['date_time'].toString().substring(0, 10);
                   String time = item['date_time'];
                   if (int.parse(time.substring(11, 13)) < 13) {
@@ -239,9 +251,9 @@ class BookingMasterView extends GetView<MasterBookingController> {
                                         const SizedBox(
                                           width: 8,
                                         ),
-                                         Text(
+                                        Text(
                                           item['car_name'].toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 16,
                                             color: Colors.white,
@@ -297,148 +309,103 @@ class BookingMasterView extends GetView<MasterBookingController> {
                               height: 16,
                             ),
                             item['status'] != 'Canceled'
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        height: 40,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                    2 -
-                                                42,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Colors.black.withOpacity(0.8),
+                                ? item['status'] != 'Approved'
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          controller.acceptBooking(
+                                            id: item['id'],
+                                          );
+                                          Future.delayed(
+                                              const Duration(milliseconds: 230),
+                                              () {
+                                            newList == true
+                                                ? controller
+                                                    .getNewMasterBookingList()
+                                                : controller
+                                                    .getMasterBookingList();
+                                          });
+                                        },
+                                        child: Container(
+                                          height: 40,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              32,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: const Color(0xff40CC46),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  'assets/icons/master_accept.svg'),
+                                              const SizedBox(
+                                                width: 4,
+                                              ),
+                                              const Text(
+                                                'ACCEPT',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SvgPicture.asset(
-                                                'assets/icons/master_change.svg'),
-                                            const SizedBox(
-                                              width: 4,
-                                            ),
-                                            const Text(
-                                              'CHANGE',
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white,
+                                      )
+                                    : GestureDetector(
+                                        onTap: () {
+                                          controller.cancelBooking(
+                                              id: item['id']);
+                                          Future.delayed(
+                                              const Duration(milliseconds: 230),
+                                              () {
+                                            newList == true
+                                                ? controller
+                                                    .getNewMasterBookingList()
+                                                : controller
+                                                    .getMasterBookingList();
+                                          });
+                                        },
+                                        child: Container(
+                                          height: 40,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              32,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color:
+                                                Colors.black.withOpacity(0.8),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  'assets/icons/booking_cancel.svg'),
+                                              const SizedBox(
+                                                width: 4,
                                               ),
-                                            )
-                                          ],
+                                              const Text(
+                                                'CANCEL',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      item['status'] != 'Approved'
-                                          ? GestureDetector(
-                                              onTap: () {
-                                                controller.acceptBooking(
-                                                  id: item['id'],
-                                                );
-                                                Future.delayed(
-                                                    const Duration(
-                                                        milliseconds: 230), () {
-                                                  newList == true
-                                                      ? controller
-                                                          .getNewMasterBookingList()
-                                                      : controller
-                                                          .getMasterBookingList();
-                                                });
-                                              },
-                                              child: Container(
-                                                height: 40,
-                                                width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        2 -
-                                                    42,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color:
-                                                      const Color(0xff40CC46),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                        'assets/icons/master_accept.svg'),
-                                                    const SizedBox(
-                                                      width: 4,
-                                                    ),
-                                                    const Text(
-                                                      'ACCEPT',
-                                                      style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: Colors.white,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            )
-                                          : GestureDetector(
-                                              onTap: () {
-                                                controller.cancelBooking(
-                                                    id: item['id']);
-                                                Future.delayed(
-                                                    const Duration(
-                                                        milliseconds: 230), () {
-                                                  newList == true
-                                                      ? controller
-                                                          .getNewMasterBookingList()
-                                                      : controller
-                                                          .getMasterBookingList();
-                                                });
-                                              },
-                                              child: Container(
-                                                height: 40,
-                                                width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        2 -
-                                                    42,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: Colors.black
-                                                      .withOpacity(0.8),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                        'assets/icons/booking_cancel.svg'),
-                                                    const SizedBox(
-                                                      width: 4,
-                                                    ),
-                                                    const Text(
-                                                      'CANCEL',
-                                                      style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: Colors.white,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                    ],
-                                  )
+                                      )
                                 : Container(
-                                    width:
-                                        MediaQuery.of(context).size.width ,
+                                    width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                       color: Colors.black.withOpacity(0.8),

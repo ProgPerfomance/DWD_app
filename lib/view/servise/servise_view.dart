@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
+import '../../controller/get_user_info.dart';
 import '../profile/profile_view.dart';
 import 'open_sevise_view.dart';
 
@@ -8,6 +10,7 @@ class ServiseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff121212),
@@ -78,6 +81,7 @@ class ServiseView extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const OpenServiseView(
+                                              imagePath: 'wheels.png',
                                               id: 0,
                                               special: true,
                                               title: 'Major Service',
@@ -87,15 +91,16 @@ class ServiseView extends StatelessWidget {
                                 width: 150,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  color: index == 0
-                                      ? null
-                                      : Colors.white,
-                                  gradient: index == 0 ? const LinearGradient(colors: [
-                                    Color(0xff8875FF),
-                                    Color(0xff40CC46)
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter):null,
+                                  color: index == 0 ? null : Colors.white,
+                                  gradient: index == 0
+                                      ? const LinearGradient(
+                                          colors: [
+                                              Color(0xff8875FF),
+                                              Color(0xff40CC46)
+                                            ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter)
+                                      : null,
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -168,29 +173,36 @@ class ServiseView extends StatelessWidget {
                 const SizedBox(
                   height: 42,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ServiceButton(
-                        text: 'General\nrepair',
+                        imagePath: 'general.png',
+                        text: translate.generalRepair,
+                        name: 'General repair',
                         icon: 'assets/icons/general_repair.svg',
                         id: 0,
                       ),
                       ServiceButton(
-                        text: 'Interval\nservice',
+                        imagePath: 'to.png',
+                        name: 'Interval service',
+                        text: translate.recovery,
                         icon: 'assets/icons/interval_service.svg',
                         id: 1,
                       ),
                       ServiceButton(
-                        text: 'Recovery',
+                        imagePath: 'rec.jpeg',
+                        text: translate.recovery,
                         icon: 'assets/icons/recovery.svg',
                         id: 2,
                       ),
                       ServiceButton(
-                        text: 'Wheels and\ntires',
+                        imagePath: 'wheels.png',
+                        name: 'Wheels and tires',
+                        text: translate.wheels,
                         icon: 'assets/icons/general2.svg',
                         id: 3,
                       ),
@@ -199,30 +211,35 @@ class ServiseView extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 16,
-                ), //  text: 'General\nrepair','Interval\nservice', 'Gearbox\nrepair','Wheels','Brakes','Battery', 'AC repair', 'Wrapping &\nPPF',   text: 'Tinting', text: 'Detailing',
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ServiceButton(
-                        text: 'Brakes',
+                        imagePath: 'brakes.jpeg',
+                        text: translate.brakes,
                         icon: 'assets/icons/brakes.svg',
                         id: 4,
                       ),
                       ServiceButton(
-                        text: 'Battery',
+                        imagePath: 'battery.jpeg',
+                        text: translate.battery,
                         icon: 'assets/icons/battary.svg',
                         id: 5,
                       ),
                       ServiceButton(
-                        text: 'AC repair',
+                        imagePath: 'ac.png',
+                        text: translate.acRepair,
                         icon: 'assets/icons/ac.svg',
                         id: 6,
                       ),
                       ServiceButton(
-                        text: 'Wrapping &\nPPF',
+                        imagePath: 'wrapping.png',
+                        name: 'Wrapping & PPF',
+                        text: translate.wrapping,
                         icon: 'assets/icons/ppf.svg',
                         id: 7,
                       ),
@@ -232,29 +249,33 @@ class ServiseView extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ServiceButton(
-                        text: 'Tinting',
+                        text: translate.tinting,
+                        imagePath: 'tinting.png',
                         icon: 'assets/icons/tinting.svg',
                         id: 8,
                       ),
                       ServiceButton(
-                        text: 'Detailing',
+                        text: translate.detailing,
+                        imagePath: 'detaling.png',
                         icon: 'assets/icons/detaling.svg',
                         id: 9,
                       ),
                       ServiceButton(
-                        text: 'Insurance',
+                        text: translate.insurance,
+                        imagePath: 'insurance.png',
                         icon: 'assets/icons/insurance.svg',
                         id: 10,
                       ),
                       ServiceButton(
-                        text: 'Car Rent',
+                        text: translate.carRent,
+                        imagePath: 'rent.jpeg',
                         icon: 'assets/icons/carrent.svg',
                         id: 11,
                       ),
@@ -264,20 +285,27 @@ class ServiseView extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ServiceButton(
-                        text: 'Storage',
+                        text: translate.storage,
                         icon: 'assets/icons/storage.svg',
-                        id: 11,
+                        id: 12,
+                        imagePath: 'storage.png',
                       ),
-                     SizedBox(width: 72,),
-                      SizedBox(width: 72,),
-                      SizedBox(width: 72,),
+                      const SizedBox(
+                        width: 72,
+                      ),
+                      const SizedBox(
+                        width: 72,
+                      ),
+                      const SizedBox(
+                        width: 72,
+                      ),
                     ],
                   ),
                 ),
@@ -323,11 +351,18 @@ class ServiseView extends StatelessWidget {
 }
 
 class ServiceButton extends StatelessWidget {
-  final icon;
-  final text;
+  final String icon;
+  final String text;
+  final String? name;
+  final String imagePath;
   final int id;
   const ServiceButton(
-      {super.key, required this.text, required this.icon, required this.id});
+      {super.key,
+      required this.text,
+      required this.icon,
+      required this.id,
+      required this.imagePath,
+      this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -338,8 +373,9 @@ class ServiceButton extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => OpenServiseView(
                       id: id,
+                      imagePath: 'assets/services/$imagePath',
                       special: false,
-                      title: text,
+                      title: name ?? text,
                     )));
       },
       child: Column(
@@ -372,17 +408,3 @@ class ServiceButton extends StatelessWidget {
     );
   }
 }
-
-//'Wheels','Brakes','Battery', 'AC repair', 'Wrapping &\nPPF',   text: 'Tinting', text: 'Detailing',
-// List strings = [
-//   insert into servises (id, name, price, low_price) values (0, 'General repair', 39, 23);
-//   insert into servises (id, name, price, low_price) values (1, 'Interval service', 39, 23);
-//   insert into servises (id, name, price, low_price) values (2, 'Gearbox repair', 39, 23);
-//   insert into servises (id, name, price, low_price) values (3, 'Wheels', 39, 23);
-//   insert into servises (id, name, price, low_price) values (4, 'Brakes', 39, 23);
-//   insert into servises (id, name, price, low_price) values (5, 'Battery', 39, 23);
-//   insert into servises (id, name, price, low_price) values (6, 'AC repair', 39, 23);
-//   insert into servises (id, name, price, low_price) values (7, 'Wrapping & PPF', 39, 23);
-//   insert into servises (id, name, price, low_price) values (8, 'Tinting', 39, 23);
-//   insert into servises (id, name, price, low_price) values (9, 'Detailing', 39, 23);
-// ];

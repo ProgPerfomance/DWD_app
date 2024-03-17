@@ -220,10 +220,10 @@ class RegistrationView extends GetView<AuthController> {
                         email: _emailContoller.text,
                         name: _nameController.text,
                       );
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HomeView()));
+                              builder: (context) => const HomeView()), (route)=> false);
                     }
                   },
                   child: Container(

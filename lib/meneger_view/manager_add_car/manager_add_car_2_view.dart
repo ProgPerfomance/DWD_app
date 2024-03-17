@@ -16,6 +16,7 @@ final _serviceContactController = TextEditingController();
 final _brandController = TextEditingController();
 final _yearController = TextEditingController();
 final _nameController = TextEditingController();
+
 class ManagerAddCar2View extends StatefulWidget {
   final images;
   const ManagerAddCar2View({super.key, required this.images});
@@ -145,7 +146,7 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                         padding: EdgeInsets.only(bottom: 8),
                         child: Align(
                             alignment: Alignment.centerLeft,
-                            child: Text("Car name",
+                            child: Text("Model",
                                 style: TextStyle(
                                     fontSize: 23,
                                     color: Colors.white,
@@ -165,7 +166,7 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   enabledBorder: InputBorder.none,
                                   contentPadding:
                                   EdgeInsetsDirectional.only(start: 10)),
-                              controller: _nameController,
+                              controller: _modelContoller,
                             )),
                       ),
                     ]),
@@ -224,35 +225,6 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   contentPadding:
                                       EdgeInsetsDirectional.only(start: 10)),
                               controller: _priceUSDController,
-                            )),
-                      ),
-                    ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Model",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.only(start: 10)),
-                              controller: _modelContoller,
                             )),
                       ),
                     ]),
@@ -567,7 +539,8 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   photos: widget.images,
                                   price_AED: _priceAEDController.text,
                                   year: _yearController.text,
-                              name: _nameController.text,
+                                  name:
+                                      '${_brandController.text} ${_modelContoller.text}',
                                 )));
                   },
                   child: Container(

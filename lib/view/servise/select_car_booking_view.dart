@@ -64,7 +64,7 @@ class SelectCarBookingView extends GetView<GetUserCars> {
                       var item = controller.userCars.value[index];
                       return GestureDetector(
                         onTap: () {
-                     sell == true ? controller.changeSellCarName(item['name']) : controller.changeCarName(item['name']);
+                     sell == true ? controller.changeSellCarName(item['name'], item['id'],) : controller.changeCarName(item['name'], item['id']);
                           Navigator.pop(context);
                         },
                         child: Column(

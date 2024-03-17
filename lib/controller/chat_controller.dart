@@ -9,45 +9,52 @@ class ChatController extends GetxController {
   RxList chats = [].obs;
   RxList messages = [].obs;
   Future<void> getChats(uid) async {
-    final response = await dio.post('${ServerRoutes.host}/getchats',
-    data: {
+    final response = await dio.post('${ServerRoutes.host}/getchats', data: {
       'uid': uid.toString(),
     });
     chats.value = jsonDecode(response.data);
     notifyChildrens();
-    print(response.data);
-    print(uid);
   }
-  Future<void> createChat({required uid1, required uid2, required cid}) async {
-    dio.post('${ServerRoutes.host}/createchat',
-    data: {
+
+  Future<int> createChat(
+      {required uid1, required uid2, required cid, required type}) async {
+    final response = await dio.post('${ServerRoutes.host}/createchat', data: {
       'uid1': uid1.toString(),
       'uid2': uid2.toString(),
       'cid': cid.toString(),
+      'type': type.toString(),
     });
+    return jsonDecode(response.data);
   }
-  Future<void> getChatMessages(cid) async {
 
+  Future<void> getChatMessages(cid) async {
     final response = await dio.post('${ServerRoutes.host}/getMessages',
         data: {'cid': cid.toString()});
-    print(response.data);
     messages.clear();
-    messages.value =jsonDecode(response.data);
+    messages.value = jsonDecode(response.data);
     notifyChildrens();
   }
+
+
   void clearList() {
     messages.clear();
     notifyChildrens();
   }
+
+
   Future<void> sendMessage({
     required cid,
     required uid,
     required msg,
   }) async {
-    final response = await dio.post('${ServerRoutes.host}/sendMessage', data: {
+    await dio.post('${ServerRoutes.host}/sendMessage', data: {
       'cid': cid.toString(),
       'uid': uid.toString(),
       'msg': msg.toString(),
+    });
+    Future.delayed(const Duration(milliseconds: 30), () {
+      getChatMessages(cid);
+      notifyChildrens();
     });
   }
 }

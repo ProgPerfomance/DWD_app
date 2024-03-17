@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/translate_controller.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
-import 'package:untitled1/domain/get_user_info.dart';
+import 'package:untitled1/controller/get_user_info.dart';
 import 'package:untitled1/translate/eng_model.dart';
 import 'package:untitled1/translate/ru_model.dart';
 import 'package:untitled1/view/onboarding/onboarding_1_view.dart';

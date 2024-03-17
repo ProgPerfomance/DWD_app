@@ -36,6 +36,22 @@ class TranslateModel {
   final String service;
   final String chat;
   final String booking;
+  //сервисы
+  final String specialOffers;
+  final String allServices;
+  final String generalRepair;
+  final String intervalService;
+  final String recovery;
+  final String wheels;
+  final String brakes;
+  final String battery;
+  final String acRepair;
+  final String wrapping;
+  final String tinting;
+  final String detailing;
+  final String insurance;
+  final String carRent;
+  final String storage;
   const TranslateModel({
     required this.Profile,
     required this.About_us,
@@ -74,5 +90,20 @@ class TranslateModel {
     required this.buy,
     required this.chat,
     required this.service,
+    required this.storage,
+    required this.acRepair,
+    required this.allServices,
+    required this.battery,
+    required this.brakes,
+    required this.carRent,
+    required this.detailing,
+    required this.generalRepair,
+    required this.insurance,
+    required this.intervalService,
+    required this.recovery,
+    required this.specialOffers,
+    required this.tinting,
+    required this.wheels,
+    required this.wrapping
   });
 }

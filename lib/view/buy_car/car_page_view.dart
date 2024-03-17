@@ -7,8 +7,10 @@ import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/get_car_info_controller.dart';
 import 'package:untitled1/domain/get_cars_list_domain.dart';
+import 'package:untitled1/view/chat/chat_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../controller/chat_controller.dart';
 import '../../domain/auth_user_domain.dart';
 import '../../server_routes.dart';
 
@@ -163,20 +165,26 @@ class CarPageView extends GetView<GetCarInfoController> {
                           const SizedBox(
                             width: 24,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: const Color(0xff8875FF),
-                            ),
-                            height: 60,
-                            width: MediaQuery.of(context).size.width / 2 - 33,
-                            child: const Center(
-                              child: Text(
-                                'BOOK',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color(0xffffffff)),
+                          GestureDetector(
+                            onTap: () async {
+                     int cid = await   ChatController().createChat(uid1: userModel!.uid, uid2: 0, cid: id.toString(), type: 'car');
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatView(chatId: cid, opponentName: name)));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: const Color(0xff8875FF),
+                              ),
+                              height: 60,
+                              width: MediaQuery.of(context).size.width / 2 - 33,
+                              child: const Center(
+                                child: Text(
+                                  'BOOK',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: Color(0xffffffff)),
+                                ),
                               ),
                             ),
                           )

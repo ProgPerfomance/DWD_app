@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:untitled1/controller/services_controller.dart';
 import 'package:untitled1/view/servise/book_service_view.dart';
 
-class OpenServiseView extends StatelessWidget {
+class OpenServiseView extends GetView<ServicesController> {
   final bool special;
   final String title;
   final int id;
+  final String imagePath;
   const OpenServiseView(
       {super.key,
       required this.special,
       required this.title,
+        required this.imagePath,
       required this.id});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ServicesController());
+    controller.getServiceInfo(id);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(imagePath,),alignment: Alignment.topCenter,
+              fit: BoxFit.fitWidth
+            )
+          ),
           width: MediaQuery.of(context).size.width,
-          color: special == true
-              ? const Color.fromRGBO(57, 198, 54, 1)
-              : const Color(0xff8875FF),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,7 +41,7 @@ class OpenServiseView extends StatelessWidget {
                     height: 70,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
@@ -42,7 +52,7 @@ class OpenServiseView extends StatelessWidget {
                     height: 8.5,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 41.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       title,
                       style: const TextStyle(
@@ -56,12 +66,13 @@ class OpenServiseView extends StatelessWidget {
                     height: 7,
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 41.0),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       '39\$',
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 24,
+                        color: Color(0xff8875FF)
                       ),
                     ),
                   ),
@@ -69,7 +80,7 @@ class OpenServiseView extends StatelessWidget {
                     height: 8,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 41.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Stack(
                       children: [
                         Image.asset('assets/line.png'),
@@ -118,37 +129,20 @@ class OpenServiseView extends StatelessWidget {
                       const SizedBox(
                         height: 32,
                       ),
-                      const Column(
-                        children: [
-                          Text(
-                            'Oil Filter',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xffffffff)),
-                          ),
-                          Text(
-                            'Oil Filter',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xffffffff)),
-                          ),
-                          Text(
-                            'Oil Filter',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xffffffff)),
-                          ),
-                          Text(
-                            'Oil Filter',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xffffffff)),
-                          )
-                        ],
+                      Obx(
+                        () => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            controller.included.length,
+                            (index) => Text(
+                              controller.included[index]['title'],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Color(0xffffffff)),
+                            ),
+                          ).toList(),
+                        ),
                       ),
                       const SizedBox(
                         height: 48,
@@ -164,37 +158,20 @@ class OpenServiseView extends StatelessWidget {
                       const SizedBox(
                         height: 32,
                       ),
-                      const Column(
-                        children: [
-                          Text(
-                            'Oil Filter',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xffffffff)),
-                          ),
-                          Text(
-                            'Oil Filter',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xffffffff)),
-                          ),
-                          Text(
-                            'Oil Filter',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xffffffff)),
-                          ),
-                          Text(
-                            'Oil Filter',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xffffffff)),
-                          )
-                        ],
+                      Obx(
+                        () => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            controller.notIncluded.length,
+                            (index) => Text(
+                              controller.notIncluded[index]['title'],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Color(0xffffffff)),
+                            ),
+                          ).toList(),
+                        ),
                       ),
                       const SizedBox(
                         height: 33,
@@ -229,7 +206,7 @@ class OpenServiseView extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

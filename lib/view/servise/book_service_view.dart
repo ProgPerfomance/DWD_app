@@ -212,7 +212,7 @@ class BookServiceView extends GetView<GetUserCars> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectCarBookingView(sell: false,)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectCarBookingView(sell: false,)));
                       },
                       child: Row(
                         children: [
@@ -359,11 +359,11 @@ class BookServiceView extends GetView<GetUserCars> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        if (_time != 'Select Date & Time') {
+                        if (_time != 'Select Date & Time' && controller.carId.value != 0 && _ownerEmailController.text.isNotEmpty && _ownerNameController.text.isNotEmpty) {
                           BookingDomain().createBooking(
                               sid: id,
-                              cid: 1,
-                              uid: 1,
+                              cid: controller.carId.value,
+                              uid: userModel!.uid,
                               owner_name: _ownerNameController.text,
                               owner_email: _ownerEmailController.text,
                               owner_phone: _ownerNumberController.text,
@@ -482,7 +482,7 @@ class _CheckBoxWidgetState extends State<BookingCheckBoxWidget> {
 }
 
 SnackBar errorSnackBar = const SnackBar(
-  content: Text('Date not selected'),
+  content: Text('Please check your data'),
   backgroundColor: Colors.red,
 );
 
