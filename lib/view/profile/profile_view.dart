@@ -352,7 +352,7 @@ class ProfileView extends GetView<UserInfoController> {
                       GestureDetector(
                         onTap: () {
                           Get.bottomSheet(Container(
-                            height: 300,
+                            height: 230,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),

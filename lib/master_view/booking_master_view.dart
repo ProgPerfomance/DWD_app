@@ -3,8 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:untitled1/controller/chat_controller.dart';
 import 'package:untitled1/controller/master/booking_master_controller.dart';
+import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/master_view/master_profile.dart';
+import 'package:untitled1/view/profile/profile_view.dart';
 
 bool newList = false;
 
@@ -36,7 +39,7 @@ class BookingMasterView extends GetView<MasterBookingController> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const MasterProfileView()),
+                        builder: (context) => const ProfileView()),
                   );
                 },
                 child: Image.asset('assets/testava.png')),
@@ -315,6 +318,7 @@ class BookingMasterView extends GetView<MasterBookingController> {
                                           controller.acceptBooking(
                                             id: item['id'],
                                           );
+                                          ChatController().createChat(uid1: item['uid'], uid2: userModel!.uid, cid: item['sid'], type: 'booking');
                                           Future.delayed(
                                               const Duration(milliseconds: 230),
                                               () {

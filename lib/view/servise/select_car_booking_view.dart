@@ -3,10 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/controller/booking_service_controller.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 import '../profile/create_car_view.dart';
-import 'book_service_view.dart';
+
 
 class SelectCarBookingView extends GetView<GetUserCars> {
   final bool sell;

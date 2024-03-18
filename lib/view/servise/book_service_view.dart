@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/controller/booking_service_controller.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/domain/booking_domain.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
@@ -10,7 +9,7 @@ import 'package:untitled1/view/servise/select_car_booking_view.dart';
 
 import 'book_service_view.dart';
 
-String _time = 'Select data & time';
+String _time = 'Select Date & time';
 
 TextEditingController _pickupController = TextEditingController();
 TextEditingController _deliveryController = TextEditingController();
@@ -22,7 +21,8 @@ String car = 'Select car';
 class BookServiceView extends GetView<GetUserCars> {
   final int id;
   final bool offer;
-  const BookServiceView({super.key, required this.id, required this.offer});
+  final garage;
+  const BookServiceView({super.key, required this.id, required this.offer,required this.garage});
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +213,13 @@ class BookServiceView extends GetView<GetUserCars> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectCarBookingView(sell: false,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const SelectCarBookingView(
+                                      sell: false,
+                                    )));
                       },
                       child: Row(
                         children: [
@@ -226,13 +232,15 @@ class BookServiceView extends GetView<GetUserCars> {
                           const SizedBox(
                             width: 24,
                           ),
-                        Obx( ()=>  Text(
-                           controller.car.value,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xff8687E7)),
-                          ),),
+                          Obx(
+                            () => Text(
+                              controller.car.value,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Color(0xff8687E7)),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -354,40 +362,53 @@ class BookServiceView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 16,
                     ),
-                  const SelectDateWidget(),
+                    const SelectDateWidget(),
                     const SizedBox(
                       height: 28,
                     ),
                     GestureDetector(
                       onTap: () {
-                        if (_time != 'Select Date & Time' && controller.carId.value != 0 && _ownerEmailController.text.isNotEmpty && _ownerNameController.text.isNotEmpty) {
-                       offer == false ?   BookingDomain().createBooking(
-                              sid: id,
-                              cid: controller.carId.value,
-                              uid: userModel!.uid,
-                              owner_name: _ownerNameController.text,
-                              owner_email: _ownerEmailController.text,
-                              owner_phone: _ownerNumberController.text,
-                              pickup: _pickupController.text,
-                              delivery: _deliveryController.text,
-                              timestamp: DateTime.now().toString(),
-                              date_time: _time) :
-                       BookingDomain().createBookingOffer(
-                           sid: id,
-                           cid: controller.carId.value,
-                           uid: userModel!.uid,
-                           owner_name: _ownerNameController.text,
-                           owner_email: _ownerEmailController.text,
-                           owner_phone: _ownerNumberController.text,
-                           pickup: _pickupController.text,
-                           delivery: _deliveryController.text,
-                           timestamp: DateTime.now().toString(),
-                           date_time: _time);
+                        if (_time == 'Select Date & time') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Select Date & time'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else if (controller.car.value.isEmpty ||
+                            controller.car.value == 'Select car') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Select car'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else {
+                          offer == false
+                              ? BookingDomain().createBooking(
+                                  sid: id,
+                                  cid: controller.carId.value,
+                                  uid: userModel!.uid,
+                                  owner_name: _ownerNameController.text,
+                                  owner_email: _ownerEmailController.text,
+                                  owner_phone: _ownerNumberController.text,
+                                  pickup: _pickupController.text,
+                                  delivery: _deliveryController.text,
+                                  timestamp: DateTime.now().toString(),
+                                  date_time: _time)
+                              : BookingDomain().createBookingOffer(
+                                  sid: id,
+                                  cid: controller.carId.value,
+                                  uid: userModel!.uid,
+                                  owner_name: _ownerNameController.text,
+                                  owner_email: _ownerEmailController.text,
+                                  owner_phone: _ownerNumberController.text,
+                                  pickup: _pickupController.text,
+                                  delivery: _deliveryController.text,
+                                  timestamp: DateTime.now().toString(),
+                                  date_time: _time, garage: garage);
 
                           Navigator.pop(context);
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(errorSnackBar);
                         }
                       },
                       child: Container(
@@ -493,12 +514,6 @@ class _CheckBoxWidgetState extends State<BookingCheckBoxWidget> {
   }
 }
 
-SnackBar errorSnackBar = const SnackBar(
-  content: Text('Please check your data'),
-  backgroundColor: Colors.red,
-);
-
-
 class SelectDateWidget extends StatefulWidget {
   const SelectDateWidget({super.key});
 
@@ -509,16 +524,14 @@ class SelectDateWidget extends StatefulWidget {
 class _SelectDateWidgetState extends State<SelectDateWidget> {
   @override
   Widget build(BuildContext context) {
-    return   GestureDetector(
+    return GestureDetector(
       onTap: () {
         DatePicker.showDatePicker(
           context,
           pickerMode: DateTimePickerMode.datetime,
-          initialDateTime:
-          DateTime.now().add(const Duration(days: 1)),
+          initialDateTime: DateTime.now().add(const Duration(days: 1)),
           minDateTime: DateTime.now(),
-          maxDateTime:
-          DateTime.now().add(const Duration(days: 365)),
+          maxDateTime: DateTime.now().add(const Duration(days: 365)),
           locale: DateTimePickerLocale.en_us,
           dateFormat: "dd MMMM yyyy HH:mm",
           onChange: (dateTime, selectedIndex) {

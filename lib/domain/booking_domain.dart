@@ -39,8 +39,9 @@ class BookingDomain  {
     required delivery,
     required timestamp,
     required date_time,
+    required garage,
   }) async {
-    dio.post('http://63.251.122.116:2308/createbooking',
+    dio.post('http://63.251.122.116:2308/createBookingOffer',
         data: {
           'sid': sid,
           'cid': cid,
@@ -52,7 +53,7 @@ class BookingDomain  {
           'delivery': delivery,
           'timestamp': timestamp,
           'date_time': date_time,
-          'garage': cid,
+          'garage': garage,
         });
   }
 }

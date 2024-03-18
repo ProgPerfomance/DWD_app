@@ -87,6 +87,7 @@ class ServiseView extends GetView<ServicesController> {
                                           builder: (context) =>
                                                OpenServiseView(
                                                 imagePath: 'wheels.png',
+                                                garage: item['garage'],
                                                 id: int.parse(item['id']),
                                                 special: true,
                                                 title: item['name'],
@@ -383,6 +384,7 @@ class ServiceButton extends StatelessWidget {
                       id: id,
                       imagePath: 'assets/services/$imagePath',
                       special: false,
+                      garage: null,
                       title: name ?? text,
                     )));
       },

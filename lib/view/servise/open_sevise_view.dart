@@ -8,12 +8,14 @@ class OpenServiseView extends GetView<ServicesController> {
   final String title;
   final int id;
   final String imagePath;
+  final String? garage;
   const OpenServiseView({
     super.key,
     required this.special,
     required this.title,
     required this.imagePath,
     required this.id,
+    required this.garage,
   });
 
   @override
@@ -212,6 +214,7 @@ class OpenServiseView extends GetView<ServicesController> {
                                 MaterialPageRoute(
                                     builder: (context) => BookServiceView(
                                           id: id,
+                                    garage: garage,
                                     offer: special,
                                         )));
                           },

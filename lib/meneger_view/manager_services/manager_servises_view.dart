@@ -98,6 +98,7 @@ class _ServiceViewState extends State<ManagerServiceView> {
                                             const OpenServiseView(
                                               imagePath: 'wheels.png',
                                               id: 0,
+                                              garage: null,
                                               special: true,
                                               title: 'Major Service',
                                             )));

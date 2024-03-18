@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/master_view/booking_master_view.dart';
 import 'package:untitled1/master_view/master_offers_view.dart';
-import 'package:untitled1/master_view/master_profile.dart';
-import 'package:untitled1/view/booking/booking_list_view.dart';
+
 import 'package:untitled1/view/chat/chat_list_view.dart';
-import 'package:untitled1/view/sell_car_view/sell_car_view.dart';
-import 'package:untitled1/view/servise/servise_view.dart';
+
 
 List screens = [
   const BookingMasterView(),
