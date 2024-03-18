@@ -6,7 +6,7 @@ import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/chat_controller.dart';
 import 'package:untitled1/controller/master/booking_master_controller.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
-import 'package:untitled1/master_view/master_profile.dart';
+
 import 'package:untitled1/view/profile/profile_view.dart';
 
 bool newList = false;
@@ -126,7 +126,7 @@ class BookingMasterView extends GetView<MasterBookingController> {
                         ? controller.masterNewBookingList.value.length
                         : controller.bookingList.value.length, (index) {
                   var item = controller.newList.value == true
-                      ? controller.managerNewBookingList.value[index]
+                      ? controller.masterNewBookingList.value[index]
                       : controller.bookingList.value[index];
                   String date = item['date_time'].toString().substring(0, 10);
                   String time = item['date_time'];

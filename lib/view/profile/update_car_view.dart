@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:untitled1/domain/create_user_car.dart';
 import 'package:untitled1/domain/update_user_car.dart';
 import 'package:untitled1/view/profile/car_list_view.dart';
 
@@ -14,17 +12,20 @@ TextEditingController _carReg = TextEditingController();
 
 class UpdateCarView extends StatefulWidget {
   var id;
-      var name;
+  var name;
   var brand;
-      var model;
+  var model;
   var year;
-      var car_reg;
-   UpdateCarView({super.key, required this.id,
-  required this.name,
-  required this.brand,
-  required this.model,
-  required this.year,
-  required this.car_reg,});
+  var car_reg;
+  UpdateCarView({
+    super.key,
+    required this.id,
+    required this.name,
+    required this.brand,
+    required this.model,
+    required this.year,
+    required this.car_reg,
+  });
 
   @override
   State<UpdateCarView> createState() => _CreateCarViewState();
@@ -54,7 +55,10 @@ class _CreateCarViewState extends State<UpdateCarView> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CarListView()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CarListView()));
                         },
                         child: const Text(
                           'Back',
@@ -78,12 +82,13 @@ class _CreateCarViewState extends State<UpdateCarView> {
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CreateCarView()), (route) => false);
+                                  builder: (context) => const CreateCarView()),
+                              (route) => false);
                         },
                         child: GestureDetector(
                           onTap: () {
                             updateUserCar(
-                              id: widget.id,
+                                id: widget.id,
                                 name: _name.text,
                                 brand: _brand.text,
                                 model: _model.text,

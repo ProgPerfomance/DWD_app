@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
 
 
@@ -11,9 +10,9 @@ import 'package:untitled1/domain/auth_user_domain.dart';
     required year,
     required car_reg,
 }) async {
-    final response = dio.post('http://63.251.122.116:2308/createusercar',
+    await dio.post('http://63.251.122.116:2308/createusercar',
       data: {
-      'uid': '1',
+      'uid': userModel!.uid,
         'name': name.toString(),
         'brand': brand.toString(),
         'model': model.toString(),
