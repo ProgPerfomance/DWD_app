@@ -21,7 +21,8 @@ String car = 'Select car';
 
 class BookServiceView extends GetView<GetUserCars> {
   final int id;
-  const BookServiceView({super.key, required this.id});
+  final bool offer;
+  const BookServiceView({super.key, required this.id, required this.offer});
 
   @override
   Widget build(BuildContext context) {
@@ -360,7 +361,7 @@ class BookServiceView extends GetView<GetUserCars> {
                     GestureDetector(
                       onTap: () {
                         if (_time != 'Select Date & Time' && controller.carId.value != 0 && _ownerEmailController.text.isNotEmpty && _ownerNameController.text.isNotEmpty) {
-                          BookingDomain().createBooking(
+                       offer == false ?   BookingDomain().createBooking(
                               sid: id,
                               cid: controller.carId.value,
                               uid: userModel!.uid,
@@ -370,7 +371,18 @@ class BookServiceView extends GetView<GetUserCars> {
                               pickup: _pickupController.text,
                               delivery: _deliveryController.text,
                               timestamp: DateTime.now().toString(),
-                              date_time: _time);
+                              date_time: _time) :
+                       BookingDomain().createBookingOffer(
+                           sid: id,
+                           cid: controller.carId.value,
+                           uid: userModel!.uid,
+                           owner_name: _ownerNameController.text,
+                           owner_email: _ownerEmailController.text,
+                           owner_phone: _ownerNumberController.text,
+                           pickup: _pickupController.text,
+                           delivery: _deliveryController.text,
+                           timestamp: DateTime.now().toString(),
+                           date_time: _time);
 
                           Navigator.pop(context);
                         } else {

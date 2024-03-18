@@ -8,12 +8,13 @@ class OpenServiseView extends GetView<ServicesController> {
   final String title;
   final int id;
   final String imagePath;
-  const OpenServiseView(
-      {super.key,
-      required this.special,
-      required this.title,
-        required this.imagePath,
-      required this.id});
+  const OpenServiseView({
+    super.key,
+    required this.special,
+    required this.title,
+    required this.imagePath,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +23,18 @@ class OpenServiseView extends GetView<ServicesController> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(imagePath,),alignment: Alignment.topCenter,
-              fit: BoxFit.fitWidth
-            )
-          ),
+          decoration: special == false
+              ? BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        imagePath,
+                      ),
+                      alignment: Alignment.topCenter,
+                      fit: BoxFit.fitWidth))
+              : const BoxDecoration(
+                  color: Color(0xff40CC46),
+                ),
           width: MediaQuery.of(context).size.width,
-
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,14 +70,15 @@ class OpenServiseView extends GetView<ServicesController> {
                   const SizedBox(
                     height: 7,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      '39\$',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 24,
-                        color: Color(0xff8875FF)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Obx(
+                      () => Text(
+                        '${controller.price.value}\$',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 24,
+                            color: Color(0xff8875FF)),
                       ),
                     ),
                   ),
@@ -84,12 +90,14 @@ class OpenServiseView extends GetView<ServicesController> {
                     child: Stack(
                       children: [
                         Image.asset('assets/line.png'),
-                        const Text(
-                          'was 49\$',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xffffffff),
+                        Obx(
+                          () => Text(
+                            'was ${controller.lowPrice.value}\$',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xffffffff),
+                            ),
                           ),
                         ),
                       ],
@@ -111,99 +119,125 @@ class OpenServiseView extends GetView<ServicesController> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 39.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 61,
-                      ),
-                      const Text(
-                        "What's Included",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xffffffff),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 61,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      Obx(
-                        () => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: List.generate(
-                            controller.included.length,
-                            (index) => Text(
-                              controller.included[index]['title'],
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                  color: Color(0xffffffff)),
-                            ),
-                          ).toList(),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 48,
-                      ),
-                      const Text(
-                        "What's NOT Included",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xffffffff),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      Obx(
-                        () => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: List.generate(
-                            controller.notIncluded.length,
-                            (index) => Text(
-                              controller.notIncluded[index]['title'],
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                  color: Color(0xffffffff)),
-                            ),
-                          ).toList(),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 33,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BookServiceView(
-                                        id: id,
-                                      )));
-                        },
-                        child: Container(
-                          height: 52,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color(0xff8875FF),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'Book',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xffffffff)),
-                            ),
+                        const Text(
+                          "Description",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xffffffff),
                           ),
                         ),
-                      )
-                    ],
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Obx(() => Text(
+                              controller.description.value,
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        const Text(
+                          "What's Included",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xffffffff),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Obx(
+                          () => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: List.generate(
+                              controller.included.length,
+                              (index) => Text(
+                                controller.included[index]['title'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: Color(0xffffffff)),
+                              ),
+                            ).toList(),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 48,
+                        ),
+                        const Text(
+                          "What's NOT Included",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xffffffff),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        Obx(
+                          () => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: List.generate(
+                              controller.notIncluded.length,
+                              (index) => Text(
+                                controller.notIncluded[index]['title'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: Color(0xffffffff)),
+                              ),
+                            ).toList(),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 33,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BookServiceView(
+                                          id: id,
+                                    offer: special,
+                                        )));
+                          },
+                          child: Container(
+                            height: 52,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: const Color(0xff8875FF),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Book',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xffffffff)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

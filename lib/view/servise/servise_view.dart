@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:untitled1/controller/services_controller.dart';
 import '../../controller/get_user_info.dart';
 import '../profile/profile_view.dart';
 import 'open_sevise_view.dart';
 
-class ServiseView extends StatelessWidget {
+class ServiseView extends GetView<ServicesController> {
   const ServiseView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ServicesController());
+    controller.getLastOffers(garage: 0);
     final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       appBar: AppBar(
@@ -63,97 +66,101 @@ class ServiseView extends StatelessWidget {
                 const SizedBox(
                   height: 34,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: SizedBox(
-                    height: 150,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 33,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const OpenServiseView(
-                                              imagePath: 'wheels.png',
-                                              id: 0,
-                                              special: true,
-                                              title: 'Major Service',
-                                            )));
-                              },
-                              child: Container(
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: index == 0 ? null : Colors.white,
-                                  gradient: index == 0
-                                      ? const LinearGradient(
-                                          colors: [
-                                              Color(0xff8875FF),
-                                              Color(0xff40CC46)
-                                            ],
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter)
-                                      : null,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Major Service',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: 24,
-                                          color: index == 0
-                                              ? const Color(0xffffffff)
-                                              : const Color(0xff8875FF),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      const Text(
-                                        '39 AED',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      Stack(
-                                        alignment: AlignmentDirectional.center,
-                                        children: [
-                                          Image.asset('assets/line.png'),
-                                          Text(
-                                            'was 49 AED',
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w400,
-                                              color: index == 0
-                                                  ? const Color(0xffffffff)
-                                                  : const Color(0xff7A7A7A),
-                                            ),
+                Obx(
+                  () => Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: SizedBox(
+                      height: 150,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.lastSpecialOffers.length,
+                          itemBuilder: (context, index) {
+                            final item = controller.lastSpecialOffers[index];
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                               OpenServiseView(
+                                                imagePath: 'wheels.png',
+                                                id: int.parse(item['id']),
+                                                special: true,
+                                                title: item['name'],
+                                              )));
+                                },
+                                child: Container(
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: index == 0 ? null : Colors.white,
+                                    gradient: index == 0
+                                        ? const LinearGradient(
+                                            colors: [
+                                                Color(0xff8875FF),
+                                                Color(0xff40CC46)
+                                              ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter)
+                                        : null,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item['name'],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 22,
+                                            color: index == 0
+                                                ? const Color(0xffffffff)
+                                                : const Color(0xff8875FF),
                                           ),
-                                        ],
-                                      ),
-                                    ],
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Text(
+                                          '${item['price']} AED',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Stack(
+                                          alignment:
+                                              AlignmentDirectional.center,
+                                          children: [
+                                            Image.asset('assets/line.png'),
+                                            Text(
+                                              'was ${item['low_price']} AED',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: index == 0
+                                                    ? const Color(0xffffffff)
+                                                    : const Color(0xff7A7A7A),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -189,7 +196,7 @@ class ServiseView extends StatelessWidget {
                       ServiceButton(
                         imagePath: 'to.png',
                         name: 'Interval service',
-                        text: translate.recovery,
+                        text: translate.intervalService,
                         icon: 'assets/icons/interval_service.svg',
                         id: 1,
                       ),
@@ -257,13 +264,13 @@ class ServiseView extends StatelessWidget {
                     children: [
                       ServiceButton(
                         text: translate.tinting,
-                        imagePath: 'tinting.png',
+                        imagePath: 'tinting.jpeg',
                         icon: 'assets/icons/tinting.svg',
                         id: 8,
                       ),
                       ServiceButton(
                         text: translate.detailing,
-                        imagePath: 'detaling.png',
+                        imagePath: 'detaling.jpeg',
                         icon: 'assets/icons/detaling.svg',
                         id: 9,
                       ),
@@ -356,13 +363,14 @@ class ServiceButton extends StatelessWidget {
   final String? name;
   final String imagePath;
   final int id;
-  const ServiceButton(
-      {super.key,
-      required this.text,
-      required this.icon,
-      required this.id,
-      required this.imagePath,
-      this.name});
+  const ServiceButton({
+    super.key,
+    required this.text,
+    required this.icon,
+    required this.id,
+    required this.imagePath,
+    this.name,
+  });
 
   @override
   Widget build(BuildContext context) {

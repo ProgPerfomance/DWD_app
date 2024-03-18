@@ -11,6 +11,9 @@ class ServicesController extends GetxController {
   RxList notIncluded = [].obs;
   RxList myOffers = [].obs;
   RxList lastSpecialOffers = [].obs;
+  RxString description = ''.obs;
+  RxString price = ''.obs;
+  RxString lowPrice = ''.obs;
   Future<void> getGarages() async {
     final response = await dio.get('${ServerRoutes.host}/getGarages');
     garages.value = jsonDecode(response.data);
@@ -43,7 +46,7 @@ class ServicesController extends GetxController {
     required email,
     required passwordHash,
   }) async {
-        await dio.post('http://63.251.122.116:2308/reguser', data: {
+    await dio.post('http://63.251.122.116:2308/reguser', data: {
       'name': name.toString(),
       'password_hash': passwordHash.toString(),
       'phone': phone.toString(),
@@ -51,47 +54,52 @@ class ServicesController extends GetxController {
       'rules': 1.toString(),
     });
   }
-  Future<void> getServiceInfo (id) async {
-    final response = await dio.post("${ServerRoutes.host}/getServiceInfo",
-    data: {
+
+  Future<void> getServiceInfo(id) async {
+    final response =
+        await dio.post("${ServerRoutes.host}/getServiceInfo", data: {
       'cid': id.toString(),
     });
     serviceInfo.value = jsonDecode(response.data);
     included.value = serviceInfo['included'];
     notIncluded.value = serviceInfo['not_included'];
+    description.value = serviceInfo['description'];
+    price.value = serviceInfo['price'].toString();
+    lowPrice.value = serviceInfo['low_price'].toString();
     serviceInfo.refresh();
     included.refresh();
     notIncluded.refresh();
     notifyChildrens();
   }
-  Future<void> createServiceBlock({required title,
-  required sid,
-  required included}) async {
-    dio.post('${ServerRoutes.host}/createServiceBlock',
-    data: {
+
+  Future<void> createServiceBlock(
+      {required title, required sid, required included}) async {
+    dio.post('${ServerRoutes.host}/createServiceBlock', data: {
       'title': title.toString(),
       'included': included.toString(),
       'cid': sid.toString(),
     });
     getServiceInfo(sid);
   }
-  Future<void> deleteServiceBlock({required id, required sid,
+
+  Future<void> deleteServiceBlock({
+    required id,
+    required sid,
   }) async {
-   await dio.post('${ServerRoutes.host}/deleteServiceBlock',
-        data: {
-          'cid': id,
-        });
-   getServiceInfo(sid);
+    await dio.post('${ServerRoutes.host}/deleteServiceBlock', data: {
+      'cid': id,
+    });
+    getServiceInfo(sid);
   }
+
   Future<void> createOffer({
     required name,
     required garage,
     required price,
     required lowPrice,
     required description,
-}) async {
-    dio.post('${ServerRoutes.host}/createOffer',
-    data: {
+  }) async {
+    dio.post('${ServerRoutes.host}/createOffer', data: {
       'name': name,
       'garage': garage,
       'price': price,
@@ -99,22 +107,23 @@ class ServicesController extends GetxController {
       'description': description,
     });
   }
+
   Future<void> getMyOffers({
     required garage,
   }) async {
-    final response = await dio.post('${ServerRoutes.host}/getMyOffers',
-        data: {
-          'garage': garage,
-        });
+    final response = await dio.post('${ServerRoutes.host}/getMyOffers', data: {
+      'garage': garage,
+    });
     myOffers.value = jsonDecode(response.data);
   }
+
   Future<void> getLastOffers({
     required garage,
   }) async {
-  final response = await  dio.post('${ServerRoutes.host}/getLastOffers',
-        data: {
-          'garage': garage,
-        });
+    final response =
+        await dio.post('${ServerRoutes.host}/getLastOffers', data: {
+      'garage': garage,
+    });
     lastSpecialOffers.value = jsonDecode(response.data);
   }
 }
