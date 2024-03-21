@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:untitled1/server_routes.dart';
 
 Future<void> deleteUserCar(id) async {
   Dio dio = Dio();
-  dio.post('http://63.251.122.116:2308/deleteusercar', data: {'id': '$id'});
+  dio.post('${ServerRoutes.host}/deleteusercar', data: {'id': '$id'});
 
 }

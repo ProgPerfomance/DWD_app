@@ -12,7 +12,7 @@ class UserInfoController extends GetxController {
   Dio dio = Dio();
   RxMap user = {}.obs;
   Future<void> getUserInfo(uid) async {
-    final response = await dio.post('http://63.251.122.116:2308/getuserinfo',
+    final response = await dio.post('${ServerRoutes.host}/getuserinfo',
         data: {'uid': uid.toString()});
     user.value = jsonDecode(response.data);
   }

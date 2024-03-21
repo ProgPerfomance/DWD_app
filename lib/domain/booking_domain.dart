@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:untitled1/server_routes.dart';
 
 class BookingDomain  {
   Dio dio = Dio();
@@ -14,7 +15,7 @@ class BookingDomain  {
     required timestamp,
     required date_time,
 }) async {
-    dio.post('http://63.251.122.116:2308/createbooking',
+    dio.post('${ServerRoutes.host}/createbooking',
     data: {
       'sid': sid,
       'cid': cid,
@@ -41,7 +42,7 @@ class BookingDomain  {
     required date_time,
     required garage,
   }) async {
-    dio.post('http://63.251.122.116:2308/createBookingOffer',
+    dio.post('${ServerRoutes.host}/createBookingOffer',
         data: {
           'sid': sid,
           'cid': cid,

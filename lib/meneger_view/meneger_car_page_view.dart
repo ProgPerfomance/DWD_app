@@ -1,14 +1,12 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/domain/get_car_info_controller.dart';
-import 'package:untitled1/server_routes.dart';
+import 'package:untitled1/controller/car_controller.dart';
 
-class MenegerCarPageView extends GetView<GetCarInfoController> {
+class MenegerCarPageView extends GetView<CarController> {
   final String name;
   final String id;
   final liked;
@@ -50,7 +48,7 @@ class MenegerCarPageView extends GetView<GetCarInfoController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(GetCarInfoController());
+    Get.put(CarController());
     Future.delayed(const Duration(milliseconds: 100), () {
       controller.getCarInfo(id);
     });
@@ -166,30 +164,67 @@ class MenegerCarPageView extends GetView<GetCarInfoController> {
                     const SizedBox(
                       height: 24,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 32,
-                      height: 52,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: const Color(0xff363636),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                              'assets/icons/manager_edit_purple.svg'),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          const Text(
-                            'Change',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff8875FF),
+                    GestureDetector(
+                      onTap: (){},
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 32,
+                        height: 52,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: const Color(0xff363636),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                                'assets/icons/manager_edit_purple.svg'),
+                            const SizedBox(
+                              width: 12,
                             ),
-                          ),
-                        ],
+                            const Text(
+                              'Change',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff8875FF),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12,),
+                    GestureDetector(
+                      onTap: (){
+                        controller.deleteCar(id.toString());
+                        Navigator.pop(context);
+                        controller.getCarList();
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 32,
+                        height: 52,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: const Color(0xff363636),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                                'assets/icons/delete.svg'),
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            const Text(
+                              'Delete',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff8875FF),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

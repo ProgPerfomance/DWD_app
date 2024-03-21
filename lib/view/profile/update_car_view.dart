@@ -58,7 +58,7 @@ class _CreateCarViewState extends State<UpdateCarView> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CarListView()));
+                                  builder: (context) => const CarListView()));
                         },
                         child: const Text(
                           'Back',
@@ -157,7 +157,7 @@ class _CreateCarViewState extends State<UpdateCarView> {
                       ),
                       TextField(
                         controller: _brand,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                         decoration: InputDecoration(
@@ -258,7 +258,7 @@ class CreateCarField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
       ),
       controller: controller,

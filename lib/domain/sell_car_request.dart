@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:untitled1/server_routes.dart';
 
 Future<void> sellCarRequest({
   required var uid,
@@ -11,7 +12,7 @@ Future<void> sellCarRequest({
   required var any_car_accidents,
 }) async {
   Dio dio = Dio();
-  dio.post('http://63.251.122.116:2308/sellcarrequest',
+  dio.post('${ServerRoutes.host}/sellcarrequest',
   data: {'uid': uid,
     'cid': cid,
     'owner_name': owner_name,

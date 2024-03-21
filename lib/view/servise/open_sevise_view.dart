@@ -76,7 +76,7 @@ class OpenServiseView extends GetView<ServicesController> {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Obx(
                       () => Text(
-                        '${controller.price.value}\$',
+                        '${controller.price.value}AED',
                         style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 24,
@@ -94,7 +94,7 @@ class OpenServiseView extends GetView<ServicesController> {
                         Image.asset('assets/line.png'),
                         Obx(
                           () => Text(
-                            'was ${controller.lowPrice.value}\$',
+                            'was ${controller.lowPrice.value}AED',
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
@@ -179,7 +179,7 @@ class OpenServiseView extends GetView<ServicesController> {
                           height: 48,
                         ),
                         const Text(
-                          "What's NOT Included",
+                          "Extras",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w900,

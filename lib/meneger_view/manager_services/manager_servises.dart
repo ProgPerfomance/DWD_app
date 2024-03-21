@@ -4,8 +4,6 @@ import 'package:untitled1/controller/services_controller.dart';
 
 TextEditingController titleController = TextEditingController();
 
-
-
 class EditServiceManager extends GetView<ServicesController> {
   final title;
   final id;
@@ -57,21 +55,42 @@ class EditServiceManager extends GetView<ServicesController> {
                   const SizedBox(
                     height: 7,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 41.0),
-                    child: Row(
-                      children: [
-                        const Text(
-                          '39\$',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 24,
+                  Obx(()
+                    => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 41.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            '${controller.price.value}\$',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 24,
+                            ),
                           ),
-                        ),
-                        GestureDetector(
-                            onTap: (){},
-                            child: const Icon(Icons.edit, color: Colors.yellow,)),
-                      ],
+                          const SizedBox(width: 12,),
+                          GestureDetector(
+                              onTap: () {
+                                showDialog<void>(
+                                    useSafeArea: false,
+                                    context: context,
+                                    barrierDismissible:
+                                    false, // user must tap button!
+                                    builder: (BuildContext context) {
+                                      return EditServiceParametor(
+                                          title: controller.price.value,
+                                          sid: id,
+                                          param: 0,
+                                          description: controller.description.value,
+                                          price: controller.price.value,
+                                          minPrice: controller.lowPrice.value);
+                                    });
+                              },
+                              child: const Icon(
+                                Icons.edit,
+                                color: Colors.yellow,
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -82,20 +101,41 @@ class EditServiceManager extends GetView<ServicesController> {
                     child: Stack(
                       children: [
                         Image.asset('assets/line.png'),
-                        Row(
-                          children: [
-                            const Text(
-                              'was 49\$',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xffffffff),
+                        Obx(
+                          ()=> Row(
+                            children: [
+                              Text(
+                                '${controller.lowPrice.value}\$',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xffffffff),
+                                ),
                               ),
-                            ),
-                            GestureDetector(
-                                onTap: (){},
-                                child: const Icon(Icons.edit, color: Colors.yellow,)),
-                          ],
+                              const SizedBox(width: 12,),
+                              GestureDetector(
+                                  onTap: () {
+                                    showDialog<void>(
+                                        useSafeArea: false,
+                                        context: context,
+                                        barrierDismissible:
+                                            false, // user must tap button!
+                                        builder: (BuildContext context) {
+                                          return EditServiceParametor(
+                                              title: controller.lowPrice.value,
+                                              sid: id,
+                                              param: 1,
+                                              description: controller.description.value,
+                                              price: controller.price.value,
+                                              minPrice: controller.lowPrice.value);
+                                        });
+                                  },
+                                  child: const Icon(
+                                    Icons.edit,
+                                    color: Colors.yellow,
+                                  )),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -124,6 +164,48 @@ class EditServiceManager extends GetView<ServicesController> {
                         height: 61,
                       ),
                       Row(
+                        children: [
+                          const Text(
+                            "Description",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                          const SizedBox(width: 12,),
+                          GestureDetector(
+                              onTap: () {
+                                showDialog<void>(
+                                    useSafeArea: false,
+                                    context: context,
+                                    barrierDismissible:
+                                    false, // user must tap button!
+                                    builder: (BuildContext context) {
+                                      return EditServiceParametor(
+                                          title: controller.description.value,
+                                          sid: id,
+                                          param: 3,
+                                          description: controller.description.value,
+                                          price: controller.price.value,
+                                          minPrice: controller.lowPrice.value);
+                                    });
+                              },
+                              child: const Icon(
+                                Icons.edit,
+                                color: Colors.yellow,
+                              )),
+                        ],
+                      ),
+                      const SizedBox(height: 12,),
+                      Obx(() => Text(
+                        controller.description.value,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      )),
+                      const SizedBox(height: 18,),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
@@ -140,11 +222,19 @@ class EditServiceManager extends GetView<ServicesController> {
                                     useSafeArea: false,
                                     context: context,
                                     barrierDismissible:
-                                    false, // user must tap button!
+                                        false, // user must tap button!
                                     builder: (BuildContext context) {
-                                      return EditCarAlert(title: '', included: true, sid: id, update: false);
+                                      return EditIncludedAlert(
+                                          title: '',
+                                          included: true,
+                                          sid: id,
+                                          update: false);
                                     });
-                              }, icon: const Icon(Icons.add,color: Colors.white,)),
+                              },
+                              icon: const Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              )),
                         ],
                       ),
                       const SizedBox(
@@ -167,13 +257,22 @@ class EditServiceManager extends GetView<ServicesController> {
                                 Row(
                                   children: [
                                     GestureDetector(
-                                        onTap: (){},
-                                        child: const Icon(Icons.edit, color: Colors.yellow,)),
+                                        onTap: () {},
+                                        child: const Icon(
+                                          Icons.edit,
+                                          color: Colors.yellow,
+                                        )),
                                     GestureDetector(
-                                        onTap: (){
-                                          controller.deleteServiceBlock(id:    controller.included[index]['id'],sid: id);
+                                        onTap: () {
+                                          controller.deleteServiceBlock(
+                                              id: controller.included[index]
+                                                  ['id'],
+                                              sid: id);
                                         },
-                                        child: const Icon(Icons.delete,color: Colors.red,)),
+                                        child: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        )),
                                   ],
                                 )
                               ],
@@ -188,7 +287,7 @@ class EditServiceManager extends GetView<ServicesController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            "What's NOT Included",
+                            "Extras",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w900,
@@ -201,11 +300,19 @@ class EditServiceManager extends GetView<ServicesController> {
                                     useSafeArea: false,
                                     context: context,
                                     barrierDismissible:
-                                    false, // user must tap button!
+                                        false, // user must tap button!
                                     builder: (BuildContext context) {
-                                      return EditCarAlert(title: '', included: false, sid: id, update: false);
+                                      return EditIncludedAlert(
+                                          title: '',
+                                          included: false,
+                                          sid: id,
+                                          update: false);
                                     });
-                              }, icon: const Icon(Icons.add,color: Colors.white,)),
+                              },
+                              icon: const Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              )),
                         ],
                       ),
                       const SizedBox(
@@ -228,13 +335,22 @@ class EditServiceManager extends GetView<ServicesController> {
                                 Row(
                                   children: [
                                     GestureDetector(
-                                      onTap: (){},
-                                        child: const Icon(Icons.edit, color: Colors.yellow,)),
+                                        onTap: () {},
+                                        child: const Icon(
+                                          Icons.edit,
+                                          color: Colors.yellow,
+                                        )),
                                     GestureDetector(
-                                      onTap: (){
-                                        controller.deleteServiceBlock(id:    controller.notIncluded[index]['id'],sid: id);
-                                      },
-                                        child: const Icon(Icons.delete,color: Colors.red,)),
+                                        onTap: () {
+                                          controller.deleteServiceBlock(
+                                              id: controller.notIncluded[index]
+                                                  ['id'],
+                                              sid: id);
+                                        },
+                                        child: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        )),
                                   ],
                                 ),
                               ],
@@ -257,30 +373,31 @@ class EditServiceManager extends GetView<ServicesController> {
   }
 }
 
-
-class EditCarAlert extends GetView<ServicesController> {
+class EditIncludedAlert extends GetView<ServicesController> {
   final title;
   final bool included;
   final sid;
   final bool update;
-  const EditCarAlert({super.key, required this.title,required this.included, required this.sid, required this.update});
+  const EditIncludedAlert(
+      {super.key,
+      required this.title,
+      required this.included,
+      required this.sid,
+      required this.update});
 
   @override
   Widget build(BuildContext context) {
     Get.put(ServicesController());
     return AlertDialog(
-      backgroundColor:
-      const Color(0xff2D2D2D).withOpacity(0),
+      backgroundColor: const Color(0xff2D2D2D).withOpacity(0),
       contentPadding: EdgeInsets.zero,
-      insetPadding: const EdgeInsets.symmetric(
-          horizontal: 12),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 12),
       content: Container(
           height: 238,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: const Color(0xff2D2D2D)
-                .withOpacity(0.9),
+            color: const Color(0xff2D2D2D).withOpacity(0.9),
           ),
           child: Column(
             children: [
@@ -291,8 +408,7 @@ class EditCarAlert extends GetView<ServicesController> {
                 child: Text(
                   'Title',
                   style: TextStyle(
-                    color: Colors.white
-                        .withOpacity(0.87),
+                    color: Colors.white.withOpacity(0.87),
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
@@ -304,10 +420,7 @@ class EditCarAlert extends GetView<ServicesController> {
               Center(
                 child: Container(
                   height: 1,
-                  width: MediaQuery.of(context)
-                      .size
-                      .width -
-                      64,
+                  width: MediaQuery.of(context).size.width - 64,
                   color: const Color(0xff979797),
                 ),
               ),
@@ -315,8 +428,7 @@ class EditCarAlert extends GetView<ServicesController> {
                 height: 24,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0),
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: TextField(
                   style: const TextStyle(
                     color: Colors.white,
@@ -324,34 +436,27 @@ class EditCarAlert extends GetView<ServicesController> {
                   controller: titleController,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor:
-                    const Color(0xff1D1D1D),
+                    fillColor: const Color(0xff1D1D1D),
                     hintStyle: const TextStyle(
                       color: Color(
                         0xff535353,
                       ),
                     ),
-                    hintText: 'Your name',
+                    hintText: 'Service',
                     isDense: true,
-                    enabledBorder:
-                    OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color(0xff7A7A7A),
-                          width: 1),
-                      borderRadius:
-                      BorderRadius.circular(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: Color(0xff7A7A7A), width: 1),
+                      borderRadius: BorderRadius.circular(
                         12,
                       ),
                     ),
-                    focusedBorder:
-                    OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
                         12,
                       ),
-                      borderSide: const BorderSide(
-                          color: Color(0xff7A7A7A),
-                          width: 1),
+                      borderSide:
+                          const BorderSide(color: Color(0xff7A7A7A), width: 1),
                     ),
                   ),
                 ),
@@ -360,12 +465,9 @@ class EditCarAlert extends GetView<ServicesController> {
                 height: 24,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment
-                      .spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -373,21 +475,14 @@ class EditCarAlert extends GetView<ServicesController> {
                       },
                       child: SizedBox(
                         height: 52,
-                        width:
-                        MediaQuery.of(context)
-                            .size
-                            .width /
-                            2 -
-                            52,
+                        width: MediaQuery.of(context).size.width / 2 - 52,
                         child: const Center(
                           child: Text(
                             'Cancel',
                             style: TextStyle(
-                              fontWeight:
-                              FontWeight.w400,
+                              fontWeight: FontWeight.w400,
                               fontSize: 16,
-                              color:
-                              Color(0xff8875FF),
+                              color: Color(0xff8875FF),
                             ),
                           ),
                         ),
@@ -395,32 +490,26 @@ class EditCarAlert extends GetView<ServicesController> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        controller.createServiceBlock(title: titleController.text, sid: sid, included: included);
+                        controller.createServiceBlock(
+                            title: titleController.text,
+                            sid: sid,
+                            included: included);
                         titleController.clear();
                         Navigator.pop(context);
                       },
                       child: Container(
                         height: 52,
-                        width:
-                        MediaQuery.of(context)
-                            .size
-                            .width /
-                            2 -
-                            52,
+                        width: MediaQuery.of(context).size.width / 2 - 52,
                         decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(
-                              12),
-                          color: const Color(
-                              0xff8875FF),
+                          borderRadius: BorderRadius.circular(12),
+                          color: const Color(0xff8875FF),
                         ),
                         child: const Center(
                           child: Text(
                             'Save',
                             style: TextStyle(
                               fontSize: 16,
-                              fontWeight:
-                              FontWeight.w400,
+                              fontWeight: FontWeight.w400,
                               color: Colors.white,
                             ),
                           ),
@@ -432,6 +521,165 @@ class EditCarAlert extends GetView<ServicesController> {
               )
             ],
           )),
-    );;
+    );
+  }
+}
+
+class EditServiceParametor extends GetView<ServicesController> {
+  final title;
+  final price;
+  final minPrice;
+  final description;
+  final sid;
+  final int param;
+  const EditServiceParametor(
+      {super.key,
+      required this.title,
+      required this.sid,
+      required this.param,
+      required this.description,
+      required this.price,
+      required this.minPrice});
+
+  @override
+  Widget build(BuildContext context) {
+    TextEditingController editController = TextEditingController();
+    Get.put(ServicesController());
+    editController.text =title;
+    return AlertDialog(
+      backgroundColor: const Color(0xff2D2D2D).withOpacity(0),
+      contentPadding: EdgeInsets.zero,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 12),
+      content: Container(
+          height: 238,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: const Color(0xff2D2D2D).withOpacity(0.9),
+          ),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 24,
+              ),
+              Center(
+                child: Text(
+                  'Title',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.87),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Center(
+                child: Container(
+                  height: 1,
+                  width: MediaQuery.of(context).size.width - 64,
+                  color: const Color(0xff979797),
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: TextField(
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                  controller: editController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xff1D1D1D),
+                    hintStyle: const TextStyle(
+                      color: Color(
+                        0xff535353,
+                      ),
+                    ),
+                    hintText: 'Service',
+                    isDense: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: Color(0xff7A7A7A), width: 1),
+                      borderRadius: BorderRadius.circular(
+                        12,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        12,
+                      ),
+                      borderSide:
+                          const BorderSide(color: Color(0xff7A7A7A), width: 1),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: SizedBox(
+                        height: 52,
+                        width: MediaQuery.of(context).size.width / 2 - 52,
+                        child: const Center(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: Color(0xff8875FF),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        controller.updateServiceInfo(
+                            cid: sid,
+                            price: param == 0 ? editController.text : price,
+                            priceMin:  param == 1 ? editController.text: minPrice,
+                            description: param == 3 ? editController.text: description);
+                        titleController.clear();
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: 52,
+                        width: MediaQuery.of(context).size.width / 2 - 52,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: const Color(0xff8875FF),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Save',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
   }
 }

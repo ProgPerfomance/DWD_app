@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:untitled1/controller/services_controller.dart';
 import 'package:untitled1/meneger_view/manager_services/all_garages.dart';
 import 'package:untitled1/meneger_view/manager_services/manager_servises.dart';
 import '../../view/servise/open_sevise_view.dart';
-import '../../view/servise/servise_view.dart';
 
-class ManagerServiceView extends StatefulWidget {
+class ManagerServiceView extends GetView<ServicesController> {
   const ManagerServiceView({super.key});
 
   @override
-  State<ManagerServiceView> createState() => _ServiceViewState();
-}
-
-class _ServiceViewState extends State<ManagerServiceView> {
-  final middleLeadingStyle =
-      const TextStyle(fontSize: 18, fontWeight: FontWeight.w900);
-  final bigLeadingStyle = const TextStyle(
-      fontSize: 24, fontWeight: FontWeight.w900, color: Color(0xff8875FF));
-  final firstBigLeadingStyle = const TextStyle(
-      fontSize: 24, fontWeight: FontWeight.w900, color: Colors.white);
-  final smallLeadingStyle =
-      const TextStyle(fontSize: 13, color: Color(0xff7A7A7A));
-  final firstSmallLeadingStyle =
-      const TextStyle(fontSize: 13, color: Colors.white);
-
-  @override
   Widget build(BuildContext context) {
+    Get.put(ServicesController());
+    controller.getLastOffers(garage: 0);
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       appBar: AppBar(
@@ -78,91 +65,102 @@ class _ServiceViewState extends State<ManagerServiceView> {
                 const SizedBox(
                   height: 34,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: SizedBox(
-                    height: 150,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 33,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const OpenServiseView(
-                                              imagePath: 'wheels.png',
-                                              id: 0,
-                                              garage: null,
-                                              special: true,
-                                              title: 'Major Service',
-                                            )));
-                              },
-                              child: Container(
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: index == 0
-                                      ? const Color(0xff2B9129)
-                                      : Colors.white,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Major Service',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: 24,
-                                          color: index == 0
-                                              ? const Color(0xffffffff)
-                                              : const Color(0xff8875FF),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      const Text(
-                                        '39 AED',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      Stack(
-                                        alignment: AlignmentDirectional.center,
-                                        children: [
-                                          Image.asset('assets/line.png'),
-                                          Text(
-                                            'was 49 AED',
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w400,
-                                              color: index == 0
-                                                  ? const Color(0xffffffff)
-                                                  : const Color(0xff7A7A7A),
-                                            ),
-                                          ),
+                Obx(
+                      () => Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: SizedBox(
+                      height: 150,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.lastSpecialOffers.length,
+                          itemBuilder: (context, index) {
+                            final item = controller.lastSpecialOffers[index];
+                            return Padding(
+                              padding:
+                              const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              OpenServiseView(
+                                                imagePath: 'wheels.png',
+                                                garage: item['garage'],
+                                                id: int.parse(item['id']),
+                                                special: true,
+                                                title: item['name'],
+                                              )));
+                                },
+                                child: Container(
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: index == 0 ? null : Colors.white,
+                                    gradient: index == 0
+                                        ? const LinearGradient(
+                                        colors: [
+                                          Color(0xff8875FF),
+                                          Color(0xff40CC46)
                                         ],
-                                      ),
-                                    ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter)
+                                        : null,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item['name'],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 22,
+                                            color: index == 0
+                                                ? const Color(0xffffffff)
+                                                : const Color(0xff8875FF),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Text(
+                                          '${item['price']} AED',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Stack(
+                                          alignment:
+                                          AlignmentDirectional.center,
+                                          children: [
+                                            Image.asset('assets/line.png'),
+                                            Text(
+                                              'was ${item['low_price']} AED',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: index == 0
+                                                    ? const Color(0xffffffff)
+                                                    : const Color(0xff7A7A7A),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                    ),
                   ),
                 ),
                 const SizedBox(

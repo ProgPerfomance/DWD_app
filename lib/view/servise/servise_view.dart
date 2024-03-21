@@ -202,7 +202,7 @@ class ServiseView extends GetView<ServicesController> {
                         id: 1,
                       ),
                       ServiceButton(
-                        imagePath: 'rec.jpeg',
+                        imagePath: 'new_recovery.jpeg',
                         text: translate.recovery,
                         icon: 'assets/icons/recovery.svg',
                         id: 2,

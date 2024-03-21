@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
+import 'package:untitled1/server_routes.dart';
 
 class GetUserCars extends GetxController {
   RxString car = 'Select car'.obs;
@@ -25,7 +26,7 @@ class GetUserCars extends GetxController {
   Dio dio = Dio();
   RxList userCars = [].obs;
   Future<void> getUserCars() async {
-    final response = await dio.post('http://63.251.122.116:2308/getusercars',
+    final response = await dio.post('${ServerRoutes.host}/getusercars',
     data: {
       'uid': userModel!.uid.toString(),
     });

@@ -3,17 +3,17 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:untitled1/controller/car_controller.dart';
 import 'package:untitled1/meneger_view/manager_add_car/manager_add_car_1_view.dart';
 import 'package:untitled1/meneger_view/meneger_car_page_view.dart';
 import 'package:untitled1/meneger_view/meneger_profile_view.dart';
-import '../../domain/get_cars_list_domain.dart';
 
-class MenegerCarCatalogView extends GetView<GetCarList> {
+class MenegerCarCatalogView extends GetView<CarController> {
   const MenegerCarCatalogView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(GetCarList());
+    Get.put(CarController());
     controller.getCarList();
     return Scaffold(
       appBar: AppBar(

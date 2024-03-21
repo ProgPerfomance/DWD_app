@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
+import 'package:untitled1/server_routes.dart';
 
 
   Dio dio = Dio();
@@ -10,7 +11,7 @@ import 'package:untitled1/domain/auth_user_domain.dart';
     required year,
     required car_reg,
 }) async {
-    await dio.post('http://63.251.122.116:2308/createusercar',
+    await dio.post('${ServerRoutes.host}/createusercar',
       data: {
       'uid': userModel!.uid,
         'name': name.toString(),

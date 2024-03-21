@@ -21,7 +21,6 @@ dependencies:
   image_picker:
   flutter_secure_storage:
   flutter_multi_formatter: ^2.12.1
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -37,3 +36,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/services/
+
+
+
+

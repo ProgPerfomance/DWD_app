@@ -46,7 +46,7 @@ class ServicesController extends GetxController {
     required email,
     required passwordHash,
   }) async {
-    await dio.post('http://63.251.122.116:2308/reguser', data: {
+    await dio.post('${ServerRoutes.host}/reguser', data: {
       'name': name.toString(),
       'password_hash': passwordHash.toString(),
       'phone': phone.toString(),
@@ -125,5 +125,15 @@ class ServicesController extends GetxController {
       'garage': garage,
     });
     lastSpecialOffers.value = jsonDecode(response.data);
+  }
+
+  Future<void> updateServiceInfo({required cid,required price,required priceMin,required description}) async {
+    await dio.post('${ServerRoutes.host}/updateService', data: {
+      'id': cid.toString(),
+      'price': price.toString(),
+      'price_min': priceMin.toString(),
+      'description': description.toString(),
+    });
+    getServiceInfo(cid);
   }
 }

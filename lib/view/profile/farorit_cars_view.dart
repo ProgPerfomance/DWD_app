@@ -1,19 +1,18 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/domain/get_cars_list_domain.dart';
 import 'package:untitled1/view/profile/profile_view.dart';
+import '../../controller/car_controller.dart';
 import '../../domain/auth_user_domain.dart';
 import '../buy_car/car_page_view.dart';
 
-class FavoritCarsView extends GetView<GetCarList> {
+class FavoritCarsView extends GetView<CarController> {
   const FavoritCarsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(GetCarList());
+    Get.put(CarController());
     controller.getWishlist();
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +36,10 @@ class FavoritCarsView extends GetView<GetCarList> {
                         builder: (context) => const ProfileView()),
                   );
                 },
-                child: Image.asset('assets/testava.png')),
+              child: const CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              )),
           ),
         ],
       ),
@@ -138,7 +140,7 @@ class FavoritCarsView extends GetView<GetCarList> {
                       ),
                       Text(
                         '${item['price_aed']} AED '
-                            .toString(), //anketss['price_euro'].toString(),
+                            .toString(),
                         style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
@@ -149,7 +151,7 @@ class FavoritCarsView extends GetView<GetCarList> {
                         height: 4,
                       ),
                       Text(
-                        item['name'].toString(), // anketss['name'],
+                        item['name'].toString(),
                         style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 14,

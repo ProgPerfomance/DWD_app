@@ -1,20 +1,18 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/domain/get_car_info_controller.dart';
-import 'package:untitled1/domain/get_cars_list_domain.dart';
 import 'package:untitled1/view/chat/chat_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../controller/car_controller.dart';
 import '../../controller/chat_controller.dart';
 import '../../domain/auth_user_domain.dart';
 import '../../server_routes.dart';
 
-class CarPageView extends GetView<GetCarInfoController> {
+class CarPageView extends GetView<CarController> {
   final String name;
   final String id;
   final liked;
@@ -56,8 +54,7 @@ class CarPageView extends GetView<GetCarInfoController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(GetCarInfoController());
-    final carController = Get.put(GetCarList());
+    Get.put(CarController());
     Future.delayed(const Duration(milliseconds: 100), () {
       controller.getCarInfo(id);
     });
@@ -284,13 +281,13 @@ class CarPageView extends GetView<GetCarInfoController> {
                           mainAxisSpacing: 30,
                           crossAxisCount: 2,
                           childAspectRatio: (100 / 129),
-                          children: carController.cars.value.length < 2
+                          children: controller.cars.value.length < 2
                               ? [
                             const CircularProgressIndicator(),
                             const CircularProgressIndicator()
                           ]
-                              : List.generate(carController.cars.value.length, (index) {
-                            var item = carController.cars.value[index];
+                              : List.generate(controller.cars.value.length, (index) {
+                            var item = controller.cars.value[index];
 
                             return GestureDetector(
                               onTap: () {
@@ -346,10 +343,10 @@ class CarPageView extends GetView<GetCarInfoController> {
                                           child: GestureDetector(
                                               onTap: () {
                                                 item['liked'] == 'false'
-                                                    ? carController.likeCar(
+                                                    ? controller.likeCar(
                                                     item['id'],
                                                     userModel!.uid)
-                                                    : carController.dislikeCar(
+                                                    : controller.dislikeCar(
                                                     item['like_id']);
                                               },
                                               child: item['liked'] == 'false'

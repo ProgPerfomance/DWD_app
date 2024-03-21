@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
+import '../../controller/car_controller.dart';
 import '../../controller/home_controller.dart';
-import '../../domain/get_cars_list_domain.dart';
 import '../profile/profile_view.dart';
 import 'car_page_view.dart';
 
-class CarCatalogView extends GetView<GetCarList> {
+class CarCatalogView extends GetView<CarController> {
   const CarCatalogView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(GetCarList());
+    Get.put(CarController());
    final home = Get.put(HomeController());
     controller.getCarList();
     return Scaffold(

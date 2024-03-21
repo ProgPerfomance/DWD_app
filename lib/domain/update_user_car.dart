@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:untitled1/server_routes.dart';
 
 updateUserCar({
   required id,
@@ -9,7 +10,7 @@ updateUserCar({
   required car_reg,
 } ) async {
   Dio dio = Dio();
-  dio.post('http://63.251.122.116:2308/updateusercars',
+  dio.post('${ServerRoutes.host}/updateusercars',
   data: {
     'id': id.toString(),
     'name': name.toString(),

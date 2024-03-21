@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/controller/chat_controller.dart';
 import 'package:untitled1/model/user_model.dart';
+import 'package:untitled1/server_routes.dart';
 UserModel? userModel;
 class AuthController extends GetxController {
 
@@ -14,7 +15,7 @@ class AuthController extends GetxController {
     required email_or_phone,
     required password_hash,
   }) async {
-    final response = await dio.post('http://63.251.122.116:2308/auth', data: {
+    final response = await dio.post('${ServerRoutes.host}/auth', data: {
       'email_or_phone': email_or_phone,
       'password_hash': password_hash,
     });
@@ -41,14 +42,13 @@ class AuthController extends GetxController {
     required password_hash,
     required rules,
   }) async {
-   final response = await dio.post('http://63.251.122.116:2308/reguser', data: {
+   final response = await dio.post('${ServerRoutes.host}/reguser', data: {
       'name': name.toString(),
       'password_hash': password_hash.toString(),
       'phone': phone.toString(),
       'email': email.toString(),
      'rules': rules.toString(),
     });
-   print(response.data);
    final data = jsonDecode(response.data);
    FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
    flutterSecureStorage.write(key: 'uid', value: data['uid'].toString());
