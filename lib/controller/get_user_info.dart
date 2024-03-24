@@ -33,4 +33,6 @@ class UserInfoController extends GetxController {
     translateModel.refresh();
     notifyChildrens();
   }
+  Future<void> changePhoto() async {
+  }
 }

@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, invalid_use_of_protected_member, use_build_context_synchronously
 
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/translate_controller.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/controller/get_user_info.dart';
+import 'package:untitled1/server_routes.dart';
 import 'package:untitled1/translate/eng_model.dart';
 import 'package:untitled1/translate/ru_model.dart';
 import 'package:untitled1/view/onboarding/onboarding_1_view.dart';
@@ -72,66 +76,70 @@ class ProfileView extends GetView<UserInfoController> {
                 const SizedBox(
                   height: 24,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const FavoritCarsView()));
-                      },
-                      child: Container(
-                        height: 60,
-                        width: MediaQuery.of(context).size.width / 2 - 47,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: const Color(0xff363636),
-                        ),
-                        child: Center(
-                          child: Text(
-                            controller.translateModel.value.WISHLIST,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xffffffff),
+                userModel!.rules == 1
+                    ? const SizedBox()
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const FavoritCarsView()));
+                            },
+                            child: Container(
+                              height: 60,
+                              width: MediaQuery.of(context).size.width / 2 - 47,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: const Color(0xff363636),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  controller.translateModel.value.WISHLIST,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xffffffff),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 13,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const CarListView()));
-                      },
-                      child: Container(
-                        height: 60,
-                        width: MediaQuery.of(context).size.width / 2 - 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: const Color(0xff8875FF),
-                        ),
-                        child: Center(
-                          child: Text(
-                            controller.translateModel.value.MY_CARS,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xffffffff),
+                          const SizedBox(
+                            width: 13,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CarListView()));
+                            },
+                            child: Container(
+                              height: 60,
+                              width: MediaQuery.of(context).size.width / 2 - 40,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: const Color(0xff8875FF),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  controller.translateModel.value.MY_CARS,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xffffffff),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
                 const SizedBox(
                   height: 40,
                 ),
@@ -180,7 +188,7 @@ class ProfileView extends GetView<UserInfoController> {
                                           ),
                                           Center(
                                             child: Text(
-                                              'Change account name',
+                                              controller.translateModel.value.Change_account_name,
                                               style: TextStyle(
                                                 color: Colors.white
                                                     .withOpacity(0.87),
@@ -340,10 +348,15 @@ class ProfileView extends GetView<UserInfoController> {
                         onTap: () {
                           //      Get.bottomSheet(Container());
                         },
-                        child: IconAndTextWidget(
-                          icon: 'assets/icons/change_photo.svg',
-                          text: controller
-                              .translateModel.value.Change_account_Image,
+                        child: GestureDetector(
+                          onTap: () {
+                            _pickImage(ImageSource.gallery);
+                          },
+                          child: IconAndTextWidget(
+                            icon: 'assets/icons/change_photo.svg',
+                            text: controller
+                                .translateModel.value.Change_account_Image,
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -539,5 +552,34 @@ class IconAndTextWidget extends StatelessWidget {
 //'Change account name' 'assets/changename.png'
       ],
     );
+  }
+}
+
+
+File? _imageFile; // Для хранения выбранного изображения
+Future<void> _pickImage(ImageSource source) async {
+  final pickedFile = await ImagePicker().pickImage(source: source);
+  if (pickedFile != null) {
+    _imageFile = File(pickedFile.path);
+    // Загрузить изображение на сервер
+    await _uploadImage();
+  }
+}
+
+
+Future<void> _uploadImage() async {
+  if (_imageFile == null) return;
+  final url = Uri.parse('${ServerRoutes.host}/add_avatar');
+  final request = http.MultipartRequest('POST', url)
+    ..files.add(await http.MultipartFile.fromPath(
+      'image',
+      _imageFile!.path,
+      filename: 'user_${userModel!.uid}.jpg',
+    ));
+  final response = await request.send();
+  if (response.statusCode == 200) {
+    print('Image uploaded successfully');
+  } else {
+    print('Failed to upload image');
   }
 }

@@ -10,6 +10,7 @@ class ManagerSellCarInfo extends StatelessWidget {
   final String? model;
   final String? brand;
   final String? regNumber;
+  final String? type;
   const ManagerSellCarInfo({
     super.key,
     required this.year,
@@ -20,11 +21,24 @@ class ManagerSellCarInfo extends StatelessWidget {
     required this.carName,
     required this.ownerPhone,
     required this.regNumber,
+    required this.type,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xff121212),
+        title: Text(
+          type == '1' ? 'Sell on the spot' : 'Consignment',
+          style: const TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 20,
+            color: Color(0xffffffff),
+          ),
+        ),
+        centerTitle: true,
+      ),
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
         child: Padding(
@@ -32,38 +46,6 @@ class ManagerSellCarInfo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        'Back',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: Color(0xff8875FF),
-                        ),
-                      ),
-                    ),
-                    const Text(
-                      'My cars',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                        color: Color(0xffffffff),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 24,
-                    ),
-                  ],
-                ),
-              ),
               const SizedBox(
                 height: 24,
               ),

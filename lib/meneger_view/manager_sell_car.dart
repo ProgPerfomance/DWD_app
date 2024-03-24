@@ -29,17 +29,18 @@ class ManagerSellCar extends GetView<SellCarManagerController> {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MenegerProfileView()),
-                  );
-                },
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MenegerProfileView()),
+                );
+              },
               child: const CircleAvatar(
                 radius: 25,
                 backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
-              ),),
+              ),
+            ),
           ),
         ],
       ),
@@ -64,12 +65,25 @@ class ManagerSellCar extends GetView<SellCarManagerController> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Obx(
-                  () => Column(
+                () => Column(
                   children: List.generate(controller.carList.length, (index) {
                     var item = controller.carList[index];
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ManagerSellCarInfo(year: item['year'], ownerEmail: item['owner_email'], ownerName: item['owner_name'], model: item['model'], brand: item['brand'], carName: item['name'], ownerPhone: item['owner_phone'], regNumber: item['car_reg'],)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ManagerSellCarInfo(
+                                      year: item['year'],
+                                      ownerEmail: item['owner_email'],
+                                      ownerName: item['owner_name'],
+                                      model: item['model'],
+                                      brand: item['brand'],
+                                      carName: item['name'],
+                                      ownerPhone: item['owner_phone'],
+                                      regNumber: item['car_reg'],
+                                  type: item['type'],
+                                    )));
                       },
                       child: Column(
                         children: [
@@ -85,7 +99,7 @@ class ManagerSellCar extends GetView<SellCarManagerController> {
                                   const SizedBox(
                                     width: 12,
                                   ),
-                                   Text(
+                                  Text(
                                     '${item['year']} + ${item['brand']} + ${item['model']}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w400,

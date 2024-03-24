@@ -4,6 +4,7 @@ import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 
 import '../../domain/auth_user_domain.dart';
+import '../../domain/sell_car_request.dart';
 import '../profile/create_car_view.dart';
 import '../servise/select_car_booking_view.dart';
 import 'consignment_view.dart';
@@ -22,7 +23,7 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
     bool fullServiceHistory = false;
     Get.put(GetUserCars());
     _userNameController.text = userModel?.name;
-    _emailController.text  = userModel?.email;
+    _emailController.text = userModel?.email;
     _phoneNubmerController.text = userModel?.phone;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
@@ -54,7 +55,7 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                       style: TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 20,
-                          color: Color(0xfffffffff)),
+                          color: Color(0xffffffff)),
                     ),
                     const SizedBox(
                       width: 23,
@@ -138,11 +139,11 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const SelectCarBookingView(
-                                            sell: true)));
+                                    const SelectCarBookingView(
+                                        sell: true)));
                           },
                           child: Obx(
-                            () => Text(
+                                () => Text(
                               controller.carSell.value,
                               style: const TextStyle(
                                   fontWeight: FontWeight.w400,
@@ -156,21 +157,41 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 39,
                     ),
-                    CheckBoxWidget(text: 'GCC', variable: 0,),
+                    CheckBoxWidget(
+                      text: 'GCC',
+                      variable: 0,
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
-                    CheckBoxWidget(text: 'No accident', variable: 1,),
+                    CheckBoxWidget(
+                      text: 'No accident',
+                      variable: 1,
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
-                    CheckBoxWidget(text: 'Full service history', variable: 2,),
+                    CheckBoxWidget(
+                      text: 'Full service history',
+                      variable: 2,
+                    ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 10,
                     ),
                     Center(
                       child: GestureDetector(
                         onTap: () {
+                          sellCarRequest(
+                              uid: userModel!.uid,
+                              type: 1,
+                              cid: controller.sellCarId.value,
+                              owner_name: _userNameController.text,
+                              owner_email: _emailController.text,
+                              owner_phone: _phoneNubmerController.text,
+                              gcc: gcc,
+                              servise_history: fullServiceHistory,
+                              any_car_accidents: noAccident);
+                          gcc =false;
                           Navigator.pop(context);
                         },
                         child: Container(

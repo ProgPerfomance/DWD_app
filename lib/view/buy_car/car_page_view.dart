@@ -202,6 +202,8 @@ class CarPageView extends GetView<CarController> {
                       height: 16,
                     ),
                     TextCascadeWidget(
+                        field: 'Year:', parametr: year.toString()),
+                    TextCascadeWidget(
                         field: 'Color:', parametr: color.toString()),
                     TextCascadeWidget(
                         field: 'Kilometers:', parametr: kilometrs.toString()),
