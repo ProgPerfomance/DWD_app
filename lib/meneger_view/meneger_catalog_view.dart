@@ -103,6 +103,8 @@ class MenegerCarCatalogView extends GetView<CarController> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             MenegerCarPageView(
+                                              model: item['model'],
+                                              brand: item['brand'],
                                               liked: item['liked'],
 
                                               transmission: item['transmission']

@@ -44,7 +44,7 @@ TranslateModel engModel = const TranslateModel(
   generalRepair: 'General\nrepair',
   recovery: 'Recovery',
   specialOffers: 'Special Offers',
-  storage: 'Storage',
+  storage: 'Storage\nand Shipping',
   tinting: 'Tinting',
   detailing: 'Detailing', acRepair: 'AC repair',
   allServices: 'All services', battery: 'Battery',

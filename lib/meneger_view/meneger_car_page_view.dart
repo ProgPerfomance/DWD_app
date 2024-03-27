@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/car_controller.dart';
+import 'package:untitled1/meneger_view/manager_add_car/manager_edit_car.dart';
 
 class MenegerCarPageView extends GetView<CarController> {
   final String name;
   final String id;
+  final String brand;
+  final String model;
   final liked;
   final price_usd;
   final price_aed;
@@ -44,6 +47,8 @@ class MenegerCarPageView extends GetView<CarController> {
       required this.liked,
       required this.id,
         required this.description,
+        required this.brand,
+        required this.model,
       required this.ccid});
 
   @override
@@ -165,7 +170,9 @@ class MenegerCarPageView extends GetView<CarController> {
                       height: 24,
                     ),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ManagerEditCar(id: id,color: color, model: model, brand: brand, year: year, description: description, body: body, motorTrim: motorsTrim, regionalSpecs: regionalSpecs, miliage: kilometrs, priceAED: price_aed, priceUSD: price_usd, qurantee: guarantee, transmission: transmission, sericeContact: serviceContract)));
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width - 32,
                         height: 52,
