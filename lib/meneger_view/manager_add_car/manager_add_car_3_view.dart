@@ -25,6 +25,7 @@ class ManagerAddCar3View extends StatefulWidget {
   final String brand;
   final String year;
   final String name;
+  final bool financeNeg;
   final  photos;
   const ManagerAddCar3View(
       {super.key,
@@ -43,6 +44,7 @@ class ManagerAddCar3View extends StatefulWidget {
         required this.photos,
         required this.year,
         required this.name,
+        required this.financeNeg,
       });
 
   @override
@@ -193,14 +195,12 @@ class _ManagerAddCar3ViewState extends State<ManagerAddCar3View> {
     Uuid uuid = const Uuid();
     String ccid = await uuid.v1();
     if (widget.photos.isEmpty) {
-      print('No images selected.');
       return;
     }
 
     List<Map<String, dynamic>> images = [];
     int index=1;
     for (var imageFile in widget.photos) {
-      String fileName = imageFile.path.split('/').last;
       List<int> bytes = await imageFile.readAsBytes();
       String base64Image = base64Encode(bytes);
       images.add({'name': '$index.jpg', 'data': base64Image});
@@ -210,12 +210,13 @@ class _ManagerAddCar3ViewState extends State<ManagerAddCar3View> {
     var folderName = ccid;
 
     Dio dio = Dio();
-    final response = await dio.post(
+    await dio.post(
       '${ServerRoutes.host}/create_car',
       options: Options(headers: {
         'folder-name': folderName,
       }),
       data: jsonEncode({
+        'cash': widget.financeNeg.toString(),
         'images': images,
         'ccid': ccid.toString(),
         'brand': widget.brand.toString(),
@@ -236,7 +237,6 @@ class _ManagerAddCar3ViewState extends State<ManagerAddCar3View> {
         'transmission': widget.transmission.toString(),
       }),
     );
-    print(response.data);
   }
 }
 

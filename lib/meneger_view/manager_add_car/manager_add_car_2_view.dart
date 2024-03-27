@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import '../../model/transmission_model.dart';
 import 'manager_add_car_3_view.dart';
 
-final _modelContoller = TextEditingController();
-final _priceUSDController = TextEditingController();
-final _priceAEDController = TextEditingController();
-final _colorController = TextEditingController();
-final _miliegeController = TextEditingController();
-final _regionalSpecsController = TextEditingController();
-final _transmissionController = TextEditingController();
-final _motorRimController = TextEditingController();
-final _bodyController = TextEditingController();
-final _guranteeController = TextEditingController();
-final _serviceContactController = TextEditingController();
-final _brandController = TextEditingController();
-final _yearController = TextEditingController();
-final _nameController = TextEditingController();
+final TextEditingController _modelController = TextEditingController();
+final TextEditingController _priceUSDController = TextEditingController();
+final TextEditingController _priceAEDController = TextEditingController();
+final TextEditingController _colorController = TextEditingController();
+final TextEditingController _miliegeController = TextEditingController();
+final TextEditingController _regionalSpecsController = TextEditingController();
+final TextEditingController _transmissionController = TextEditingController();
+final TextEditingController _motorRimController = TextEditingController();
+final TextEditingController _bodyController = TextEditingController();
+final TextEditingController _guranteeController = TextEditingController();
+final TextEditingController _serviceContactController = TextEditingController();
+final TextEditingController _brandController = TextEditingController();
+final TextEditingController _yearController = TextEditingController();
+bool financeNeg = false;
 
 class ManagerAddCar2View extends StatefulWidget {
   final images;
@@ -141,209 +141,18 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                             )),
                       ),
                     ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Model",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                  EdgeInsetsDirectional.only(start: 10)),
-                              controller: _modelContoller,
-                            )),
-                      ),
-                    ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Price AED",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.only(start: 10)),
-                              controller: _priceAEDController,
-                            )),
-                      ),
-                    ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Price USD",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.only(start: 10)),
-                              controller: _priceUSDController,
-                            )),
-                      ),
-                    ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Color",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.only(start: 10)),
-                              controller: _colorController,
-                            )),
-                      ),
-                    ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Year",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.only(start: 10)),
-                              controller: _yearController,
-                            )),
-                      ),
-                    ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Mileage",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.only(start: 10)),
-                              controller: _miliegeController,
-                            )),
-                      ),
-                    ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Regional Specs",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.only(start: 10)),
-                              controller: _regionalSpecsController,
-                            )),
-                      ),
-                    ]),
+                    ManagerTextFieldBlock(
+                        controller: _modelController, label: "Model"),
+                    ManagerTextFieldBlock(
+                        controller: _priceAEDController, label: "Price AED"),
+                    ManagerTextFieldBlock(
+                        controller: _priceUSDController, label: "Price USD"),
+                    ManagerTextFieldBlock(
+                        controller: _colorController, label: "Color"),
+                    ManagerTextFieldBlock(
+                        controller: _yearController, label: "Year"),
+                    ManagerTextFieldBlock(
+                        controller: _miliegeController, label: "Mileage"),
                     Column(children: [
                       const Padding(
                         padding: EdgeInsets.only(bottom: 8),
@@ -393,125 +202,34 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                             )),
                       ),
                     ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Motors Trim",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.only(start: 10)),
-                              controller: _motorRimController,
-                            )),
-                      ),
-                    ]),
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Body",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.only(start: 10)),
-                              controller: _bodyController,
-                            )),
-                      ),
-                    ]),
-                    Column(children: [
-                      Column(children: [
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 8),
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text("Guarantee",
-                                  style: TextStyle(
-                                      fontSize: 23,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400))),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.white),
-                                  color: const Color(0x00212121),
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: TextField(
-                                style: const TextStyle(color: Colors.white),
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    contentPadding:
-                                        EdgeInsetsDirectional.only(start: 10)),
-                                controller: _guranteeController,
-                              )),
-                        ),
-                        Column(children: [
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 8),
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text("Service contract",
-                                    style: TextStyle(
-                                        fontSize: 23,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400))),
+                    ManagerTextFieldBlock(
+                        controller: _regionalSpecsController,
+                        label: "Regional specs"),
+                    ManagerTextFieldBlock(
+                        controller: _motorRimController, label: "Motor trim"),
+                    ManagerTextFieldBlock(
+                        controller: _bodyController, label: "Body"),
+                    ManagerTextFieldBlock(
+                        controller: _guranteeController, label: "Guarantee"),
+                    ManagerTextFieldBlock(
+                        controller: _serviceContactController,
+                        label: "Service contract"),
+                    Row(
+                      children: [
+                        Checkbox(
+                            value: financeNeg,
+                            onChanged: (_) {
+                              financeNeg = !financeNeg;
+                              setState(() {});
+                            }),
+                        const Text(
+                          'finance neg',
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.white),
-                                    color: const Color(0x00212121),
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: TextField(
-                                  style: const TextStyle(color: Colors.white),
-                                  decoration: const InputDecoration(
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      contentPadding:
-                                          EdgeInsetsDirectional.only(
-                                              start: 10)),
-                                  controller: _serviceContactController,
-                                )),
-                          ),
-                        ])
-                      ])
-                    ]),
+                        ),
+                      ],
+                    )
                   ])),
               const SizedBox(
                 height: 24,
@@ -524,7 +242,8 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ManagerAddCar3View(
-                                  model: _modelContoller.text,
+                                  financeNeg: financeNeg,
+                                  model: _modelController.text,
                                   motorTrim: _motorRimController.text,
                                   price_USD: _priceUSDController.text,
                                   color: _colorController.text,
@@ -540,7 +259,7 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                                   price_AED: _priceAEDController.text,
                                   year: _yearController.text,
                                   name:
-                                      '${_brandController.text} ${_modelContoller.text}',
+                                      '${_brandController.text} ${_modelController.text}',
                                 )));
                   },
                   child: Container(
@@ -565,5 +284,44 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
             ],
           ),
         ));
+  }
+}
+
+class ManagerTextFieldBlock extends StatelessWidget {
+  final String label;
+  final TextEditingController controller;
+  const ManagerTextFieldBlock(
+      {super.key, required this.controller, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(label,
+                style: const TextStyle(
+                    fontSize: 23,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400))),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.white),
+                color: const Color(0x00212121),
+                borderRadius: BorderRadius.circular(12)),
+            child: TextField(
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  contentPadding: EdgeInsetsDirectional.only(start: 10)),
+              controller: controller,
+            )),
+      ),
+    ]);
   }
 }

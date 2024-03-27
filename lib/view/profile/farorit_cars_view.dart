@@ -69,6 +69,7 @@ class FavoritCarsView extends GetView<CarController> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => CarPageView(
+                              cash: item['cash'],
                               ccid: item['ccid'],
                               liked: item['liked'],
                               transmission: item['transmission']
@@ -76,9 +77,9 @@ class FavoritCarsView extends GetView<CarController> {
                               serviceContract:
                               item['service_contact'],
                               name: item['name'].toString(),
-                              price_usd:
+                              priceUsd:
                               item['price_usd'].toString(),
-                              price_aed:
+                              priceAed:
                               item['price_aed'].toString(),
                               kilometrs: item['killometers']
                                   .toString(),

@@ -27,6 +27,10 @@ class UserInfoController extends GetxController {
     });
     notifyChildrens();
   }
+  Future<void> changePhone(phone) async {
+    await dio.post('${ServerRoutes.host}/updateManagerNumber', data: {
+      'phone': phone.toString(),
+    });}
   Rx<TranslateModel> translateModel = engModel.obs;
   void changeLaunguage(lang) {
     translateModel.value = lang;

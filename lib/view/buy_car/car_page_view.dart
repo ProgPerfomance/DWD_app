@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_use_of_protected_member
+// ignore_for_file: invalid_use_of_protected_member, deprecated_member_use, use_build_context_synchronously
 
 
 import 'package:flutter/material.dart';
@@ -10,18 +10,18 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../controller/car_controller.dart';
 import '../../controller/chat_controller.dart';
 import '../../domain/auth_user_domain.dart';
-import '../../server_routes.dart';
 
 class CarPageView extends GetView<CarController> {
   final String name;
   final String id;
-  final liked;
-  final price_usd;
-  final price_aed;
+  final String? liked;
+  final String? priceUsd;
+  final String? priceAed;
   final String color;
-  final  String description;
-  final kilometrs;
+  final String description;
+  final String? kilometrs;
   final String regionalSpecs;
+  final String? cash;
   final String transmission;
   final String steeringWheel;
   final String motorsTrim;
@@ -33,6 +33,7 @@ class CarPageView extends GetView<CarController> {
   final String ccid;
   const CarPageView(
       {super.key,
+        required this.cash,
       required this.transmission,
       required this.steeringWheel,
       required this.state,
@@ -42,8 +43,8 @@ class CarPageView extends GetView<CarController> {
       required this.kilometrs,
       required this.guarantee,
       required this.color,
-      required this.price_aed,
-      required this.price_usd,
+      required this.priceAed,
+      required this.priceUsd,
       required this.body,
       required this.name,
       required this.year,
@@ -112,7 +113,7 @@ class CarPageView extends GetView<CarController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '$price_usd \$ / $price_aed AED',
+                      '$priceUsd \$ / $priceAed AED',
                       style: const TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 24,
@@ -121,9 +122,9 @@ class CarPageView extends GetView<CarController> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      'Cash or finance',
-                      style: TextStyle(
+                     Text(
+                   cash == '1'? 'Cash or finance' : 'Cash only',
+                      style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                         color: Color(0xff7A7A7A),
@@ -240,7 +241,6 @@ class CarPageView extends GetView<CarController> {
                     ),
                      Text(
                       description,
-                   //   'Almost new, my favorite car!!!!\nPower Windows, Power Locks, Keyless Entry, , Power Seats Air Conditioning, Climate Control, Aux Audio In, Premium Sound System, Power Mirrors, Fog Lights, Premium Wheels/Rims, Performance Tyres, Panoramic, Back DVD, Lane Assistant, Crash Assistant, Blind Spot, Radar, lane assistant, radar assistant, crash assistant, Auto pilot, Auto Park in & Out, Fully Loaded',
                       style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
@@ -298,15 +298,16 @@ class CarPageView extends GetView<CarController> {
                                     MaterialPageRoute(
                                         builder: (context) => CarPageView(
                                           ccid: item['ccid'],
+                                          cash: item['cash'],
                                           liked: item['liked'],
                                           transmission: item['transmission']
                                               .toString(),
                                           serviceContract:
                                           item['service_contact'],
                                           name: item['name'].toString(),
-                                          price_usd:
+                                          priceUsd:
                                           item['price_usd'].toString(),
-                                          price_aed:
+                                          priceAed:
                                           item['price_aed'].toString(),
                                           kilometrs: item['killometers']
                                               .toString(),
