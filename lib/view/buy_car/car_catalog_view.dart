@@ -112,7 +112,6 @@ class CarCatalogView extends GetView<CarController> {
                                             builder: (context) => CarPageView(
                                               cash: item['cash'],
                                                   ccid: item['ccid'],
-                                                  liked: item['liked'],
                                                   transmission:
                                                       item['transmission']
                                                           .toString(),

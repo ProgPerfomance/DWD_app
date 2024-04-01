@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, invalid_use_of_protected_member, use_build_context_synchronously
 
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -19,7 +21,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'car_list_view.dart';
 import 'farorit_cars_view.dart';
-
+ImageProvider getImageProvider(bool hasImage, String imagePath) {
+  if (hasImage) {
+    return NetworkImage('${ServerRoutes.host}/avatar?path=$imagePath');
+  } else {
+    return const AssetImage('assets/dwd_logo.jpeg');
+  }
+}
+ImageProvider imageProvider = getImageProvider(true, 'avatar_3');
 TextEditingController _nameController = TextEditingController();
 
 class ProfileView extends GetView<UserInfoController> {
@@ -53,11 +62,25 @@ class ProfileView extends GetView<UserInfoController> {
                 const SizedBox(
                   height: 24,
                 ),
-                const Center(
-                  child: CircleAvatar(
-                    radius: 45,
-                    backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
-                  ),
+                Stack(
+                  children: [
+                    const Center(
+                      child: CircleAvatar(
+                        radius: 45,
+                        backgroundImage:AssetImage('assets/dwd_logo.jpeg'),
+                        // AssetImage('assets/dwd_logo.jpeg'),
+                      ),
+                    ),
+                     Center(
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white.withOpacity(0),
+                        radius: 45,
+                        backgroundImage: NetworkImage('${ServerRoutes.host}/avatar?path=avatar_${userModel!.uid}'),
+                        // AssetImage('assets/dwd_logo.jpeg'),
+                      ),
+                    ),
+
+                  ],
                 ),
                 const SizedBox(
                   height: 16,
@@ -350,7 +373,7 @@ class ProfileView extends GetView<UserInfoController> {
                         },
                         child: GestureDetector(
                           onTap: () {
-                            _pickImage(ImageSource.gallery);
+                            _main();
                           },
                           child: IconAndTextWidget(
                             icon: 'assets/icons/change_photo.svg',
@@ -549,37 +572,38 @@ class IconAndTextWidget extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: color ?? Colors.white),
         ),
-//'Change account name' 'assets/changename.png'
       ],
     );
   }
 }
 
+Future<void> uploadImage(File imageFile) async {
+  var url = Uri.parse('${ServerRoutes.host}/add_avatar');
 
-File? _imageFile; // Для хранения выбранного изображения
-Future<void> _pickImage(ImageSource source) async {
-  final pickedFile = await ImagePicker().pickImage(source: source);
-  if (pickedFile != null) {
-    _imageFile = File(pickedFile.path);
-    // Загрузить изображение на сервер
-    await _uploadImage();
-  }
-}
+  List<int> imageBytes = imageFile.readAsBytesSync();
+  String base64Image = base64Encode(imageBytes);
 
+  var requestBody = jsonEncode({'image': {'data': base64Image, 'name': 'avatar_${userModel!.uid}.jpg'}});
 
-Future<void> _uploadImage() async {
-  if (_imageFile == null) return;
-  final url = Uri.parse('${ServerRoutes.host}/add_avatar');
-  final request = http.MultipartRequest('POST', url)
-    ..files.add(await http.MultipartFile.fromPath(
-      'image',
-      _imageFile!.path,
-      filename: 'user_${userModel!.uid}.jpg',
-    ));
-  final response = await request.send();
+  var response = await http.post(url,
+    headers: {"Content-Type": "application/json"},
+    body: requestBody,
+  );
+
   if (response.statusCode == 200) {
     print('Image uploaded successfully');
   } else {
     print('Failed to upload image');
   }
 }
+
+void _main() async {
+  // Example usage of ImagePicker to get an image file
+  final imagePicker = ImagePicker();
+  final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+
+  if (pickedFile != null) {
+    File imageFile = File(pickedFile.path);
+
+    await uploadImage(imageFile);
+  }}

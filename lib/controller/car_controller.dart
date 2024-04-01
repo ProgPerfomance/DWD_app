@@ -47,6 +47,8 @@ class CarController extends GetxController {
     });
     Future.delayed(const Duration(milliseconds: 35), () {
       getCarList();
+      getCarInfo(pid);
+      notifyChildrens();
     });
   }
 
@@ -60,6 +62,8 @@ class CarController extends GetxController {
     });
   }
   RxInt images = 0.obs;
+  Rx likeId = ''.obs;
+  Rx liker = '0'.obs;
   Future<void> getCarInfo(String id) async {
     final response =
     await dio.post('${ServerRoutes.host}/getcarinfo', data: {
@@ -67,6 +71,10 @@ class CarController extends GetxController {
     });
     var data = jsonDecode(response.data);
     images.value = data['images'];
+    liker.value = data['liked'];
+    likeId.value = data['like_id'].toString();
+    print(response.data);
     notifyChildrens();
   }
+
 }

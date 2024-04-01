@@ -1,8 +1,11 @@
 // ignore_for_file: invalid_use_of_protected_member, deprecated_member_use, use_build_context_synchronously
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/view/chat/chat_view.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,7 +17,6 @@ import '../../domain/auth_user_domain.dart';
 class CarPageView extends GetView<CarController> {
   final String name;
   final String id;
-  final String? liked;
   final String? priceUsd;
   final String? priceAed;
   final String color;
@@ -48,7 +50,6 @@ class CarPageView extends GetView<CarController> {
       required this.body,
       required this.name,
       required this.year,
-      required this.liked,
         required this.ccid,
       required this.id,
       required this.description});
@@ -69,14 +70,19 @@ class CarPageView extends GetView<CarController> {
         actions: [
           SvgPicture.asset('assets/icons/upload.svg'),
           const SizedBox(width: 8,),
-          liked == 'false'
-              ? GestureDetector(
-              onTap: () {
-              },
-              child: SvgPicture.asset('assets/icons/unlike.svg',height: 24,width: 24, color: Colors.white,))
-              : GestureDetector(
-              onTap: () {},
-              child: SvgPicture.asset('assets/icons/like.svg', height: 24,width: 24,)),
+          Obx(
+              ()=> SizedBox(child:
+            controller.liker.value == 'false'
+                ? GestureDetector(
+                onTap: () {
+                  controller.likeCar(id, userModel!.uid);
+                },
+                child: SvgPicture.asset('assets/icons/unlike.svg',height: 24,width: 24, color: Colors.white,))
+                : GestureDetector(
+                onTap: () {
+                },
+                child: SvgPicture.asset('assets/icons/like.svg', height: 24,width: 24,)),),
+          ),
           const SizedBox(width: 8,),
         ],
       ),
@@ -259,7 +265,10 @@ class CarPageView extends GetView<CarController> {
                     const SizedBox(
                       height: 24,
                     ),
-                   const AskSellerWidget(),
+                    AskSellerWidget(
+                     id: id.toString(),
+                      name: name,
+                   ),
                     const SizedBox(
                       height: 32,
                     ),
@@ -299,7 +308,6 @@ class CarPageView extends GetView<CarController> {
                                         builder: (context) => CarPageView(
                                           ccid: item['ccid'],
                                           cash: item['cash'],
-                                          liked: item['liked'],
                                           transmission: item['transmission']
                                               .toString(),
                                           serviceContract:
@@ -334,7 +342,7 @@ class CarPageView extends GetView<CarController> {
                                   Stack(
                                     children: [
                                       Image.network(
-                                        'http://63.251.122.116:2308/test_photo?path=${item['ccid']}',
+                                        'http://63.251.122.116:2310/test_photo?path=${item['ccid']}',
                                         height: 130,
                                         fit: BoxFit.fill,
                                         width:
@@ -453,7 +461,9 @@ class TextCascadeWidget extends StatelessWidget {
 
 
 class AskSellerWidget extends StatelessWidget {
-  const AskSellerWidget({super.key});
+  final id;
+  final name;
+  const AskSellerWidget({super.key,required this.name, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -464,21 +474,27 @@ class AskSellerWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: const Color(0xff8875FF)),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 3),
-                  child: Text(
-                    'Still for sale?',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffffffff),
+              GestureDetector(
+                onTap: () async {
+                  int cid = await   ChatController().createChat(uid1: userModel!.uid, uid2: 0, cid: id.toString(), type: 'car');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatView(chatId: cid, opponentName: name,message: 'Still for sale?',)));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        color: const Color(0xff8875FF)),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 3),
+                    child: Text(
+                      'Still for sale?',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xffffffff),
+                      ),
                     ),
                   ),
                 ),
@@ -486,21 +502,27 @@ class AskSellerWidget extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: const Color(0xff8875FF)),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 3),
-                  child: Text(
-                    'Is exchange possible?',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffffffff),
+              GestureDetector(
+                onTap: () async {
+                  int cid = await   ChatController().createChat(uid1: userModel!.uid, uid2: 0, cid: id.toString(), type: 'car');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatView(chatId: cid, opponentName: name,message: 'Is exchange possible?',)));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        color: const Color(0xff8875FF)),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 3),
+                    child: Text(
+                      'Is exchange possible?',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xffffffff),
+                      ),
                     ),
                   ),
                 ),
@@ -508,21 +530,27 @@ class AskSellerWidget extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: const Color(0xff8875FF)),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 3),
-                  child: Text(
-                    'Is bargaining appropriate?',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffffffff),
+              GestureDetector(
+                onTap: () async {
+                  int cid = await   ChatController().createChat(uid1: userModel!.uid, uid2: 0, cid: id.toString(), type: 'car');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatView(chatId: cid, opponentName: name,message: 'Is bargaining appropriate?',)));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        color: const Color(0xff8875FF)),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 3),
+                    child: Text(
+                      'Is bargaining appropriate?',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xffffffff),
+                      ),
                     ),
                   ),
                 ),
@@ -534,68 +562,59 @@ class AskSellerWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: const Color(0xff8875FF)),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 3),
-                  child: Text(
-                    'Where can I watch it?',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffffffff),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: const Color(0xff8875FF)),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 3),
-                  child: Text(
-                    'What is the reason for sale?',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffffffff),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Container(
-                decoration: BoxDecoration(
+              GestureDetector(
+                onTap: () async {
+                  int cid = await   ChatController().createChat(uid1: userModel!.uid, uid2: 0, cid: id.toString(), type: 'car');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatView(chatId: cid, opponentName: name,message: 'Where can I watch it?',)));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xff7A7A7A)),
-                child: const Center(
-                  child: Padding(
+                    border: Border.all(
+                        color: const Color(0xff8875FF)),
+                  ),
+                  child: const Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 3),
                     child: Text(
-                      'Other',
+                      'Where can I watch it?',
                       style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: Color(0xffffffff)),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xffffffff),
+                      ),
                     ),
                   ),
                 ),
-              )
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  int cid = await   ChatController().createChat(uid1: userModel!.uid, uid2: 0, cid: id.toString(), type: 'car');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatView(chatId: cid, opponentName: name,message: 'What is the reason for sale?',)));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        color: const Color(0xff8875FF)),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 3),
+                    child: Text(
+                      'What is the reason for sale?',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xffffffff),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ],

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:untitled1/controller/chat_controller.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
 
+import '../../server_routes.dart';
 import '../profile/profile_view.dart';
 import 'chat_view.dart';
 
@@ -82,12 +83,34 @@ class ChatListView extends GetView<ChatController> {
                                           item['type'] == 'car'
                                               ? CircleAvatar(
                                                   backgroundImage: NetworkImage(
-                                                    'http://63.251.122.116:2308/test_photo?path=${item['car_ccid']}',
+                                                    'http://63.251.122.116:2310/test_photo?path=${item['car_ccid']}',
                                                   ),
                                                   radius: 32,
                                                 )
-                                              : Image.asset(
-                                                  'assets/testsup.png'),
+                                              : Stack(
+                                                  children: [
+                                                    const Center(
+                                                      child: CircleAvatar(
+                                                        radius: 32,
+                                                        backgroundImage: AssetImage(
+                                                            'assets/dwd_logo.jpeg'),
+                                                        // AssetImage('assets/dwd_logo.jpeg'),
+                                                      ),
+                                                    ),
+                                                    Center(
+                                                      child: CircleAvatar(
+                                                        backgroundColor: Colors
+                                                            .white
+                                                            .withOpacity(0),
+                                                        radius: 32,
+                                                        backgroundImage:
+                                                             NetworkImage(
+                                                                '${ServerRoutes.host}/avatar?path=avatar_${item['uid_opponent']}'),
+                                                        // AssetImage('assets/dwd_logo.jpeg'),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                           const SizedBox(
                                             width: 12,
                                           ),

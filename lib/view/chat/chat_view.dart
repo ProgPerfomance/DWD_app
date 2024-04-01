@@ -9,14 +9,14 @@ TextEditingController messageController = TextEditingController();
 class ChatView extends GetView<ChatController> {
   final chatId;
   final opponentName;
-
-  const ChatView({super.key, required this.chatId, required this.opponentName});
+  final String? message;
+  const ChatView({super.key, required this.chatId, required this.opponentName, this.message});
 
   @override
   Widget build(BuildContext context) {
     Get.put(ChatController());
     controller.getChatMessages(chatId);
-
+  message !=null?  messageController.text = message! :'';
     // ScrollController для управления прокруткой
     ScrollController _scrollController = ScrollController();
 
