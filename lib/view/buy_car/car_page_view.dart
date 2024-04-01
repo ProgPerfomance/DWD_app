@@ -97,7 +97,7 @@ class CarPageView extends GetView<CarController> {
                     children: List.generate(
                         controller.images.value , (index) {
                       return Image.network(
-                        'http://63.251.122.116:2308/get_photo?path=$ccid&ind=${index+1}',
+                        'http://63.251.122.116:2310/get_photo?path=$ccid&ind=${index+1}',
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.cover,);
                     }),

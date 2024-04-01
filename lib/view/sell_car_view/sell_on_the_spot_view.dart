@@ -5,6 +5,7 @@ import 'package:untitled1/domain/get_user_cars.dart';
 
 import '../../domain/auth_user_domain.dart';
 import '../../domain/sell_car_request.dart';
+import '../../master_view/booking_master_view.dart';
 import '../profile/create_car_view.dart';
 import '../servise/select_car_booking_view.dart';
 import 'consignment_view.dart';
@@ -193,6 +194,14 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                               any_car_accidents: noAccident);
                           gcc =false;
                           Navigator.pop(context);
+                          showDialog<void>(
+                              useSafeArea: false,
+                              context: context,
+                              barrierDismissible:
+                              false, // user must tap button!
+                              builder: (BuildContext context) {
+                                return const MyCustomAlert(text: 'Request sent');
+                              });
                         },
                         child: Container(
                           height: 52,

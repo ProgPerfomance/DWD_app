@@ -7,8 +7,11 @@ import 'package:untitled1/domain/booking_domain.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 import 'package:untitled1/view/servise/select_car_booking_view.dart';
 
-String _time = 'Select Date & time';
+import '../../master_view/booking_master_view.dart';
 
+String _time = 'Select Date & time';
+FocusNode _focusNode = FocusNode();
+TextEditingController _descriptionController = TextEditingController();
 TextEditingController _pickupController = TextEditingController();
 TextEditingController _deliveryController = TextEditingController();
 TextEditingController _ownerNameController = TextEditingController();
@@ -28,413 +31,475 @@ class BookServiceView extends GetView<GetUserCars> {
     _ownerNumberController.text = userModel?.phone;
     _ownerEmailController.text = userModel?.email;
     _ownerNameController.text = userModel?.name;
-    return Scaffold(
-      backgroundColor: const Color(0xff121212),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          'Back',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: Color(0xff8875FF),
-                          ),
-                        )),
-                    const Text(
-                      'Booking',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        _focusNode.unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xff121212),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            'Back',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: Color(0xff8875FF),
+                            ),
+                          )),
+                      const Text(
+                        'Booking',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                  ],
+                      const SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Owner Name',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xffffffff),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextField(
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      controller: _ownerNameController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xff1D1D1D),
-                        hintStyle: const TextStyle(
-                          color: Color(
-                            0xff535353,
-                          ),
-                        ),
-                        hintText: 'Owner name',
-                        isDense: true,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color(0xff7A7A7A), width: 1),
-                          borderRadius: BorderRadius.circular(
-                            12,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            12,
-                          ),
-                          borderSide: const BorderSide(
-                              color: Color(0xff7A7A7A), width: 1),
+                const SizedBox(
+                  height: 35,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Owner Name',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xffffffff),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    const Text(
-                      'Mobile number',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xffffffff),
+                      const SizedBox(
+                        height: 16,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextField(
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      controller: _ownerNumberController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xff1D1D1D),
-                        hintStyle: const TextStyle(
-                          color: Color(
-                            0xff535353,
-                          ),
+                      TextField(
+                        style: const TextStyle(
+                          color: Colors.white,
                         ),
-                        hintText: 'Phone number',
-                        isDense: true,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color(0xff7A7A7A), width: 1),
-                          borderRadius: BorderRadius.circular(
-                            12,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            12,
-                          ),
-                          borderSide: const BorderSide(
-                              color: Color(0xff7A7A7A), width: 1),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    const Text(
-                      'Email',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xffffffff),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextField(
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      controller: _ownerEmailController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xff1D1D1D),
-                        hintStyle: const TextStyle(
-                          color: Color(
-                            0xff535353,
-                          ),
-                        ),
-                        hintText: 'Email',
-                        isDense: true,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color(0xff7A7A7A), width: 1),
-                          borderRadius: BorderRadius.circular(
-                            12,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            12,
-                          ),
-                          borderSide: const BorderSide(
-                              color: Color(0xff7A7A7A), width: 1),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 38,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const SelectCarBookingView(
-                                      sell: false,
-                                    )));
-                      },
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/sell_car_purple.svg',
-                            width: 24,
-                            height: 24,
-                            color: const Color(0xff8875FF),
-                          ),
-                          const SizedBox(
-                            width: 24,
-                          ),
-                          Obx(
-                            () => Text(
-                              controller.car.value,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                  color: Color(0xff8687E7)),
+                        controller: _ownerNameController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xff1D1D1D),
+                          hintStyle: const TextStyle(
+                            color: Color(
+                              0xff535353,
                             ),
                           ),
-                        ],
+                          hintText: 'Owner name',
+                          isDense: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color(0xff7A7A7A), width: 1),
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                            borderSide: const BorderSide(
+                                color: Color(0xff7A7A7A), width: 1),
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 38,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      //height: 48,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: const Color(0xff40CC46)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const Text(
+                        'Mobile number',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextField(
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        controller: _ownerNumberController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xff1D1D1D),
+                          hintStyle: const TextStyle(
+                            color: Color(
+                              0xff535353,
+                            ),
+                          ),
+                          hintText: 'Phone number',
+                          isDense: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color(0xff7A7A7A), width: 1),
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                            borderSide: const BorderSide(
+                                color: Color(0xff7A7A7A), width: 1),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const Text(
+                        'Email',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextField(
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        controller: _ownerEmailController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xff1D1D1D),
+                          hintStyle: const TextStyle(
+                            color: Color(
+                              0xff535353,
+                            ),
+                          ),
+                          hintText: 'Email',
+                          isDense: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color(0xff7A7A7A), width: 1),
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                            borderSide: const BorderSide(
+                                color: Color(0xff7A7A7A), width: 1),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const Text(
+                        'Description',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextField(
+                        focusNode: _focusNode,
+                        maxLines: 10,
+                        minLines: 5,
+                        maxLength: 1000,
+                        controller: _descriptionController,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xff1D1D1D),
+                          hintStyle: const TextStyle(
+                            color: Color(
+                              0xFFCBCBCB,
+                            ),
+                          ),
+                          hintText: '',
+                          isDense: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ),
+                            borderSide: const BorderSide(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 38,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SelectCarBookingView(
+                                        sell: false,
+                                      )));
+                        },
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SvgPicture.asset('assets/icons/good_cloud.svg'),
-                            const SizedBox(
-                              width: 12,
+                            SvgPicture.asset(
+                              'assets/icons/sell_car_purple.svg',
+                              width: 24,
+                              height: 24,
+                              color: const Color(0xff8875FF),
                             ),
-                            const Text(
-                              'The workshop is located in the Al Quoz area. We\nwill sendyou the exact addressafter confirming\nyour booking',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13,
-                                color: Color(0xffffffff),
+                            const SizedBox(
+                              width: 24,
+                            ),
+                            Obx(
+                              () => Text(
+                                controller.car.value,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: Color(0xff8687E7)),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    BookingCheckBoxWidget(
-                      text: 'Add a pickup for 99 AED',
-                      form: TextField(
-                        style: const TextStyle(
-                          color: Color(0xffffffff),
-                        ),
-                        controller: _pickupController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xff1D1D1D),
-                          hintStyle: const TextStyle(
-                            color: Color(
-                              0xff535353,
-                            ),
-                          ),
-                          hintText: 'Pickup from',
-                          isDense: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color(0xff7A7A7A), width: 1),
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ),
-                            borderSide: const BorderSide(
-                                color: Color(0xff7A7A7A), width: 1),
-                          ),
-                        ),
+                      const SizedBox(
+                        height: 38,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    BookingCheckBoxWidget(
-                      text: 'Add a delivery for 99 AED',
-                      form: TextField(
-                        style: const TextStyle(
-                          color: Color(0xffffffff),
-                        ),
-                        controller: _deliveryController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xff1D1D1D),
-                          hintStyle: const TextStyle(
-                            color: Color(
-                              0xff535353,
-                            ),
-                          ),
-                          hintText: 'Delivery To',
-                          isDense: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color(0xff7A7A7A), width: 1),
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ),
-                            borderSide: const BorderSide(
-                                color: Color(0xff7A7A7A), width: 1),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    const Text(
-                      'Select Date & Time',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xffffffff),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    const SelectDateWidget(),
-                    const SizedBox(
-                      height: 28,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        if (_time == 'Select Date & time') {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Select Date & time'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        } else if (controller.car.value.isEmpty ||
-                            controller.car.value == 'Select car') {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Select car'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        } else {
-                          offer == false
-                              ? BookingDomain().createBooking(
-                                  sid: id,
-                                  cid: controller.carId.value,
-                                  uid: userModel!.uid,
-                                  owner_name: _ownerNameController.text,
-                                  owner_email: _ownerEmailController.text,
-                                  owner_phone: _ownerNumberController.text,
-                                  pickup: _pickupController.text,
-                                  delivery: _deliveryController.text,
-                                  timestamp: DateTime.now().toString(),
-                                  date_time: _time)
-                              : BookingDomain().createBookingOffer(
-                                  sid: id,
-                                  cid: controller.carId.value,
-                                  uid: userModel!.uid,
-                                  owner_name: _ownerNameController.text,
-                                  owner_email: _ownerEmailController.text,
-                                  owner_phone: _ownerNumberController.text,
-                                  pickup: _pickupController.text,
-                                  delivery: _deliveryController.text,
-                                  timestamp: DateTime.now().toString(),
-                                  date_time: _time, garage: garage);
-
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Container(
-                        height: 52,
-                        width: MediaQuery.of(context).size.width - 32,
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        //height: 48,
                         decoration: BoxDecoration(
-                          color: const Color(0xff8875FF),
-                          borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(8),
+                            color: const Color(0xff40CC46)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SvgPicture.asset('assets/icons/good_cloud.svg'),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              const Text(
+                                'The workshop is located in the Al Quoz area. We\nwill sendyou the exact addressafter confirming\nyour booking',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13,
+                                  color: Color(0xffffffff),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: const Center(
-                          child: Text(
-                            'Send',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: Color(0xffffffff),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      BookingCheckBoxWidget(
+                        text: 'Add a pickup',
+                        form: TextField(
+                          style: const TextStyle(
+                            color: Color(0xffffffff),
+                          ),
+                          controller: _pickupController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xff1D1D1D),
+                            hintStyle: const TextStyle(
+                              color: Color(
+                                0xff535353,
+                              ),
+                            ),
+                            hintText: 'Pickup from',
+                            isDense: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xff7A7A7A), width: 1),
+                              borderRadius: BorderRadius.circular(
+                                12,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                12,
+                              ),
+                              borderSide: const BorderSide(
+                                  color: Color(0xff7A7A7A), width: 1),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 28,
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      BookingCheckBoxWidget(
+                        text: 'Add a delivery',
+                        form: TextField(
+                          style: const TextStyle(
+                            color: Color(0xffffffff),
+                          ),
+                          controller: _deliveryController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xff1D1D1D),
+                            hintStyle: const TextStyle(
+                              color: Color(
+                                0xff535353,
+                              ),
+                            ),
+                            hintText: 'Delivery To',
+                            isDense: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xff7A7A7A), width: 1),
+                              borderRadius: BorderRadius.circular(
+                                12,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                12,
+                              ),
+                              borderSide: const BorderSide(
+                                  color: Color(0xff7A7A7A), width: 1),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const Text(
+                        'Select Date & Time',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const SelectDateWidget(),
+                      const SizedBox(
+                        height: 28,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          if (_time == 'Select Date & time') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Select Date & time'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          } else if (controller.car.value.isEmpty ||
+                              controller.car.value == 'Select car') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Select car'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          } else {
+                            offer == false
+                                ? BookingDomain().createBooking(
+                                    sid: id,
+                                    description: _descriptionController.text,
+                                    cid: controller.carId.value,
+                                    uid: userModel!.uid,
+                                    owner_name: _ownerNameController.text,
+                                    owner_email: _ownerEmailController.text,
+                                    owner_phone: _ownerNumberController.text,
+                                    pickup: _pickupController.text,
+                                    delivery: _deliveryController.text,
+                                    timestamp: DateTime.now().toString(),
+                                    date_time: _time)
+                                : BookingDomain().createBookingOffer(
+                              description: _descriptionController.text,
+                                    sid: id,
+                                    cid: controller.carId.value,
+                                    uid: userModel!.uid,
+                                    owner_name: _ownerNameController.text,
+                                    owner_email: _ownerEmailController.text,
+                                    owner_phone: _ownerNumberController.text,
+                                    pickup: _pickupController.text,
+                                    delivery: _deliveryController.text,
+                                    timestamp: DateTime.now().toString(),
+                                    date_time: _time, garage: garage);
+                            Navigator.pop(context);
+                            showDialog<void>(
+                                useSafeArea: false,
+                                context: context,
+                                barrierDismissible:
+                                false, // user must tap button!
+                                builder: (BuildContext context) {
+                                  return const MyCustomAlert(text: 'Request sent');
+                                });
+                          }
+                        },
+                        child: Container(
+                          height: 52,
+                          width: MediaQuery.of(context).size.width - 32,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff8875FF),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Send',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                color: Color(0xffffffff),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 28,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

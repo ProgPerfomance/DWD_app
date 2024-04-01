@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:untitled1/domain/create_user_car.dart';
 import 'package:untitled1/view/profile/car_list_view.dart';
 
+import '../../master_view/booking_master_view.dart';
+
 TextEditingController _name = TextEditingController();
 TextEditingController _brand = TextEditingController();
 TextEditingController _model = TextEditingController();
@@ -72,6 +74,14 @@ class _CreateCarViewState extends State<CreateCarView> {
                             _model.clear();
                             _brand.clear();
                           Navigator.pop(context);
+                            showDialog<void>(
+                                useSafeArea: false,
+                                context: context,
+                                barrierDismissible:
+                                false, // user must tap button!
+                                builder: (BuildContext context) {
+                                  return const MyCustomAlert(text: 'Car created!');
+                                });
                           },
                           child: const Text(
                             'Save',
@@ -134,7 +144,7 @@ class _CreateCarViewState extends State<CreateCarView> {
                       ),
                       TextField(
                             controller: _brand,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                         decoration: InputDecoration(
@@ -235,7 +245,7 @@ class CreateCarField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
       ),
       controller: controller,

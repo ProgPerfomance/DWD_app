@@ -56,13 +56,15 @@ class MasterBookingController extends ChangeNotifier {
     dio.post('${ServerRoutes.host}/updatebooking', data: {
       'id': id.toString(),
       'status': 'Approved',
+      'reason': '',
     });
   }
 
-  Future<void> cancelBooking({required id}) async {
+  Future<void> cancelBooking({required id, required String reason}) async {
     dio.post('${ServerRoutes.host}/updatebooking', data: {
       'id': id.toString(),
       'status': 'Canceled',
+      'reason': reason,
     });
   }
   void newManagerBooking(value) {

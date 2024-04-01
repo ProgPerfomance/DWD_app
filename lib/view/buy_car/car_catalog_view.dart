@@ -152,7 +152,7 @@ class CarCatalogView extends GetView<CarController> {
                                       Stack(
                                         children: [
                                           Image.network(
-                                            'http://63.251.122.116:2308/test_photo?path=${item['ccid']}',
+                                            'http://63.251.122.116:2310/test_photo?path=${item['ccid']}',
                                             height: 130,
                                             fit: BoxFit.fill,
                                             width: MediaQuery.of(context)

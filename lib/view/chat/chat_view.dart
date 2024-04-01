@@ -76,7 +76,7 @@ class ChatView extends GetView<ChatController> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: item['uid'] != userModel!.uid.toString()
+                              color:  item['uid'] != userModel!.uid.toString()
                                   ? const Color(0xff7253F6)
                                   : const Color(0xff252033),
                             ),

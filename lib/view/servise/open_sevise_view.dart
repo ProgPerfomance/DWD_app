@@ -72,46 +72,50 @@ class OpenServiseView extends GetView<ServicesController> {
                   const SizedBox(
                     height: 7,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Obx(
-                      () => Text(
-                        '${controller.price.value}AED',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 24,
-                            color: Color(0xff8875FF)),
-                      ),
-                    ),
-                  ),
+                  special == true
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Obx(
+                            () => Text(
+                              '${controller.price.value}AED',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 24,
+                                  color: Color(0xff8875FF)),
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
                   const SizedBox(
                     height: 8,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Stack(
-                      children: [
-                        Image.asset('assets/line.png'),
-                        Obx(
-                          () => Text(
-                            'was ${controller.lowPrice.value}AED',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xffffffff),
-                            ),
+                  special == true
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Stack(
+                            children: [
+                              Image.asset('assets/line.png'),
+                              Obx(
+                                () => Text(
+                                  'was ${controller.lowPrice.value}AED',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xffffffff),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        )
+                      : const SizedBox(),
                   const SizedBox(
                     height: 13,
                   ),
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height - 238,
+                height: MediaQuery.of(context).size.height - 138,
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   color: Color(0xff121212),
@@ -214,8 +218,8 @@ class OpenServiseView extends GetView<ServicesController> {
                                 MaterialPageRoute(
                                     builder: (context) => BookServiceView(
                                           id: id,
-                                    garage: garage,
-                                    offer: special,
+                                          garage: garage,
+                                          offer: special,
                                         )));
                           },
                           child: Container(

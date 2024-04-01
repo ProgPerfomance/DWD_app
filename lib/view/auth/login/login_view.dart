@@ -138,7 +138,7 @@ class LoginView extends GetView<AuthController> {
                                       const ForgotPasswordView()),
                               (route) => false);
                         },
-                        child:  Text(
+                        child: Text(
                           translate.forgotPassword,
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
@@ -156,18 +156,28 @@ class LoginView extends GetView<AuthController> {
                       email_or_phone: _emailController.text,
                     );
                     if (check.rules != -1) {
-                      switch(check.rules) {
+                      switch (check.rules) {
                         case 0:
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const HomeView()), (route)=> false);
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeView()),
+                              (route) => false);
                         case 3:
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const MenegerHomeView()), (route)=> false);
-                          print('manager');
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MenegerHomeView()),
+                              (route) => false);
                         case 1:
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const MasterHomeView()), (route)=> false);
-                          print('master');
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MasterHomeView()),
+                              (route) => false);
                       }
-                    }
-                    else {
+                    } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Неверный логин или пароль'),

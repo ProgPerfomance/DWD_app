@@ -66,7 +66,7 @@ class ManagerServiceView extends GetView<ServicesController> {
                   height: 34,
                 ),
                 Obx(
-                      () => Padding(
+                  () => Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: SizedBox(
                       height: 150,
@@ -77,20 +77,16 @@ class ManagerServiceView extends GetView<ServicesController> {
                             final item = controller.lastSpecialOffers[index];
                             return Padding(
                               padding:
-                              const EdgeInsets.symmetric(horizontal: 8.0),
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              OpenServiseView(
-                                                imagePath: 'wheels.png',
-                                                garage: item['garage'],
-                                                id: int.parse(item['id']),
-                                                special: true,
-                                                title: item['name'],
-                                              )));
+                                              EditServiceManager(
+                                                  title: item['name'],
+                                                  id: item['id'])));
                                 },
                                 child: Container(
                                   width: 150,
@@ -99,19 +95,19 @@ class ManagerServiceView extends GetView<ServicesController> {
                                     color: index == 0 ? null : Colors.white,
                                     gradient: index == 0
                                         ? const LinearGradient(
-                                        colors: [
-                                          Color(0xff8875FF),
-                                          Color(0xff40CC46)
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter)
+                                            colors: [
+                                                Color(0xff8875FF),
+                                                Color(0xff40CC46)
+                                              ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter)
                                         : null,
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           item['name'],
@@ -138,7 +134,7 @@ class ManagerServiceView extends GetView<ServicesController> {
                                         ),
                                         Stack(
                                           alignment:
-                                          AlignmentDirectional.center,
+                                              AlignmentDirectional.center,
                                           children: [
                                             Image.asset('assets/line.png'),
                                             Text(
@@ -287,11 +283,16 @@ class ManagerServiceView extends GetView<ServicesController> {
                         icon: 'assets/icons/storage.svg',
                         id: 12,
                       ),
-                      SizedBox(
-                        width: 72,
+
+                      ManagerServiceButton(
+                        text: 'Body repair\nand paint',
+                        icon: 'assets/icons/body.svg.svg',
+                        id: 21,
                       ),
-                      SizedBox(
-                        width: 72,
+                      ManagerServiceButton(
+                        text: 'Pre-purchase\ninspection',
+                        icon: 'assets/icons/inspec.svg',
+                        id: 22,
                       ),
                       SizedBox(
                         width: 72,
@@ -327,7 +328,7 @@ class ManagerServiceButton extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => EditServiceManager(
                       title: text,
-                  id: id,
+                      id: id,
                     )));
       },
       child: Column(

@@ -64,8 +64,10 @@ class ChatListView extends GetView<ChatController> {
                                   MaterialPageRoute(
                                       builder: (context) => ChatView(
                                             chatId: item['cid'],
-                                            opponentName:
-                                            item['type'] == 'car' ? item['car_name'].toString() : item['opponent_name'].toString(),
+                                            opponentName: item['type'] == 'car'
+                                                ? item['car_name'].toString()
+                                                : item['opponent_name']
+                                                    .toString(),
                                           )));
                             },
                             child: SizedBox(
@@ -77,10 +79,15 @@ class ChatListView extends GetView<ChatController> {
                                     children: [
                                       Row(
                                         children: [
-                                      item['type'] == 'car' ? CircleAvatar(
-                                        backgroundImage: NetworkImage('http://63.251.122.116:2308/test_photo?path=${item['car_ccid']}',),
-                                        radius: 32,
-                                      ) :  Image.asset('assets/testsup.png'),
+                                          item['type'] == 'car'
+                                              ? CircleAvatar(
+                                                  backgroundImage: NetworkImage(
+                                                    'http://63.251.122.116:2308/test_photo?path=${item['car_ccid']}',
+                                                  ),
+                                                  radius: 32,
+                                                )
+                                              : Image.asset(
+                                                  'assets/testsup.png'),
                                           const SizedBox(
                                             width: 12,
                                           ),
@@ -89,7 +96,11 @@ class ChatListView extends GetView<ChatController> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                              item['type'] == 'car' ? item['car_name'].toString() : item['opponent_name'].toString(),
+                                                item['type'] == 'car'
+                                                    ? item['car_name']
+                                                        .toString()
+                                                    : item['opponent_name']
+                                                        .toString(),
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.w900,
                                                   fontSize: 18,
@@ -99,56 +110,56 @@ class ChatListView extends GetView<ChatController> {
                                               const SizedBox(
                                                 height: 16,
                                               ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    item['sender_uid'] ==
-                                                            userModel!.uid
-                                                                .toString()
-                                                        ? 'You:'
-                                                        : '${item['opponent_name']}:',
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: Color(0xff8875FF),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 3,
-                                                  ),
-                                                  Text(
-                                                    item['last_message']
-                                                        .toString(),
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 16,
-                                                        color: Color(0xffffffff)),
-                                                  ),
-                                                  SizedBox(
-                                                    width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        15,
-                                                  ),
-                                                  // Container(
-                                                  //   height: 16,
-                                                  //   width: 16,
-                                                  //   decoration: BoxDecoration(
-                                                  //       borderRadius: BorderRadius.circular(100),
-                                                  //       color: const Color(0xff8875FF)
-                                                  //   ),
-                                                  //   child: const Center(
-                                                  //     child: Text('1',
-                                                  //     style: TextStyle(
-                                                  //       fontSize: 13,
-                                                  //       fontWeight: FontWeight.w400,
-                                                  //       color: Colors.white,
-                                                  //     ),),
-                                                  //   ),
-                                                  // )
-                                                ],
-                                              ),
+                                              item['last_message'] != null
+                                                  ? Row(
+                                                      children: [
+                                                        Text(
+                                                          item['sender_uid'] ==
+                                                                  userModel!.uid
+                                                                      .toString()
+                                                              ? 'You:'
+                                                              : '${item['opponent_name']}:',
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: Color(
+                                                                0xff8875FF),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 3,
+                                                        ),
+                                                        Text(
+                                                          item['last_message']
+                                                              .toString(),
+                                                          style: const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 16,
+                                                              color: Color(
+                                                                  0xffffffff)),
+                                                        ),
+                                                        SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              15,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  : const Text(
+                                                      'No messages',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize: 16,
+                                                          color: Color(
+                                                              0xffffffff)),
+                                                    )
                                             ],
                                           ),
                                         ],

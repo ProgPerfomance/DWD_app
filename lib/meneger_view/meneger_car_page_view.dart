@@ -7,6 +7,8 @@ import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/car_controller.dart';
 import 'package:untitled1/meneger_view/manager_add_car/manager_edit_car.dart';
 
+import '../master_view/booking_master_view.dart';
+
 class MenegerCarPageView extends GetView<CarController> {
   final String name;
   final String id;
@@ -79,7 +81,7 @@ class MenegerCarPageView extends GetView<CarController> {
                 child: PageView(
                   children: List.generate(controller.images.value, (index) {
                     return Image.network(
-                      'http://63.251.122.116:2308/get_photo?path=$ccid&ind=${index + 1}',
+                      'http://63.251.122.116:2310/get_photo?path=$ccid&ind=${index + 1}',
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
                     );
@@ -205,6 +207,14 @@ class MenegerCarPageView extends GetView<CarController> {
                       onTap: (){
                         controller.deleteCar(id.toString());
                         Navigator.pop(context);
+                        showDialog<void>(
+                            useSafeArea: false,
+                            context: context,
+                            barrierDismissible:
+                            false, // user must tap button!
+                            builder: (BuildContext context) {
+                              return const MyCustomAlert(text: 'Car deleted');
+                            });
                         controller.getCarList();
                       },
                       child: Container(

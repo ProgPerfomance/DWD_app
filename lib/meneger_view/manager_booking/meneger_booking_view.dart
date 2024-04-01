@@ -63,7 +63,7 @@ class BookingManagerView extends GetView<MasterBookingController> {
                   },
                   child: Container(
                     height: 60,
-                    width: MediaQuery.of(context).size.width / 2.57,
+                    width: MediaQuery.of(context).size.width / 2- 24,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: controller.newList.value == false
@@ -92,7 +92,7 @@ class BookingManagerView extends GetView<MasterBookingController> {
                   },
                   child: Container(
                     height: 60,
-                    width: MediaQuery.of(context).size.width / 2.57,
+                    width: MediaQuery.of(context).size.width / 2 - 24,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: controller.newList.value == true
@@ -146,6 +146,11 @@ class BookingManagerView extends GetView<MasterBookingController> {
                             MaterialPageRoute(
                                 builder: (context) =>
                                      ManagerOpenBooking(
+                                       manager: true,
+                                       carReg: item['car_reg'],
+                                       carBrand: item['car_brand'],
+                                       carModel: item['car_model'],
+                                       carYear: item['car_year'],
                                        userEmail: item['owner_email'],
                                       userName: item['owner_name'],
                                       userPhone: item['owner_phone'],

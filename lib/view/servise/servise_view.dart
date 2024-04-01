@@ -305,14 +305,20 @@ class ServiseView extends GetView<ServicesController> {
                         id: 12,
                         imagePath: 'storage.png',
                       ),
-                      const SizedBox(
-                        width: 72,
+                      const ServiceButton(
+                        text: 'Body repair\nand paint',
+                        icon: 'assets/icons/body.svg.svg',
+                        id: 21,
+                        imagePath: 'storage.png',
+                      ),
+                      const ServiceButton(
+                        text: 'Pre-purchase\ninspection',
+                        icon: 'assets/icons/inspec.svg',
+                        id: 22,
+                        imagePath: 'storage.png',
                       ),
                       const SizedBox(
-                        width: 72,
-                      ),
-                      const SizedBox(
-                        width: 72,
+                        width: 73,
                       ),
                     ],
                   ),

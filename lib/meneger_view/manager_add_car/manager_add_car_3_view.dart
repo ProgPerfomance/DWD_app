@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled1/meneger_view/meneger_home_view.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../master_view/booking_master_view.dart';
 import '../../server_routes.dart';
 
 FocusNode _focusNode = FocusNode();
@@ -165,6 +166,14 @@ class _ManagerAddCar3ViewState extends State<ManagerAddCar3View> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const MenegerHomeView()));
+                    showDialog<void>(
+                        useSafeArea: false,
+                        context: context,
+                        barrierDismissible:
+                        false, // user must tap button!
+                        builder: (BuildContext context) {
+                          return const MyCustomAlert(text: 'Car created!');
+                        });
                   },
                   child: Container(
                     height: 52,

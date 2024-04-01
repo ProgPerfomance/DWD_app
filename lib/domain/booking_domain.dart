@@ -4,6 +4,7 @@ import 'package:untitled1/server_routes.dart';
 class BookingDomain  {
   Dio dio = Dio();
   Future<void> createBooking({
+    required description,
     required sid,
     required cid,
     required uid,
@@ -20,6 +21,7 @@ class BookingDomain  {
       'sid': sid,
       'cid': cid,
       'uid':uid,
+      'description': description,
       'owner_name': owner_name,
       'owner_email': owner_email,
       'owner_phone': owner_phone,
@@ -36,6 +38,7 @@ class BookingDomain  {
     required owner_name,
     required owner_email,
     required owner_phone,
+    required description,
     required pickup,
     required delivery,
     required timestamp,
@@ -47,6 +50,7 @@ class BookingDomain  {
           'sid': sid,
           'cid': cid,
           'uid':uid,
+          'description': description,
           'owner_name': owner_name,
           'owner_email': owner_email,
           'owner_phone': owner_phone,

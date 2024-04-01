@@ -380,6 +380,7 @@ class UpdateBookingView extends GetView<GetUserCars> {
                               sid: id,
                               cid: 1,
                               uid: 1,
+                              description: '',
                               owner_name: _ownerNameController.text,
                               owner_email: _ownerEmailController.text,
                               owner_phone: _ownerNumberController.text,
