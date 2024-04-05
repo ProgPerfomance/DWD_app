@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/server_routes.dart';
 
 class ChatController extends GetxController {
@@ -18,6 +19,15 @@ class ChatController extends GetxController {
 
   Future<int> createChat(
       {required uid1, required uid2, required cid, required type}) async {
+    if(type == 'car') {
+     await getChats(userModel!.uid);
+      for(var item in chats) {
+      if(  item['car_id'] == cid ) {
+        print('ffff');
+        return int.parse(item['cid']);
+      }
+      }
+    }
     final response = await dio.post('${ServerRoutes.host}/createchat', data: {
       'uid1': uid1.toString(),
       'uid2': uid2.toString(),

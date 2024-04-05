@@ -41,7 +41,7 @@ class CarController extends GetxController {
   }
 
   Future<void> likeCar(pid, uid) async {
-    dio.post('${ServerRoutes.host}/likecar', data: {
+     await dio.post('${ServerRoutes.host}/likecar', data: {
       'uid': userModel!.uid.toString(),
       'cid': pid.toString(),
     });
@@ -52,13 +52,15 @@ class CarController extends GetxController {
     });
   }
 
-  Future<void> dislikeCar(id) async {
+  Future<void> dislikeCar(id, carId) async {
     dio.post('${ServerRoutes.host}/dislikecar', data: {
       'id': id.toString(),
     });
     Future.delayed(const Duration(milliseconds: 35), () {
       getCarList();
       getWishlist();
+      getCarInfo(carId);
+      notifyChildrens();
     });
   }
   RxInt images = 0.obs;
@@ -68,12 +70,14 @@ class CarController extends GetxController {
     final response =
     await dio.post('${ServerRoutes.host}/getcarinfo', data: {
       'id': id.toString(),
+      'uid': userModel!.uid.toString(),
     });
     var data = jsonDecode(response.data);
     images.value = data['images'];
     liker.value = data['liked'];
     likeId.value = data['like_id'].toString();
     print(response.data);
+    print(liker.value);
     notifyChildrens();
   }
 

@@ -121,7 +121,7 @@ class FavoritCarsView extends GetView<CarController> {
                                         item['id'],
                                         userModel!.uid)
                                         : controller.dislikeCar(
-                                        item['like_id']);
+                                        item['like_id'], item['id']);
                                   },
                                   child: item['liked'] == 'false'
                                       ? SvgPicture.asset(

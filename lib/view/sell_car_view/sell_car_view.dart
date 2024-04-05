@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/view/sell_car_view/sell_on_the_spot_view.dart';
 
+import '../../domain/auth_user_domain.dart';
+import '../../server_routes.dart';
 import '../profile/profile_view.dart';
 import 'consignment_view.dart';
 
@@ -31,9 +33,24 @@ class SellCarView extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const ProfileView()),
                 );
               },
-              child: const CircleAvatar(
-                radius: 25,
-                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              child: Stack(
+                children: [
+                  const Center(
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage:AssetImage('assets/dwd_logo.jpeg'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
+                    ),
+                  ),
+                  Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white.withOpacity(0),
+                      radius: 25,
+                      backgroundImage: NetworkImage('${ServerRoutes.host}/avatar?path=avatar_${userModel!.uid}'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

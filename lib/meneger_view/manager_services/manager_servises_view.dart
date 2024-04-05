@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/services_controller.dart';
 import 'package:untitled1/meneger_view/manager_services/all_garages.dart';
+import 'package:untitled1/meneger_view/manager_services/manager_create_offer.dart';
 import 'package:untitled1/meneger_view/manager_services/manager_servises.dart';
+import '../../master_view/master_create_offer.dart';
 import '../../view/servise/open_sevise_view.dart';
 
 class ManagerServiceView extends GetView<ServicesController> {
@@ -72,13 +74,53 @@ class ManagerServiceView extends GetView<ServicesController> {
                       height: 150,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: controller.lastSpecialOffers.length,
+                          itemCount: controller.lastSpecialOffers.length+1,
                           itemBuilder: (context, index) {
-                            final item = controller.lastSpecialOffers[index];
+                            var item;
+                            if (index > 0) {
+                              item = controller.lastSpecialOffers[index-1];
+                            }
+
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: GestureDetector(
+                              child: index == 0 ?
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                          const ManagerCreateOffer()));
+                                },
+                                child: Container(
+                                  height: 140,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: const Color(0xff2F2F2F),
+                                      border:
+                                      Border.all(color: const Color(0xff8875FF))),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset('assets/icons/new_offer.svg'),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      const Text(
+                                        'New Offer',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff8875FF),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ) :
+                              GestureDetector(
                                 onTap: () {
                                   Navigator.push(
                                       context,

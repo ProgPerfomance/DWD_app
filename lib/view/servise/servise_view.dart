@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/services_controller.dart';
 import '../../controller/get_user_info.dart';
+import '../../domain/auth_user_domain.dart';
+import '../../server_routes.dart';
 import '../profile/profile_view.dart';
 import 'open_sevise_view.dart';
 
@@ -35,9 +37,24 @@ class ServiseView extends GetView<ServicesController> {
                   MaterialPageRoute(builder: (context) => const ProfileView()),
                 );
               },
-              child: const CircleAvatar(
-                radius: 25,
-                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              child: Stack(
+                children: [
+                  const Center(
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage:AssetImage('assets/dwd_logo.jpeg'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
+                    ),
+                  ),
+                  Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white.withOpacity(0),
+                      radius: 25,
+                      backgroundImage: NetworkImage('${ServerRoutes.host}/avatar?path=avatar_${userModel!.uid}'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -201,12 +218,13 @@ class ServiseView extends GetView<ServicesController> {
                         icon: 'assets/icons/interval_service.svg',
                         id: 1,
                       ),
-                      ServiceButton(
-                        imagePath: 'new_recovery.jpeg',
-                        text: translate.recovery,
-                        icon: 'assets/icons/recovery.svg',
-                        id: 2,
+                      const ServiceButton(
+                        text: 'Body repair\nand paint',
+                        icon: 'assets/icons/body.svg.svg',
+                        id: 21,
+                        imagePath: 'body.png',
                       ),
+
                       ServiceButton(
                         imagePath: 'wheels.png',
                         name: 'Wheels and tires',
@@ -305,17 +323,17 @@ class ServiseView extends GetView<ServicesController> {
                         id: 12,
                         imagePath: 'storage.png',
                       ),
-                      const ServiceButton(
-                        text: 'Body repair\nand paint',
-                        icon: 'assets/icons/body.svg.svg',
-                        id: 21,
-                        imagePath: 'storage.png',
+                      ServiceButton(
+                        imagePath: 'new_recovery.jpeg',
+                        text: translate.recovery,
+                        icon: 'assets/icons/recovery.svg',
+                        id: 2,
                       ),
                       const ServiceButton(
                         text: 'Pre-purchase\ninspection',
                         icon: 'assets/icons/inspec.svg',
                         id: 22,
-                        imagePath: 'storage.png',
+                        imagePath: 'inspect.png',
                       ),
                       const SizedBox(
                         width: 73,

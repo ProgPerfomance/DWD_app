@@ -565,7 +565,7 @@ class MyCustomAlert extends StatelessWidget {
                     ),
                     child: const Center(
                       child: Text(
-                        'Save',
+                        'OK',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight:

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/view/chat/chat_view.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -68,7 +69,11 @@ class CarPageView extends GetView<CarController> {
           color: Colors.white,
         ),),
         actions: [
-          SvgPicture.asset('assets/icons/upload.svg'),
+          GestureDetector(
+            onTap: () {
+            Share.share('http://63.251.122.116:2310/get_photo?path=$ccid&ind=${1}\n Look at the ad: $name\n');
+            },
+              child: SvgPicture.asset('assets/icons/upload.svg')),
           const SizedBox(width: 8,),
           Obx(
               ()=> SizedBox(child:
@@ -80,6 +85,7 @@ class CarPageView extends GetView<CarController> {
                 child: SvgPicture.asset('assets/icons/unlike.svg',height: 24,width: 24, color: Colors.white,))
                 : GestureDetector(
                 onTap: () {
+                  controller.dislikeCar(controller.likeId, id);
                 },
                 child: SvgPicture.asset('assets/icons/like.svg', height: 24,width: 24,)),),
           ),
@@ -171,6 +177,8 @@ class CarPageView extends GetView<CarController> {
                           ),
                           GestureDetector(
                             onTap: () async {
+
+
                      int cid = await   ChatController().createChat(uid1: userModel!.uid, uid2: 0, cid: id.toString(), type: 'car');
                               Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatView(chatId: cid, opponentName: name)));
                             },
@@ -358,7 +366,7 @@ class CarPageView extends GetView<CarController> {
                                                     item['id'],
                                                     userModel!.uid)
                                                     : controller.dislikeCar(
-                                                    item['like_id']);
+                                                    item['like_id'],item['id']);
                                               },
                                               child: item['liked'] == 'false'
                                                   ? SvgPicture.asset(

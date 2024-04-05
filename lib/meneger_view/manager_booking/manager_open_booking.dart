@@ -229,13 +229,16 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
                         const SizedBox(
                           width: 8,
                         ),
-                        GestureDetector(
+                   GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            garage == null && status == 'Pending'
+                                ? Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const ManagerSelectGarage()));
+                                        const ManagerSelectGarage(
+                                          booking: true,
+                                        ))) : null;
                           },
                           child: Obx(
                             () => Text(

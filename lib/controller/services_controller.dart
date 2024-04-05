@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:untitled1/server_routes.dart';
 
 class ServicesController extends GetxController {
   Dio dio = Dio();
   RxList garages = [].obs;
+  RxMap garage = {}.obs;
   RxMap serviceInfo = {}.obs;
   RxList included = [].obs;
   RxList notIncluded = [].obs;
@@ -18,7 +20,10 @@ class ServicesController extends GetxController {
     final response = await dio.get('${ServerRoutes.host}/getGarages');
     garages.value = jsonDecode(response.data);
   }
-
+  void selectGarage(value) {
+    garage.value = value;
+    notifyChildrens();
+  }
   Future<void> editGarage(
       {required name,
       required email,

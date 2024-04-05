@@ -5,9 +5,8 @@ import 'package:untitled1/controller/master/booking_master_controller.dart';
 import 'package:untitled1/controller/services_controller.dart';
 
 
-class ManagerSelectGarage extends GetView<ServicesController> {
- final bool booking;
-  const ManagerSelectGarage({super.key, required this.booking});
+class CreateOfferSelectGarage extends GetView<ServicesController> {
+  const CreateOfferSelectGarage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +17,14 @@ class ManagerSelectGarage extends GetView<ServicesController> {
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
         child: Obx(
-          () => Column(
+              () => Column(
             children: List.generate(controller.garages.length, (index) {
               final item = controller.garages[index];
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: (){
-                   booking == true? garage.selectGarage({'title': item['name'], 'id': item['id']}) :controller.selectGarage({'title': item['name'], 'id': item['id']});
+                    garage.selectGarage({'title': item['name'], 'id': item['id']});
                     Navigator.pop(context);
                   },
                   child: Column(

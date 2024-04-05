@@ -35,9 +35,24 @@ class ChatListView extends GetView<ChatController> {
                   MaterialPageRoute(builder: (context) => const ProfileView()),
                 );
               },
-              child: const CircleAvatar(
-                radius: 25,
-                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              child:Stack(
+                children: [
+                  const Center(
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage:AssetImage('assets/dwd_logo.jpeg'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
+                    ),
+                  ),
+                  Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white.withOpacity(0),
+                      radius: 25,
+                      backgroundImage: NetworkImage('${ServerRoutes.host}/avatar?path=avatar_${userModel!.uid}'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

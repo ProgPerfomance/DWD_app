@@ -5,6 +5,7 @@ import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
 import '../../controller/car_controller.dart';
 import '../../controller/home_controller.dart';
+import '../../server_routes.dart';
 import '../profile/profile_view.dart';
 import 'car_page_view.dart';
 
@@ -37,9 +38,24 @@ class CarCatalogView extends GetView<CarController> {
                   MaterialPageRoute(builder: (context) => const ProfileView()),
                 );
               },
-              child: const CircleAvatar(
-                radius: 25,
-                backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+              child:  Stack(
+                children: [
+                  const Center(
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage:AssetImage('assets/dwd_logo.jpeg'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
+                    ),
+                  ),
+                  Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white.withOpacity(0),
+                      radius: 25,
+                      backgroundImage: NetworkImage('${ServerRoutes.host}/avatar?path=avatar_${userModel!.uid}'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -57,8 +73,9 @@ class CarCatalogView extends GetView<CarController> {
               onTap: (){
                 home.selectIndex(1);
               },
-              child: Image.asset(
-                'assets/buy_banner.png',
+
+            child: Image.asset(
+                'assets/big_banner.png',
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.fill,
               ),
@@ -169,7 +186,7 @@ class CarCatalogView extends GetView<CarController> {
                                                             item['id'],
                                                             userModel!.uid)
                                                         : controller.dislikeCar(
-                                                            item['like_id']);
+                                                            item['like_id'], item['id']);
                                                   },
                                                   child:
                                                       item['liked'] == 'false'

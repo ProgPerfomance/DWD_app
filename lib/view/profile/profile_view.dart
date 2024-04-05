@@ -79,7 +79,6 @@ class ProfileView extends GetView<UserInfoController> {
                         // AssetImage('assets/dwd_logo.jpeg'),
                       ),
                     ),
-
                   ],
                 ),
                 const SizedBox(
