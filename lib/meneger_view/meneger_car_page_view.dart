@@ -8,6 +8,7 @@ import 'package:untitled1/controller/car_controller.dart';
 import 'package:untitled1/meneger_view/manager_add_car/manager_edit_car.dart';
 
 import '../master_view/booking_master_view.dart';
+import '../server_routes.dart';
 
 class MenegerCarPageView extends GetView<CarController> {
   final String name;
@@ -81,7 +82,7 @@ class MenegerCarPageView extends GetView<CarController> {
                 child: PageView(
                   children: List.generate(controller.images.value, (index) {
                     return Image.network(
-                      'http://63.251.122.116:2310/get_photo?path=$ccid&ind=${index + 1}',
+                      '${ServerRoutes.host}/get_photo?path=$ccid&ind=${index + 1}',
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
                     );
@@ -186,7 +187,8 @@ class MenegerCarPageView extends GetView<CarController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                                'assets/icons/manager_edit_purple.svg'),
+                                'assets/icons/manager_edit_purple.svg',
+                            color: Colors.white,),
                             const SizedBox(
                               width: 12,
                             ),
@@ -195,7 +197,7 @@ class MenegerCarPageView extends GetView<CarController> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0xff8875FF),
+                                color: Colors.white,
                               ),
                             ),
                           ],
@@ -228,7 +230,8 @@ class MenegerCarPageView extends GetView<CarController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                                'assets/icons/delete.svg'),
+                                'assets/icons/delete.svg',
+                            color: Colors.white,),
                             const SizedBox(
                               width: 12,
                             ),
@@ -237,7 +240,7 @@ class MenegerCarPageView extends GetView<CarController> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0xff8875FF),
+                                color: Colors.white,
                               ),
                             ),
                           ],

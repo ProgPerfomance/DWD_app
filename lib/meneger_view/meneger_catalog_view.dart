@@ -8,6 +8,8 @@ import 'package:untitled1/meneger_view/manager_add_car/manager_add_car_1_view.da
 import 'package:untitled1/meneger_view/meneger_car_page_view.dart';
 import 'package:untitled1/meneger_view/meneger_profile_view.dart';
 
+import '../server_routes.dart';
+
 class MenegerCarCatalogView extends GetView<CarController> {
   const MenegerCarCatalogView({super.key});
 
@@ -139,7 +141,7 @@ class MenegerCarCatalogView extends GetView<CarController> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.network('http://63.251.122.116:2310/test_photo?path=${item['ccid']}',
+                                  Image.network('${ServerRoutes.host}/test_photo?path=${item['ccid']}',
                                     height: 130,
                                     fit: BoxFit.fill,
                                     width:

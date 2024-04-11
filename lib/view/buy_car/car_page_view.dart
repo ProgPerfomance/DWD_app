@@ -14,6 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../controller/car_controller.dart';
 import '../../controller/chat_controller.dart';
 import '../../domain/auth_user_domain.dart';
+import '../../server_routes.dart';
 
 class CarPageView extends GetView<CarController> {
   final String name;
@@ -109,7 +110,7 @@ class CarPageView extends GetView<CarController> {
                     children: List.generate(
                         controller.images.value , (index) {
                       return Image.network(
-                        'http://63.251.122.116:2310/get_photo?path=$ccid&ind=${index+1}',
+                        '${ServerRoutes.host}/get_photo?path=$ccid&ind=${index+1}',
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.cover,);
                     }),
@@ -152,7 +153,7 @@ class CarPageView extends GetView<CarController> {
                         children: [
                           GestureDetector(
                             onTap: (){
-                             callNumber('+79522652799');
+                             callNumber(userModel!.managerPhone);
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -350,7 +351,7 @@ class CarPageView extends GetView<CarController> {
                                   Stack(
                                     children: [
                                       Image.network(
-                                        'http://63.251.122.116:2310/test_photo?path=${item['ccid']}',
+                                        '${ServerRoutes.host}/test_photo?path=${item['ccid']}',
                                         height: 130,
                                         fit: BoxFit.fill,
                                         width:

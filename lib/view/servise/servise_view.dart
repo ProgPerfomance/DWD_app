@@ -5,6 +5,7 @@ import 'package:untitled1/controller/services_controller.dart';
 import '../../controller/get_user_info.dart';
 import '../../domain/auth_user_domain.dart';
 import '../../server_routes.dart';
+import '../buy_car/car_page_view.dart';
 import '../profile/profile_view.dart';
 import 'open_sevise_view.dart';
 
@@ -324,7 +325,7 @@ class ServiseView extends GetView<ServicesController> {
                         imagePath: 'storage.png',
                       ),
                       ServiceButton(
-                        imagePath: 'new_recovery.jpeg',
+                        imagePath: 'recovery.png',
                         text: translate.recovery,
                         icon: 'assets/icons/recovery.svg',
                         id: 2,
@@ -346,27 +347,32 @@ class ServiseView extends GetView<ServicesController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width - 24,
-                    height: 51,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: const Color(0xff363636)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/icons/urgent_car.svg'),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        const Text(
-                          'SOS service',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.red,
+                  child: GestureDetector(
+                    onTap: (){
+                      callNumber(userModel!.managerPhone);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 24,
+                      height: 51,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: const Color(0xff363636)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/icons/urgent_car.svg'),
+                          const SizedBox(
+                            width: 8,
                           ),
-                        )
-                      ],
+                          const Text(
+                            'SOS service',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.red,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

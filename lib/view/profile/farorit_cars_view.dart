@@ -5,6 +5,7 @@ import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/view/profile/profile_view.dart';
 import '../../controller/car_controller.dart';
 import '../../domain/auth_user_domain.dart';
+import '../../server_routes.dart';
 import '../buy_car/car_page_view.dart';
 
 class FavoritCarsView extends GetView<CarController> {
@@ -105,7 +106,7 @@ class FavoritCarsView extends GetView<CarController> {
                       Stack(
                         children: [
                           Image.network(
-                            'http://63.251.122.116:2310/test_photo?path=${item['ccid']}',
+                            '${ServerRoutes.host}/test_photo?path=${item['ccid']}',
                             height: 130,
                             fit: BoxFit.fill,
                             width:
