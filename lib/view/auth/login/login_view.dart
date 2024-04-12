@@ -125,29 +125,29 @@ class LoginView extends GetView<AuthController> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ForgotPasswordView()),
-                              (route) => false);
-                        },
-                        child: Text(
-                          translate.forgotPassword,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 13,
-                            color: Color(0xffffffff),
-                          ),
-                        )),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     const SizedBox(),
+                //     TextButton(
+                //         onPressed: () {
+                //           Navigator.pushAndRemoveUntil(
+                //               context,
+                //               MaterialPageRoute(
+                //                   builder: (context) =>
+                //                       const ForgotPasswordView()),
+                //               (route) => false);
+                //         },
+                //         child: Text(
+                //           translate.forgotPassword,
+                //           style: const TextStyle(
+                //             fontWeight: FontWeight.w400,
+                //             fontSize: 13,
+                //             color: Color(0xffffffff),
+                //           ),
+                //         )),
+                //   ],
+                // ),
                 SizedBox(height: MediaQuery.of(context).size.height / 3.3),
                 GestureDetector(
                   onTap: () async {
@@ -176,7 +176,10 @@ class LoginView extends GetView<AuthController> {
                               MaterialPageRoute(
                                   builder: (context) => const MasterHomeView()),
                               (route) => false);
+
                       }
+                      _emailController.clear();
+                      _passwordController.clear();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

@@ -6,6 +6,7 @@ import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/booking_controller.dart';
 import 'package:untitled1/view/booking/update_booking_view.dart';
 import '../../domain/auth_user_domain.dart';
+import '../../meneger_view/manager_booking/meneger_booking_view.dart';
 import '../../server_routes.dart';
 import '../profile/profile_view.dart';
 
@@ -224,25 +225,19 @@ class BookingListView extends GetView<BookingController> {
                                                 height: 24,
                                                 width: 77,
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                  color: item['status'] ==
-                                                          'Pending'
+                                                  borderRadius: BorderRadius.circular(4),
+                                                  color: item['status'] == 'Pending'
                                                       ? const Color(0xffFA0E0E)
-                                                      : item['status'] ==
-                                                              'Approved'
-                                                          ? const Color(
-                                                              0xff40CC46)
-                                                          : const Color(
-                                                              0xff8875FF),
+                                                      : item['status'] == 'Approved'
+                                                      ? const Color(0xff40CC46)
+                                                      : item['status'] == 'Canceled'  ? const Color(0xff8875FF) : Colors.deepOrangeAccent,
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    item['status'],
+                                                    upperfirst(item['status']),
                                                     style: const TextStyle(
                                                       fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.w400,
+                                                      fontWeight: FontWeight.w400,
                                                       color: Color(0xffffffff),
                                                     ),
                                                   ),

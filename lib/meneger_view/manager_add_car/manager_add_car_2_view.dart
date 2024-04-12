@@ -91,56 +91,8 @@ class _AdminPanelState extends State<ManagerAddCar2View> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
                   child: Column(children: [
-                    Column(children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Brand",
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: const Color(0x00212121),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: ExpansionTile(
-                              title: Text(
-                                _brandController.text,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              expandedCrossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: List.generate(
-                                  cars.length,
-                                  (index) => GestureDetector(
-                                        onTap: () {
-                                          _brandController.text = cars[index];
-                                          setState(() {});
-                                        },
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: Text(
-                                                cars[index],
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                            )),
-                      ),
-                    ]),
+                    ManagerTextFieldBlock(
+                        controller: _brandController, label: "Brand"),
                     ManagerTextFieldBlock(
                         controller: _modelController, label: "Model"),
                     ManagerTextFieldBlock(

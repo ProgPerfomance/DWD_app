@@ -10,6 +10,8 @@ import 'package:untitled1/meneger_view/manager_booking/manager_open_booking.dart
 
 import 'package:untitled1/view/profile/profile_view.dart';
 
+import '../meneger_view/manager_booking/meneger_booking_view.dart';
+
 bool newList = false;
 
 class BookingMasterView extends GetView<MasterBookingController> {
@@ -36,17 +38,17 @@ class BookingMasterView extends GetView<MasterBookingController> {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ProfileView()),
-                  );
-                },
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfileView()),
+                );
+              },
               child: const CircleAvatar(
                 radius: 25,
                 backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
-              ),),
+              ),
+            ),
           ),
         ],
       ),
@@ -66,7 +68,7 @@ class BookingMasterView extends GetView<MasterBookingController> {
                   },
                   child: Container(
                     height: 60,
-                    width: MediaQuery.of(context).size.width / 2-24,
+                    width: MediaQuery.of(context).size.width / 2 - 24,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: controller.newList.value == false
@@ -95,7 +97,7 @@ class BookingMasterView extends GetView<MasterBookingController> {
                   },
                   child: Container(
                     height: 60,
-                    width: MediaQuery.of(context).size.width / 2-24,
+                    width: MediaQuery.of(context).size.width / 2 - 24,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: controller.newList.value == true
@@ -151,7 +153,8 @@ class BookingMasterView extends GetView<MasterBookingController> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ManagerOpenBooking(
-                                  manager: false,
+                                    dateTime: item['date_time'],
+                                    manager: false,
                                     carName: item['car_name'],
                                     description: item['description'],
                                     userEmail: item['user_email'],
@@ -164,6 +167,7 @@ class BookingMasterView extends GetView<MasterBookingController> {
                                     status: item['status'],
                                     carBrand: item['car_brand'],
                                     carModel: item['car_model'],
+                                    garageName: item['garage_name'],
                                     carYear: item['car_year'],
                                     carReg: item['car_reg'])));
                       },
@@ -203,7 +207,7 @@ class BookingMasterView extends GetView<MasterBookingController> {
                                                   width: 8,
                                                 ),
                                                 Text(
-                                                  time,
+                                                  time.toString(),
                                                   style: TextStyle(
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w400,
@@ -225,7 +229,7 @@ class BookingMasterView extends GetView<MasterBookingController> {
                                                   width: 8,
                                                 ),
                                                 Text(
-                                                  date,
+                                                  date.toString(),
                                                   style: TextStyle(
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w400,
@@ -248,11 +252,13 @@ class BookingMasterView extends GetView<MasterBookingController> {
                                           ? const Color(0xffFA0E0E)
                                           : item['status'] == 'Approved'
                                               ? const Color(0xff40CC46)
-                                              : const Color(0xff8875FF),
+                                              : item['status'] == 'Canceled'
+                                                  ? const Color(0xff8875FF)
+                                                  : Colors.deepOrangeAccent,
                                     ),
                                     child: Center(
                                       child: Text(
-                                        item['status'],
+                                        upperfirst(item['status']),
                                         style: const TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w400,
@@ -317,6 +323,8 @@ class BookingMasterView extends GetView<MasterBookingController> {
                                         height: 8,
                                       ),
                                       Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           SvgPicture.asset(
                                               'assets/icons/master_description.svg'),
@@ -340,73 +348,128 @@ class BookingMasterView extends GetView<MasterBookingController> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              item['status'] != 'Canceled'
+                              item['status'] != 'Canceled' &&
+                                      upperfirst(item['status']) != 'Time is up'
                                   ? item['status'] != 'Approved'
-                                      ? GestureDetector(
-                                          onTap: () {
-                                            controller.acceptBooking(
-                                              id: item['id'],
-                                            );
-                                            ChatController().createChat(
-                                                uid1: item['uid'],
-                                                uid2: userModel!.uid,
-                                                cid: item['sid'],
-                                                type: 'booking');
-                                            Future.delayed(
-                                                const Duration(
-                                                    milliseconds: 230), () {
-                                              newList == true
-                                                  ? controller
-                                                      .getNewMasterBookingList()
-                                                  : controller
-                                                      .getMasterBookingList();
-                                            });
-                                            showDialog<void>(
-                                                useSafeArea: false,
-                                                context: context,
-                                                barrierDismissible:
-                                                false, // user must tap button!
-                                                builder: (BuildContext context) {
-                                                  return const MyCustomAlert(text: 'Request approve');
+                                      ? Row(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () async {
+                                                controller.acceptBooking(
+                                                  id: item['id'],
+                                                );
+                                           int cid = await ChatController().createChat(
+                                                    uid1: item['uid'],
+                                                    uid2: userModel!.uid,
+                                                    cid: item['id'],
+                                                    type: 'booking');
+                                           ChatController().sendMessage(cid: cid, uid: userModel!.uid, msg: 'Hi! Your entry has been successfully confirmed.');
+                                                Future.delayed(
+                                                    const Duration(
+                                                        milliseconds: 230), () {
+                                                  newList == true
+                                                      ? controller
+                                                          .getNewMasterBookingList()
+                                                      : controller
+                                                          .getMasterBookingList();
                                                 });
-                                          },
-                                          child: Container(
-                                            height: 40,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width -
-                                                32,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: const Color(0xff40CC46),
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'assets/icons/master_accept.svg'),
-                                                const SizedBox(
-                                                  width: 4,
+                                                showDialog<void>(
+                                                    useSafeArea: false,
+                                                    context: context,
+                                                    barrierDismissible:
+                                                        false, // user must tap button!
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return const MyCustomAlert(
+                                                          text:
+                                                              'Request approve');
+                                                    });
+                                              },
+                                              child: Container(
+                                                height: 40.3,
+                                                width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        2 -
+                                                    38,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color:
+                                                      const Color(0xff40CC46),
                                                 ),
-                                                const Text(
-                                                  'ACCEPT',
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.white,
-                                                  ),
-                                                )
-                                              ],
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                        'assets/icons/master_accept.svg'),
+                                                    const SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                    const Text(
+                                                      'ACCEPT',
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                            const SizedBox(
+                                              width: 12,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                showDialog<void>(
+                                                    useSafeArea: false,
+                                                    context: context,
+                                                    barrierDismissible:
+                                                        false, // user must tap button!
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return CancelBookingDialog(
+                                                        id: item['id'],
+                                                      );
+                                                    });
+                                                //  controller.cancelBooking(id: id);
+                                                //   Navigator.pop(context);
+                                              },
+                                              child: Container(
+                                                height: 40.3,
+                                                width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        2 -
+                                                    38,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: Colors.red,
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    'CANCEL',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         )
                                       : GestureDetector(
                                           onTap: () {
                                             controller.cancelBooking(
-                                              reason: '',
-                                                id: item['id']);
+                                                reason: '', id: item['id']);
                                             Future.delayed(
                                                 const Duration(
                                                     milliseconds: 230), () {
@@ -450,24 +513,32 @@ class BookingMasterView extends GetView<MasterBookingController> {
                                             ),
                                           ),
                                         )
-                                  : Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: Colors.black.withOpacity(0.8),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'fvjffdfifoppjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkdjfdjfdififd',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.white,
+                                  : item['status'] == 'Canceled'
+                                      ? Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color:
+                                                Colors.black.withOpacity(0.8),
                                           ),
-                                        ),
-                                      ),
-                                    ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              item['reason'].toString() == '' ||
+                                                      item['reason'] == null
+                                                  ? 'No reason'
+                                                  : item['reason'],
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : SizedBox(),
                             ],
                           ),
                         ),
@@ -484,28 +555,22 @@ class BookingMasterView extends GetView<MasterBookingController> {
   }
 }
 
-
-
-
 class MyCustomAlert extends StatelessWidget {
   final String text;
-  const MyCustomAlert({super.key,required this.text});
+  const MyCustomAlert({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor:
-      const Color(0xff2D2D2D).withOpacity(0),
+      backgroundColor: const Color(0xff2D2D2D).withOpacity(0),
       contentPadding: EdgeInsets.zero,
-      insetPadding: const EdgeInsets.symmetric(
-          horizontal: 12),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 12),
       content: Container(
           height: 238,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: const Color(0xff2D2D2D)
-                .withOpacity(0.9),
+            color: const Color(0xff2D2D2D).withOpacity(0.9),
           ),
           child: Column(
             children: [
@@ -516,8 +581,7 @@ class MyCustomAlert extends StatelessWidget {
                 child: Text(
                   text,
                   style: TextStyle(
-                    color: Colors.white
-                        .withOpacity(0.87),
+                    color: Colors.white.withOpacity(0.87),
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
@@ -529,10 +593,7 @@ class MyCustomAlert extends StatelessWidget {
               Center(
                 child: Container(
                   height: 1,
-                  width: MediaQuery.of(context)
-                      .size
-                      .width -
-                      64,
+                  width: MediaQuery.of(context).size.width - 64,
                   color: const Color(0xff979797),
                 ),
               ),
@@ -543,33 +604,24 @@ class MyCustomAlert extends StatelessWidget {
                 height: 24,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
                   },
                   child: Container(
                     height: 52,
-                    width:
-                    MediaQuery.of(context)
-                        .size
-                        .width -
-                        52,
+                    width: MediaQuery.of(context).size.width - 52,
                     decoration: BoxDecoration(
-                      borderRadius:
-                      BorderRadius.circular(
-                          12),
-                      color: const Color(
-                          0xff8875FF),
+                      borderRadius: BorderRadius.circular(12),
+                      color: const Color(0xff8875FF),
                     ),
                     child: const Center(
                       child: Text(
                         'OK',
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight:
-                          FontWeight.w400,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
                       ),

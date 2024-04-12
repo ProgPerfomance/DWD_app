@@ -129,7 +129,7 @@ class MenegerProfileView extends GetView<UserInfoController> {
                       },
                       child: const IconAndTextWidget(
                         color: Colors.white,
-                        icon: 'assets/icons/change_language.svg',
+                        icon: 'assets/icons/phone.svg',
                         text: 'Change phone number',
                       ),
                     ),

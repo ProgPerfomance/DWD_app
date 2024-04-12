@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/server_routes.dart';
 import 'package:untitled1/translate/eng_model.dart';
@@ -33,6 +34,11 @@ class UserInfoController extends GetxController {
     });}
   Rx<TranslateModel> translateModel = engModel.obs;
   void changeLaunguage(lang) {
+    FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
+   if(lang == ruModel) {flutterSecureStorage.write(key: 'locale', value: '1');}
+   else {
+     flutterSecureStorage.write(key: 'locale', value: '0');
+   }
     translateModel.value = lang;
     translateModel.refresh();
     notifyChildrens();

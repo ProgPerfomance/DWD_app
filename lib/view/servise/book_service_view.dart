@@ -463,6 +463,7 @@ class BookServiceView extends GetView<GetUserCars> {
                                     timestamp: DateTime.now().toString(),
                                     date_time: _time, garage: garage);
                             Navigator.pop(context);
+                            Navigator.pop(context);
                             showDialog<void>(
                                 useSafeArea: false,
                                 context: context,

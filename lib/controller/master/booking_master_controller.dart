@@ -9,7 +9,7 @@ import 'package:untitled1/view/booking/booking_list_view.dart';
 
 class MasterBookingController extends ChangeNotifier {
   RxList bookingList = [].obs;
-  RxBool newList = false.obs;
+  RxBool newList = true.obs;
   RxList managerNewBookingList = [].obs;
   RxList masterNewBookingList = [].obs;
   RxInt newBooking = 0.obs;
@@ -49,6 +49,7 @@ class MasterBookingController extends ChangeNotifier {
     );
     managerNewBookingList.value = await jsonDecode(response.data);
     newBooking.value = managerNewBookingList.length;
+    print('manager booking ${response.data}');
     notifyListeners();
   }
 

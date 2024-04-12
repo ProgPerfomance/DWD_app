@@ -5,8 +5,6 @@ import 'package:untitled1/controller/services_controller.dart';
 import 'package:untitled1/meneger_view/manager_services/all_garages.dart';
 import 'package:untitled1/meneger_view/manager_services/manager_create_offer.dart';
 import 'package:untitled1/meneger_view/manager_services/manager_servises.dart';
-import '../../master_view/master_create_offer.dart';
-import '../../view/servise/open_sevise_view.dart';
 
 class ManagerServiceView extends GetView<ServicesController> {
   const ManagerServiceView({super.key});
@@ -127,6 +125,7 @@ class ManagerServiceView extends GetView<ServicesController> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               EditServiceManager(
+                                                special: true,
                                                   title: item['name'],
                                                   id: item['id'])));
                                 },
@@ -369,6 +368,7 @@ class ManagerServiceButton extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => EditServiceManager(
+                  special: false,
                       title: text,
                       id: id,
                     )));

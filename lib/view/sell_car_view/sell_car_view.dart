@@ -1,11 +1,33 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/view/sell_car_view/sell_on_the_spot_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../domain/auth_user_domain.dart';
 import '../../server_routes.dart';
 import '../profile/profile_view.dart';
 import 'consignment_view.dart';
+
+openWhatsapp({required BuildContext context}) async {
+
+  String whatsapp = '+971588800023';
+  String whatsappURlAndroid = "whatsapp://send?phone=$whatsapp&text=hello";
+  String whatsappURLIos =
+      "https://wa.me/$whatsapp?text=${Uri.parse("hello")}";
+  if (Platform.isIOS) {
+    if (await canLaunchUrl(Uri.parse(whatsappURLIos))) {
+      await launchUrl(Uri.parse(whatsappURLIos));
+    } else {
+    }
+  } else {
+    if (await canLaunchUrl(Uri.parse(whatsappURlAndroid))) {
+      await launchUrl(Uri.parse(whatsappURlAndroid));
+    } else {}
+  }
+}
 
 class SellCarView extends StatelessWidget {
   const SellCarView({super.key});
@@ -116,16 +138,21 @@ class SellCarView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              height: 52,
-                              width: MediaQuery.of(context).size.width / 2 - 28,
-                              child: const Center(
-                                child: Text(
-                                  'Chat',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff8687E7),
+                            GestureDetector(
+                              onTap: () {
+                                openWhatsapp(context: context);
+                              },
+                              child: SizedBox(
+                                height: 52,
+                                width: MediaQuery.of(context).size.width / 2 - 28,
+                                child: const Center(
+                                  child: Text(
+                                    'Chat',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff8687E7),
+                                    ),
                                   ),
                                 ),
                               ),

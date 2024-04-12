@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
+import 'package:untitled1/meneger_view/meneger_car_page_view.dart';
 import '../../controller/car_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../server_routes.dart';
@@ -15,7 +16,7 @@ class CarCatalogView extends GetView<CarController> {
   @override
   Widget build(BuildContext context) {
     Get.put(CarController());
-   final home = Get.put(HomeController());
+    final home = Get.put(HomeController());
     controller.getCarList();
     return Scaffold(
       appBar: AppBar(
@@ -38,12 +39,12 @@ class CarCatalogView extends GetView<CarController> {
                   MaterialPageRoute(builder: (context) => const ProfileView()),
                 );
               },
-              child:  Stack(
+              child: Stack(
                 children: [
                   const Center(
                     child: CircleAvatar(
                       radius: 25,
-                      backgroundImage:AssetImage('assets/dwd_logo.jpeg'),
+                      backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
                       // AssetImage('assets/dwd_logo.jpeg'),
                     ),
                   ),
@@ -51,7 +52,8 @@ class CarCatalogView extends GetView<CarController> {
                     child: CircleAvatar(
                       backgroundColor: Colors.white.withOpacity(0),
                       radius: 25,
-                      backgroundImage: NetworkImage('${ServerRoutes.host}/avatar?path=avatar_${userModel!.uid}'),
+                      backgroundImage: NetworkImage(
+                          '${ServerRoutes.host}/avatar?path=avatar_${userModel!.uid}'),
                       // AssetImage('assets/dwd_logo.jpeg'),
                     ),
                   ),
@@ -70,11 +72,10 @@ class CarCatalogView extends GetView<CarController> {
               height: 24,
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 home.selectIndex(1);
               },
-
-            child: Image.asset(
+              child: Image.asset(
                 'assets/big_banner.png',
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.fill,
@@ -112,7 +113,7 @@ class CarCatalogView extends GetView<CarController> {
                         mainAxisSpacing: 30,
                         crossAxisCount: 2,
                         childAspectRatio: (100 / 129),
-                        children: controller.cars.value.length < 2
+                        children: controller.cars.value.isEmpty
                             ? [
                                 const CircularProgressIndicator(),
                                 const CircularProgressIndicator()
@@ -127,7 +128,7 @@ class CarCatalogView extends GetView<CarController> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => CarPageView(
-                                              cash: item['cash'],
+                                                  cash: item['cash'],
                                                   ccid: item['ccid'],
                                                   transmission:
                                                       item['transmission']
@@ -186,7 +187,8 @@ class CarCatalogView extends GetView<CarController> {
                                                             item['id'],
                                                             userModel!.uid)
                                                         : controller.dislikeCar(
-                                                            item['like_id'], item['id']);
+                                                            item['like_id'],
+                                                            item['id']);
                                                   },
                                                   child:
                                                       item['liked'] == 'false'
@@ -206,8 +208,10 @@ class CarCatalogView extends GetView<CarController> {
                                         height: 4,
                                       ),
                                       Text(
-                                        '${item['price_aed']} AED '
-                                            .toString(), //anketss['price_euro'].toString(),
+                                      '${formatPriceString(
+                                          '${item['price_aed']}'
+                                              .toString(),
+                                        )} AED ',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
@@ -218,8 +222,7 @@ class CarCatalogView extends GetView<CarController> {
                                         height: 4,
                                       ),
                                       Text(
-                                        item['name']
-                                            .toString(), // anketss['name'],
+                                        item['name'].toString(),
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 14,
@@ -230,7 +233,7 @@ class CarCatalogView extends GetView<CarController> {
                                         height: 4,
                                       ),
                                       Text(
-                                        '${item['year']}, ${item['killometers']}',
+                                        '${item['year']}, ${formatPriceString(item['killometers'])}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13,

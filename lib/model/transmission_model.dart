@@ -1,8 +1,7 @@
 final List transmissions = [
-  "AT",
-  "MT",
-  "AMT",
-  "CVT",
+  "Automatic",
+  "Manual",
+
 ];
 final List steerlingWheels = [
   "Left",

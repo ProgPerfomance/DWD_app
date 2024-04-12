@@ -23,7 +23,6 @@ class ChatController extends GetxController {
      await getChats(userModel!.uid);
       for(var item in chats) {
       if(  item['car_id'] == cid ) {
-        print('ffff');
         return int.parse(item['cid']);
       }
       }

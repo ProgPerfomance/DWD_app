@@ -1,23 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled1/controller/car_controller.dart';
 import 'package:untitled1/controller/chat_controller.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
+import 'package:untitled1/view/buy_car/car_page_view.dart';
+import '../../server_routes.dart';
 import '../profile/profile_view.dart';
 
 TextEditingController messageController = TextEditingController();
 
 class ChatView extends GetView<ChatController> {
-  final chatId;
+  final String chatId;
+  final String type;
   final opponentName;
   final String? message;
-  const ChatView({super.key, required this.chatId, required this.opponentName, this.message});
+  final String? carId;
+  final String? carIndex;
+  final uidOpponent;
+  const ChatView({super.key, required this.chatId, required this.opponentName, this.message,required this.carId, required this.uidOpponent,required this.carIndex,required this.type});
 
   @override
   Widget build(BuildContext context) {
     Get.put(ChatController());
+    final carController = Get.put(CarController());
+    Map car= {};
+   Future.delayed(const Duration(milliseconds: 10), () async {
+
+   //  String carStrId =carIndex;
+     if(carIndex != null) {
+        car =  await carController.getCarInfo(carIndex);
+     }
+
+
+   });
     controller.getChatMessages(chatId);
   message !=null?  messageController.text = message! :'';
-    // ScrollController для управления прокруткой
     ScrollController _scrollController = ScrollController();
 
     return Scaffold(
@@ -36,13 +53,31 @@ class ChatView extends GetView<ChatController> {
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                 carIndex != null? Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ProfileView()),
-                  );
+                        builder: (context) => CarPageView(cash: car['cash'].toString(), transmission: car['transmission'].toString(), steeringWheel: car['steering_whell'].toString(), state: car['state'].toString(), serviceContract: car['service_contact'].toString(), regionalSpecs: car['regional_specs'].toString(), motorsTrim: car['motor_trim'].toString(), kilometrs: car['killometers'].toString(), guarantee: car['guarantee'].toString(), color: car['color'].toString(), priceAed: car['price_aed'].toString(), priceUsd: car['price_usd'].toString(), body: car['body'].toString(), name: car['name'].toString(), year: car['year'].toString(), ccid: car['ccid'].toString(), id: car['id'].toString(), description: car['description'].toString())),
+                  ) : null;
                 },
-                child: Image.asset('assets/testava.png')),
+                child: Stack(
+                  children: [
+                    const Center(
+                      child: CircleAvatar(
+                        radius: 25,
+                        backgroundImage:AssetImage('assets/dwd_logo.jpeg'),
+                        // AssetImage('assets/dwd_logo.jpeg'),
+                      ),
+                    ),
+                    Center(
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white.withOpacity(0),
+                        radius: 25,
+                        backgroundImage: carId == null? NetworkImage('${ServerRoutes.host}/avatar?path=avatar_$uidOpponent') :NetworkImage('${ServerRoutes.host}/test_photo?path=$carId'),
+                        // AssetImage('assets/dwd_logo.jpeg'),
+                      ),
+                    ),
+                  ],
+                ),),
           ),
         ],
       ),
@@ -131,8 +166,6 @@ class ChatView extends GetView<ChatController> {
                                 msg: messageController.text)
                             : null;
                         messageController.clear();
-
-                        // Прокрутка к последнему сообщению
                         _scrollController.animateTo(
                           _scrollController.position.maxScrollExtent + 130,
                           duration: const Duration(milliseconds: 300),

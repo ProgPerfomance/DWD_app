@@ -63,7 +63,7 @@ class BookingManagerView extends GetView<MasterBookingController> {
                   },
                   child: Container(
                     height: 60,
-                    width: MediaQuery.of(context).size.width / 2- 24,
+                    width: MediaQuery.of(context).size.width / 2 - 24,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: controller.newList.value == false
@@ -144,23 +144,24 @@ class BookingManagerView extends GetView<MasterBookingController> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                     ManagerOpenBooking(
-                                       manager: true,
-                                       carReg: item['car_reg'],
-                                       carBrand: item['car_brand'],
-                                       carModel: item['car_model'],
-                                       carYear: item['car_year'],
-                                       userEmail: item['owner_email'],
+                                builder: (context) => ManagerOpenBooking(
+                                      manager: true,
+                                      dateTime: item['date_time'],
+                                      carReg: item['car_reg'],
+                                      carBrand: item['car_brand'],
+                                      carModel: item['car_model'],
+                                      carYear: item['car_year'],
+                                      userEmail: item['owner_email'],
                                       userName: item['owner_name'],
                                       userPhone: item['owner_phone'],
                                       description: item['description'],
                                       carName: item['car_name'],
-                                       delivery: item['delivery'],
-                                       pickUp: item['pickup'],
-                                       id: item['id'],
-                                       garage: item['garage'],
-                                       status: item['status'],
+                                      delivery: item['delivery'],
+                                      pickUp: item['pickup'],
+                                      id: item['id'],
+                                      garageName: item['garage_name'],
+                                      garage: item['garage'],
+                                      status: item['status'],
                                     )));
                       },
                       child: Container(
@@ -244,11 +245,11 @@ class BookingManagerView extends GetView<MasterBookingController> {
                                           ? const Color(0xffFA0E0E)
                                           : item['status'] == 'Approved'
                                               ? const Color(0xff40CC46)
-                                              : const Color(0xff8875FF),
+                                              : item['status'] == 'Canceled'  ? const Color(0xff8875FF) : Colors.deepOrangeAccent,
                                     ),
                                     child: Center(
                                       child: Text(
-                                        item['status'],
+                                        upperfirst(item['status']),
                                         style: const TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w400,
@@ -280,7 +281,9 @@ class BookingManagerView extends GetView<MasterBookingController> {
                                             width: 8,
                                           ),
                                           Text(
-                                            item['garage_name'] == ""? item['service_name'] :  item['garage_name'],
+                                            item['garage_name'] == ""
+                                                ? item['service_name']
+                                                : item['garage_name'],
                                             style: TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontSize: 16,
@@ -315,6 +318,7 @@ class BookingManagerView extends GetView<MasterBookingController> {
                                         height: 8,
                                       ),
                                       Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           SvgPicture.asset(
                                               'assets/icons/master_description.svg'),
@@ -349,4 +353,9 @@ class BookingManagerView extends GetView<MasterBookingController> {
       ),
     );
   }
+}
+
+String upperfirst(String text) {
+  if (text.isEmpty) return text;
+  return '${text[0].toUpperCase()}${text.substring(1)}';
 }

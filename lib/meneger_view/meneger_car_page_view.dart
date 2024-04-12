@@ -1,14 +1,34 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/car_controller.dart';
 import 'package:untitled1/meneger_view/manager_add_car/manager_edit_car.dart';
 
 import '../master_view/booking_master_view.dart';
 import '../server_routes.dart';
+
+String formatPriceString(String priceString) {
+  final separator = ',';
+
+  final reversedPriceString = priceString.split('').reversed.join('');
+
+  final groups = <String>[];
+  for (var i = 0; i < reversedPriceString.length; i += 3) {
+    final endIndex = i + 3;
+    if (endIndex <= reversedPriceString.length) {
+      groups.add(reversedPriceString.substring(i, endIndex));
+    } else {
+      groups.add(reversedPriceString.substring(i));
+    }
+  }
+
+  final formattedString = groups.reversed.join(separator);
+
+  return formattedString;
+}
 
 class MenegerCarPageView extends GetView<CarController> {
   final String name;
@@ -49,9 +69,9 @@ class MenegerCarPageView extends GetView<CarController> {
       required this.year,
       required this.liked,
       required this.id,
-        required this.description,
-        required this.brand,
-        required this.model,
+      required this.description,
+      required this.brand,
+      required this.model,
       required this.ccid});
 
   @override
@@ -98,7 +118,7 @@ class MenegerCarPageView extends GetView<CarController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '$price_usd \$ / $price_aed AED',
+                      '${formatPriceString(price_usd)} \$ / ${formatPriceString(price_aed)} AED',
                       style: const TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 24,
@@ -131,7 +151,9 @@ class MenegerCarPageView extends GetView<CarController> {
                     TextCascadeWidget(
                         field: 'Color:', parametr: color.toString()),
                     TextCascadeWidget(
-                        field: 'Kilometers:', parametr: kilometrs.toString()),
+                        field: 'Year:', parametr: year.toString()),
+                    TextCascadeWidget(
+                        field: 'Kilometers:', parametr: formatPriceString(kilometrs.toString())),
                     TextCascadeWidget(
                         field: 'Regional Specs:',
                         parametr: regionalSpecs.toString()),
@@ -163,8 +185,9 @@ class MenegerCarPageView extends GetView<CarController> {
                     const SizedBox(
                       height: 16,
                     ),
-                     Text(
-                    description,  style: const TextStyle(
+                    Text(
+                      description,
+                      style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color(0xffffffff)),
@@ -173,8 +196,26 @@ class MenegerCarPageView extends GetView<CarController> {
                       height: 24,
                     ),
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ManagerEditCar(id: id,color: color, model: model, brand: brand, year: year, description: description, body: body, motorTrim: motorsTrim, regionalSpecs: regionalSpecs, miliage: kilometrs, priceAED: price_aed, priceUSD: price_usd, qurantee: guarantee, transmission: transmission, sericeContact: serviceContract)));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ManagerEditCar(
+                                    id: id,
+                                    color: color,
+                                    model: model,
+                                    brand: brand,
+                                    year: year,
+                                    description: description,
+                                    body: body,
+                                    motorTrim: motorsTrim,
+                                    regionalSpecs: regionalSpecs,
+                                    miliage: kilometrs,
+                                    priceAED: price_aed,
+                                    priceUSD: price_usd,
+                                    qurantee: guarantee,
+                                    transmission: transmission,
+                                    sericeContact: serviceContract)));
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width - 32,
@@ -187,8 +228,7 @@ class MenegerCarPageView extends GetView<CarController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                                'assets/icons/manager_edit_purple.svg',
-                            color: Colors.white,),
+                                'assets/icons/manager_edit_purple.svg'),
                             const SizedBox(
                               width: 12,
                             ),
@@ -197,23 +237,24 @@ class MenegerCarPageView extends GetView<CarController> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.white,
+                                color: Color(0xff8875FF),
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         controller.deleteCar(id.toString());
                         Navigator.pop(context);
                         showDialog<void>(
                             useSafeArea: false,
                             context: context,
-                            barrierDismissible:
-                            false, // user must tap button!
+                            barrierDismissible: false, // user must tap button!
                             builder: (BuildContext context) {
                               return const MyCustomAlert(text: 'Car deleted');
                             });
@@ -229,9 +270,7 @@ class MenegerCarPageView extends GetView<CarController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SvgPicture.asset(
-                                'assets/icons/delete.svg',
-                            color: Colors.white,),
+                            SvgPicture.asset('assets/icons/delete.svg'),
                             const SizedBox(
                               width: 12,
                             ),

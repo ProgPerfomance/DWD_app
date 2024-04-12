@@ -7,9 +7,9 @@ TextEditingController titleController = TextEditingController();
 class EditServiceManager extends GetView<ServicesController> {
   final title;
   final id;
-
+  final bool special;
   bool isChecked = false;
-  EditServiceManager({super.key, required this.title, required this.id});
+  EditServiceManager({super.key, required this.title, required this.id,required this.special});
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +32,25 @@ class EditServiceManager extends GetView<ServicesController> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset('assets/arrowleft.png')),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Image.asset('assets/arrowleft.png')),
+                        GestureDetector(
+                            onTap: () {
+                              controller.deleteBooking(id);
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Delete',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),)),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 8.5,
@@ -146,7 +160,7 @@ class EditServiceManager extends GetView<ServicesController> {
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height - 238,
+                height: 1300,
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   color: Color(0xff121212),
@@ -204,160 +218,166 @@ class EditServiceManager extends GetView<ServicesController> {
                           color: Colors.white,
                         ),
                       )),
-                      const SizedBox(height: 18,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                special == false?      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "What's Included",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                showDialog<void>(
-                                    useSafeArea: false,
-                                    context: context,
-                                    barrierDismissible:
-                                        false, // user must tap button!
-                                    builder: (BuildContext context) {
-                                      return EditIncludedAlert(
-                                          title: '',
-                                          included: true,
-                                          sid: id,
-                                          update: false);
-                                    });
-                              },
-                              icon: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              )),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 18,
-                      ),
-                      Obx(
-                        () => Column(
-                          children: List.generate(
-                            controller.included.length,
-                            (index) => Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  controller.included[index]['title'],
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: Color(0xffffffff)),
+                          const SizedBox(height: 18,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "What's Included",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xffffffff),
                                 ),
-                                Row(
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () {},
-                                        child: const Icon(
-                                          Icons.edit,
-                                          color: Colors.yellow,
-                                        )),
-                                    GestureDetector(
-                                        onTap: () {
-                                          controller.deleteServiceBlock(
-                                              id: controller.included[index]
-                                                  ['id'],
-                                              sid: id);
-                                        },
-                                        child: const Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        )),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ).toList(),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Extras",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                showDialog<void>(
-                                    useSafeArea: false,
-                                    context: context,
-                                    barrierDismissible:
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    showDialog<void>(
+                                        useSafeArea: false,
+                                        context: context,
+                                        barrierDismissible:
                                         false, // user must tap button!
-                                    builder: (BuildContext context) {
-                                      return EditIncludedAlert(
-                                          title: '',
-                                          included: false,
-                                          sid: id,
-                                          update: false);
-                                    });
-                              },
-                              icon: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              )),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 18,
-                      ),
-                      Obx(
-                        () => Column(
-                          children: List.generate(
-                            controller.notIncluded.length,
-                            (index) => Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  controller.notIncluded[index]['title'],
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: Color(0xffffffff)),
-                                ),
-                                Row(
+                                        builder: (BuildContext context) {
+                                          return EditIncludedAlert(
+                                              title: '',
+                                              included: true,
+                                              sid: id,
+                                              update: false);
+                                        });
+                                  },
+                                  icon: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  )),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 18,
+                          ),
+                          Obx(
+                                () => Column(
+                              children: List.generate(
+                                controller.included.length,
+                                    (index) => Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    GestureDetector(
-                                        onTap: () {},
-                                        child: const Icon(
-                                          Icons.edit,
-                                          color: Colors.yellow,
-                                        )),
-                                    GestureDetector(
-                                        onTap: () {
-                                          controller.deleteServiceBlock(
-                                              id: controller.notIncluded[index]
+                                    Text(
+                                      controller.included[index]['title'],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: Color(0xffffffff)),
+                                    ),
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () {},
+                                            child: const Icon(
+                                              Icons.edit,
+                                              color: Colors.yellow,
+                                            )),
+                                        GestureDetector(
+                                            onTap: () {
+                                              controller.deleteServiceBlock(
+                                                  id: controller.included[index]
                                                   ['id'],
-                                              sid: id);
-                                        },
-                                        child: const Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        )),
+                                                  sid: id);
+                                            },
+                                            child: const Icon(
+                                              Icons.delete,
+                                              color: Colors.red,
+                                            )),
+                                      ],
+                                    )
                                   ],
                                 ),
-                              ],
+                              ).toList(),
                             ),
-                          ).toList(),
-                        ),
-                      ),
+                          ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Extras",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xffffffff),
+                                ),
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    showDialog<void>(
+                                        useSafeArea: false,
+                                        context: context,
+                                        barrierDismissible:
+                                        false, // user must tap button!
+                                        builder: (BuildContext context) {
+                                          return EditIncludedAlert(
+                                              title: '',
+                                              included: false,
+                                              sid: id,
+                                              update: false);
+                                        });
+                                  },
+                                  icon: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  )),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 18,
+                          ),
+                          Obx(
+                                () => Column(
+                              children: List.generate(
+                                controller.notIncluded.length,
+                                    (index) => Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      controller.notIncluded[index]['title'],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: Color(0xffffffff)),
+                                    ),
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () {},
+                                            child: const Icon(
+                                              Icons.edit,
+                                              color: Colors.yellow,
+                                            )),
+                                        GestureDetector(
+                                            onTap: () {
+                                              controller.deleteServiceBlock(
+                                                  id: controller.notIncluded[index]
+                                                  ['id'],
+                                                  sid: id);
+                                            },
+                                            child: const Icon(
+                                              Icons.delete,
+                                              color: Colors.red,
+                                            )),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ).toList(),
+                            ),
+                          ),
+                        ],
+                      ) : const SizedBox(),
+
                       const SizedBox(
                         height: 33,
                       ),

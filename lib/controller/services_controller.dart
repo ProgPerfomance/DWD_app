@@ -24,6 +24,22 @@ class ServicesController extends GetxController {
     garage.value = value;
     notifyChildrens();
   }
+  Future<void> deleteBooking(id) async {
+   await dio.post('${ServerRoutes.host}/deleteOffer',
+   data: {
+     'id': id,
+   });
+   Future.delayed(Duration(milliseconds: 100),() {
+     getLastOffers(garage: '0');
+   });
+
+  }
+  Future<Map> getBookingInfo() async {
+    final response = await dio.post('${ServerRoutes.host}/getBookingInfo',
+    data: {'id': '10'});
+    print(response.data);
+    return jsonDecode(response.data);
+  }
   Future<void> editGarage(
       {required name,
       required email,

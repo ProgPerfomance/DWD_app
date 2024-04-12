@@ -23,6 +23,7 @@ class OpenServiseView extends GetView<ServicesController> {
     Get.put(ServicesController());
     controller.getServiceInfo(id);
     return Scaffold(
+      backgroundColor: const Color(0xff121212),
       body: SingleChildScrollView(
         child: Container(
           decoration: special == false
@@ -108,14 +109,16 @@ class OpenServiseView extends GetView<ServicesController> {
                             ],
                           ),
                         )
-                      : const SizedBox(),
+                      : const SizedBox(
+                    height: 24,
+                  ),
                   const SizedBox(
                     height: 13,
                   ),
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height - 138,
+
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   color: Color(0xff121212),
@@ -153,64 +156,70 @@ class OpenServiseView extends GetView<ServicesController> {
                         const SizedBox(
                           height: 12,
                         ),
-                        const Text(
-                          "What's Included",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Obx(
-                          () => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: List.generate(
-                              controller.included.length,
-                              (index) => Text(
-                                controller.included[index]['title'],
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color(0xffffffff)),
+                       special == false ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "What's Included",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w900,
+                                color: Color(0xffffffff),
                               ),
-                            ).toList(),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 48,
-                        ),
-                        const Text(
-                          "Extras",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 32,
-                        ),
-                        Obx(
-                          () => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: List.generate(
-                              controller.notIncluded.length,
-                              (index) => Text(
-                                controller.notIncluded[index]['title'],
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color(0xffffffff)),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Obx(
+                                  () => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: List.generate(
+                                  controller.included.length,
+                                      (index) => Text(
+                                    controller.included[index]['title'],
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        color: Color(0xffffffff)),
+                                  ),
+                                ).toList(),
                               ),
-                            ).toList(),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 33,
-                        ),
+                            ),
+                            const SizedBox(
+                              height: 48,
+                            ),
+                            const Text(
+                              "Extras",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w900,
+                                color: Color(0xffffffff),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 32,
+                            ),
+                            Obx(
+                                  () => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: List.generate(
+                                  controller.notIncluded.length,
+                                      (index) => Text(
+                                    controller.notIncluded[index]['title'],
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        color: Color(0xffffffff)),
+                                  ),
+                                ).toList(),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 33,
+                            ),
+                          ],
+                        ): const SizedBox(),
+
                         GestureDetector(
                           onTap: () {
                             Navigator.push(

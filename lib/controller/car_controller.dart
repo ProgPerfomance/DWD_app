@@ -66,19 +66,23 @@ class CarController extends GetxController {
   RxInt images = 0.obs;
   Rx likeId = ''.obs;
   Rx liker = '0'.obs;
-  Future<void> getCarInfo(String id) async {
+  Future<Map> getCarInfo(id) async {
+    print('object');
     final response =
     await dio.post('${ServerRoutes.host}/getcarinfo', data: {
       'id': id.toString(),
       'uid': userModel!.uid.toString(),
     });
+    print(response.data);
     var data = jsonDecode(response.data);
-    images.value = data['images'];
+    images.value = int.parse(data['images'].toString());
+    print('jkl;');
     liker.value = data['liked'];
     likeId.value = data['like_id'].toString();
     print(response.data);
     print(liker.value);
     notifyChildrens();
+    return data;
   }
 
 }

@@ -79,6 +79,10 @@ class ChatListView extends GetView<ChatController> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ChatView(
+                                        type: item['type'],
+                                        carIndex: item['type'] == 'car' ? item['sid'] : null,
+                                        uidOpponent: item['uid_opponent'],
+                                            carId: item['type'] == 'car' ?item['car_ccid'] :null,
                                             chatId: item['cid'],
                                             opponentName: item['type'] == 'car'
                                                 ? item['car_name'].toString()
@@ -98,7 +102,7 @@ class ChatListView extends GetView<ChatController> {
                                           item['type'] == 'car'
                                               ? CircleAvatar(
                                                   backgroundImage: NetworkImage(
-                                                    'http://63.251.122.116:2310/test_photo?path=${item['car_ccid']}',
+                                                    '${ServerRoutes.host}/test_photo?path=${item['car_ccid']}',
                                                   ),
                                                   radius: 32,
                                                 )

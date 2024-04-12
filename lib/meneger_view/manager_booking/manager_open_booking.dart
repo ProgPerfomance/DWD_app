@@ -18,12 +18,15 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
   final String? pickUp;
   final String? delivery;
   final String? carReg;
+  final String? garageName;
   final bool manager;
   final id;
+  final dateTime;
   final status;
   final garage;
   const ManagerOpenBooking({
     super.key,
+    required this.garageName,
     required this.manager,
     required this.carName,
     required this.description,
@@ -39,6 +42,7 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
     required this.carModel,
     required this.carYear,
     required this.carReg,
+    required this.dateTime,
   });
 
   @override
@@ -193,6 +197,17 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
                 height: 8,
               ),
               Text(
+                'Preferred time: $dateTime',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
                 pickUp == null || pickUp == ''
                     ? 'Pickup From: -'
                     : 'Pickup From: $pickUp',
@@ -229,7 +244,7 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
                         const SizedBox(
                           width: 8,
                         ),
-                   GestureDetector(
+            manager ==true?       GestureDetector(
                           onTap: () {
                             garage == null && status == 'Pending'
                                 ? Navigator.push(
@@ -240,7 +255,7 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
                                           booking: true,
                                         ))) : null;
                           },
-                          child: Obx(
+                          child: garage == null ? Obx(
                             () => Text(
                               controller.garage['title'] ?? 'Select garage',
                               style: TextStyle(
@@ -251,8 +266,15 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
                                     : const Color(0xff8875FF),
                               ),
                             ),
+                          ) : Text(
+                            garageName.toString(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
+                        ) : const SizedBox(),
                       ],
                     )
                   : const SizedBox(),
@@ -267,7 +289,9 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
                     onTap: () {
                       controller.setGarage(
                           id: id, garage: controller.garage['id']);
+                      controller.garage.value = {};
                       Navigator.pop(context);
+                      controller.getManagerNewBookingList();
                       showDialog<void>(
                           useSafeArea: false,
                           context: context,
@@ -438,7 +462,6 @@ class CancelBookingDialog extends GetView<MasterBookingController> {
                     GestureDetector(
                       onTap: () {
                         controller.cancelBooking(id: id, reason: inputController.text);
-                        Navigator.pop(context);
                         Navigator.pop(context);
                         showDialog<void>(
                             useSafeArea: false,

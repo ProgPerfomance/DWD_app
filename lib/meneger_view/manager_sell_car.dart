@@ -83,6 +83,7 @@ class ManagerSellCar extends GetView<SellCarManagerController> {
                                       ownerPhone: item['owner_phone'],
                                       regNumber: item['car_reg'],
                                   type: item['type'],
+                                  timestamp: item['timestamp'],
                                     )));
                       },
                       child: Column(

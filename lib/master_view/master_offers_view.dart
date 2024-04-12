@@ -108,6 +108,7 @@ class MasterOffersView extends GetView<ServicesController> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EditServiceManager(
+                                      special: true,
                                         title: item['name'], id: item['id'])));
                           },
                           child: Container(

@@ -11,6 +11,7 @@ class ManagerSellCarInfo extends StatelessWidget {
   final String? brand;
   final String? regNumber;
   final String? type;
+  final String? timestamp;
   const ManagerSellCarInfo({
     super.key,
     required this.year,
@@ -22,6 +23,7 @@ class ManagerSellCarInfo extends StatelessWidget {
     required this.ownerPhone,
     required this.regNumber,
     required this.type,
+    required this.timestamp,
   });
 
   @override
@@ -142,9 +144,11 @@ class ManagerSellCarInfo extends StatelessWidget {
                         style: _style,
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
+              SizedBox(height: 8,),
+              Text('Date: ${timestamp.toString().substring(0,10)}',style: _style,),
             ],
           ),
         ),
