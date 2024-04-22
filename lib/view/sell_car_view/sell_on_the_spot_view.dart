@@ -9,7 +9,7 @@ import '../../master_view/booking_master_view.dart';
 import '../profile/create_car_view.dart';
 import '../servise/select_car_booking_view.dart';
 import 'consignment_view.dart';
-
+int goSpot = 0;
 TextEditingController _userNameController = TextEditingController();
 TextEditingController _emailController = TextEditingController();
 TextEditingController _phoneNubmerController = TextEditingController();
@@ -23,9 +23,12 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
     bool noAccident = false;
     bool fullServiceHistory = false;
     Get.put(GetUserCars());
-    _userNameController.text = userModel?.name;
-    _emailController.text = userModel?.email;
-    _phoneNubmerController.text = userModel?.phone;
+    if(goSpot == 0) {
+      _userNameController.text = userModel?.name;
+      _emailController.text = userModel?.email;
+      _phoneNubmerController.text = userModel?.phone;
+      goSpot = 1;
+    }
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -192,6 +195,7 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                               gcc: gcc,
                               servise_history: fullServiceHistory,
                               any_car_accidents: noAccident);
+                          goSpot = 0;
                           gcc =false;
                           Navigator.pop(context);
                           showDialog<void>(

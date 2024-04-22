@@ -34,9 +34,9 @@ class ServicesController extends GetxController {
    });
 
   }
-  Future<Map> getBookingInfo() async {
+  Future<Map> getBookingInfo(id) async {
     final response = await dio.post('${ServerRoutes.host}/getBookingInfo',
-    data: {'id': '10'});
+    data: {'id': id.toString()});
     print(response.data);
     return jsonDecode(response.data);
   }

@@ -52,6 +52,8 @@ TranslateModel engModel = const TranslateModel(
   insurance: 'Insurance',
   intervalService: 'Interval\nservice',
   wheels: 'Wheels and\ntires',
-  wrapping: 'Wrapping &\nPPF'
+  wrapping: 'Wrapping &\nPPF',
+      createOne: ' Create one',
+      Dont_have_an_account_q: "Don't have an account?", Already_have_an_account_q: 'Already have an account?',
 
 );

@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/controller/master/booking_master_controller.dart';
+import 'package:untitled1/view/buy_car/car_page_view.dart';
 
 import '../../master_view/booking_master_view.dart';
 import 'manager_booking_select_garage.dart';
@@ -145,12 +147,17 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
                   const SizedBox(
                     width: 8,
                   ),
-                  Text(
-                    userPhone.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: () {
+                      callNumber(userPhone.toString());
+                    },
+                    child: Text(
+                      userPhone.toString(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

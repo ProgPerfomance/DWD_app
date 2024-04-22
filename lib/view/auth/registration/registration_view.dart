@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/controller/chat_controller.dart';
 
+import '../../../controller/get_user_info.dart';
 import '../../../domain/auth_user_domain.dart';
 import '../../home_view.dart';
 import '../login/login_view.dart';
@@ -19,6 +20,7 @@ class RegistrationView extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     Get.put(AuthController());
     return Scaffold(
       backgroundColor: const Color(0xff121212),
@@ -31,9 +33,10 @@ class RegistrationView extends GetView<AuthController> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 8,
                 ),
-                const Center(
+                 Center(
                   child: Text(
-                    'Create account',
+                   translate.createAccount,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xffffffff),
                       fontSize: 32,
@@ -233,9 +236,9 @@ class RegistrationView extends GetView<AuthController> {
                       color: const Color(0xff8875FF),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Center(
+                    child:  Center(
                       child: Text(
-                        'Create account',
+                        translate.createAccount,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -251,8 +254,8 @@ class RegistrationView extends GetView<AuthController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Already have an account?',
+                     Text(
+                      translate.Already_have_an_account_q,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 13,
@@ -268,7 +271,7 @@ class RegistrationView extends GetView<AuthController> {
                             (route) => false);
                       },
                       child: Text(
-                        ' Login',
+                        translate.login,
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 13,

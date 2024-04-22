@@ -98,6 +98,7 @@ class FavoritCarsView extends GetView<CarController> {
                               item['regional_specs'],
                               color: item['color'].toString(),
                               id: item['id'], description: item['description'],
+                              images: item['images'],
                             )));
                   },
                   child: Column(

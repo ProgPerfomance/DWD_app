@@ -11,23 +11,8 @@ import '../master_view/booking_master_view.dart';
 import '../server_routes.dart';
 
 String formatPriceString(String priceString) {
-  final separator = ',';
-
-  final reversedPriceString = priceString.split('').reversed.join('');
-
-  final groups = <String>[];
-  for (var i = 0; i < reversedPriceString.length; i += 3) {
-    final endIndex = i + 3;
-    if (endIndex <= reversedPriceString.length) {
-      groups.add(reversedPriceString.substring(i, endIndex));
-    } else {
-      groups.add(reversedPriceString.substring(i));
-    }
-  }
-
-  final formattedString = groups.reversed.join(separator);
-
-  return formattedString;
+  final regex = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+  return priceString.replaceAllMapped(regex, (Match m) => '${m[1]},');
 }
 
 class MenegerCarPageView extends GetView<CarController> {
@@ -51,6 +36,7 @@ class MenegerCarPageView extends GetView<CarController> {
   final String serviceContract;
   final String ccid;
   final String description;
+  final int images;
   const MenegerCarPageView(
       {super.key,
       required this.transmission,
@@ -72,7 +58,8 @@ class MenegerCarPageView extends GetView<CarController> {
       required this.description,
       required this.brand,
       required this.model,
-      required this.ccid});
+      required this.ccid,
+      required this.images});
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +87,7 @@ class MenegerCarPageView extends GetView<CarController> {
               SizedBox(
                 height: 244,
                 child: PageView(
-                  children: List.generate(controller.images.value, (index) {
+                  children: List.generate(images, (index) {
                     return Image.network(
                       '${ServerRoutes.host}/get_photo?path=$ccid&ind=${index + 1}',
                       width: MediaQuery.of(context).size.width,
@@ -153,7 +140,8 @@ class MenegerCarPageView extends GetView<CarController> {
                     TextCascadeWidget(
                         field: 'Year:', parametr: year.toString()),
                     TextCascadeWidget(
-                        field: 'Kilometers:', parametr: formatPriceString(kilometrs.toString())),
+                        field: 'Kilometers:',
+                        parametr: formatPriceString(kilometrs.toString())),
                     TextCascadeWidget(
                         field: 'Regional Specs:',
                         parametr: regionalSpecs.toString()),

@@ -36,6 +36,9 @@ class TranslateModel {
   final String service;
   final String chat;
   final String booking;
+  final String Dont_have_an_account_q;
+  final String createOne;
+  final String Already_have_an_account_q;
   //сервисы
   final String specialOffers;
   final String allServices;
@@ -104,6 +107,9 @@ class TranslateModel {
     required this.specialOffers,
     required this.tinting,
     required this.wheels,
-    required this.wrapping
+    required this.wrapping,
+    required this.Already_have_an_account_q,
+    required this.createOne,
+    required this.Dont_have_an_account_q,
   });
 }

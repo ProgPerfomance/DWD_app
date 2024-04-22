@@ -195,9 +195,9 @@ class LoginView extends GetView<AuthController> {
                       color: const Color(0xff8875FF),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        'Login Now',
+                        translate.login,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -213,8 +213,8 @@ class LoginView extends GetView<AuthController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Don’t have an account?',
+                     Text(
+                     translate.Dont_have_an_account_q,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 13,
@@ -230,7 +230,7 @@ class LoginView extends GetView<AuthController> {
                             (route) => false);
                       },
                       child: Text(
-                        ' Create one',
+                       translate.createOne,
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 13,

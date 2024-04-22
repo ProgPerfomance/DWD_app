@@ -136,6 +136,7 @@ class MenegerCarCatalogView extends GetView<CarController> {
                                               color: item['color'].toString(),
                                               id: item['id'],
                                               ccid: item['ccid'],
+                                              images: item['images'],
                                             )));
                               },
                               child: Column(

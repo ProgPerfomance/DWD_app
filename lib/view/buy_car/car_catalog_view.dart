@@ -128,6 +128,7 @@ class CarCatalogView extends GetView<CarController> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => CarPageView(
+                                              images: item['images'],
                                                   cash: item['cash'],
                                                   ccid: item['ccid'],
                                                   transmission:

@@ -80,6 +80,7 @@ class ChatListView extends GetView<ChatController> {
                                   MaterialPageRoute(
                                       builder: (context) => ChatView(
                                         type: item['type'],
+                                        sid: item['sid'],
                                         carIndex: item['type'] == 'car' ? item['sid'] : null,
                                         uidOpponent: item['uid_opponent'],
                                             carId: item['type'] == 'car' ?item['car_ccid'] :null,

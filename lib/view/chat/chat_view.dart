@@ -2,39 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/controller/car_controller.dart';
 import 'package:untitled1/controller/chat_controller.dart';
+import 'package:untitled1/controller/services_controller.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
+import 'package:untitled1/meneger_view/manager_booking/manager_open_booking.dart';
 import 'package:untitled1/view/buy_car/car_page_view.dart';
 import '../../server_routes.dart';
-import '../profile/profile_view.dart';
 
 TextEditingController messageController = TextEditingController();
 
 class ChatView extends GetView<ChatController> {
   final String chatId;
-  final String type;
+  final String? type;
   final opponentName;
   final String? message;
   final String? carId;
   final String? carIndex;
+  final sid;
   final uidOpponent;
-  const ChatView({super.key, required this.chatId, required this.opponentName, this.message,required this.carId, required this.uidOpponent,required this.carIndex,required this.type});
+  const ChatView(
+      {super.key,
+      required this.chatId,
+        required this.sid,
+      required this.opponentName,
+      this.message,
+      required this.carId,
+      required this.uidOpponent,
+      required this.carIndex,
+      required this.type});
 
   @override
   Widget build(BuildContext context) {
+    print('j');
     Get.put(ChatController());
     final carController = Get.put(CarController());
-    Map car= {};
-   Future.delayed(const Duration(milliseconds: 10), () async {
-
-   //  String carStrId =carIndex;
-     if(carIndex != null) {
-        car =  await carController.getCarInfo(carIndex);
-     }
-
-
-   });
+    Map data = {};
+    Future.delayed(const Duration(milliseconds: 10), () async {
+      if (type == 'car') {
+        data = await carController.getCarInfo(carIndex);
+      } else if (type == 'booking') {
+        data = await ServicesController().getBookingInfo(sid);
+      }
+    });
     controller.getChatMessages(chatId);
-  message !=null?  messageController.text = message! :'';
+    message != null ? messageController.text = message! : '';
     ScrollController _scrollController = ScrollController();
 
     return Scaffold(
@@ -52,32 +62,83 @@ class ChatView extends GetView<ChatController> {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
-                onTap: () {
-                 carIndex != null? Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CarPageView(cash: car['cash'].toString(), transmission: car['transmission'].toString(), steeringWheel: car['steering_whell'].toString(), state: car['state'].toString(), serviceContract: car['service_contact'].toString(), regionalSpecs: car['regional_specs'].toString(), motorsTrim: car['motor_trim'].toString(), kilometrs: car['killometers'].toString(), guarantee: car['guarantee'].toString(), color: car['color'].toString(), priceAed: car['price_aed'].toString(), priceUsd: car['price_usd'].toString(), body: car['body'].toString(), name: car['name'].toString(), year: car['year'].toString(), ccid: car['ccid'].toString(), id: car['id'].toString(), description: car['description'].toString())),
-                  ) : null;
-                },
-                child: Stack(
-                  children: [
-                    const Center(
-                      child: CircleAvatar(
-                        radius: 25,
-                        backgroundImage:AssetImage('assets/dwd_logo.jpeg'),
-                        // AssetImage('assets/dwd_logo.jpeg'),
-                      ),
+              onTap: () {
+                type == 'car'
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CarPageView(
+                                cash: data['cash'].toString(),
+                                transmission: data['transmission'].toString(),
+                                steeringWheel:
+                                    data['steering_whell'].toString(),
+                                state: data['state'].toString(),
+                                serviceContract:
+                                    data['service_contact'].toString(),
+                                regionalSpecs:
+                                    data['regional_specs'].toString(),
+                                motorsTrim: data['motor_trim'].toString(),
+                                kilometrs: data['killometers'].toString(),
+                                guarantee: data['guarantee'].toString(),
+                                color: data['color'].toString(),
+                                priceAed: data['price_aed'].toString(),
+                                priceUsd: data['price_usd'].toString(),
+                                body: data['body'].toString(),
+                                name: data['name'].toString(),
+                                year: data['year'].toString(),
+                                ccid: data['ccid'].toString(),
+                                id: data['id'].toString(),
+                                images: data['images'],
+                                description: data['description'].toString())),
+                      )
+                    : type == 'booking'
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ManagerOpenBooking(
+                                    garageName: data['garage_name'],
+                                    manager: false,
+                                    carName: data['car_name'],
+                                    description: data['description'],
+                                    userEmail: data['owner_email'],
+                                    userName: data['owner_name'],
+                                    userPhone: data['owner_phone'],
+                                    delivery: data['delivery'],
+                                    pickUp: data['pick_up'],
+                                    id: data['id'],
+                                    garage: data['garage'],
+                                    status: data['status'],
+                                    carBrand: data['car_brand'],
+                                    carModel: data['car_model'],
+                                    carYear: data['car_year'],
+                                    carReg: data['car_reg'],
+                                    dateTime: data['date_time'])))
+                        : null;
+              },
+              child: Stack(
+                children: [
+                  const Center(
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage: AssetImage('assets/dwd_logo.jpeg'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
                     ),
-                    Center(
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white.withOpacity(0),
-                        radius: 25,
-                        backgroundImage: carId == null? NetworkImage('${ServerRoutes.host}/avatar?path=avatar_$uidOpponent') :NetworkImage('${ServerRoutes.host}/test_photo?path=$carId'),
-                        // AssetImage('assets/dwd_logo.jpeg'),
-                      ),
+                  ),
+                  Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white.withOpacity(0),
+                      radius: 25,
+                      backgroundImage: carId == null
+                          ? NetworkImage(
+                              '${ServerRoutes.host}/avatar?path=avatar_$uidOpponent')
+                          : NetworkImage(
+                              '${ServerRoutes.host}/test_photo?path=$carId'),
+                      // AssetImage('assets/dwd_logo.jpeg'),
                     ),
-                  ],
-                ),),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -111,7 +172,7 @@ class ChatView extends GetView<ChatController> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color:  item['uid'] != userModel!.uid.toString()
+                              color: item['uid'] != userModel!.uid.toString()
                                   ? const Color(0xff7253F6)
                                   : const Color(0xff252033),
                             ),

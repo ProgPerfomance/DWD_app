@@ -7,7 +7,7 @@ import 'package:untitled1/domain/sell_car_request.dart';
 import 'package:untitled1/view/servise/select_car_booking_view.dart';
 import '../../master_view/booking_master_view.dart';
 import '../profile/create_car_view.dart';
-
+int go = 0;
 TextEditingController _userNameController = TextEditingController();
 TextEditingController _emailController = TextEditingController();
 TextEditingController _phoneNubmerController = TextEditingController();
@@ -23,9 +23,12 @@ class ConsignmentView extends GetView<GetUserCars> {
   Widget build(BuildContext context) {
 
     Get.put(GetUserCars());
-    _userNameController.text = userModel?.name;
-    _emailController.text = userModel?.email;
-    _phoneNubmerController.text = userModel?.phone;
+    if(go == 0) {
+      _userNameController.text = userModel?.name;
+      _emailController.text = userModel?.email;
+      _phoneNubmerController.text = userModel?.phone;
+      go = 1;
+    }
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -193,6 +196,7 @@ class ConsignmentView extends GetView<GetUserCars> {
                               servise_history: fullServiceHistory,
                               any_car_accidents: noAccident);
                           gcc =false;
+                          go = 0;
                           Navigator.pop(context);
                           showDialog<void>(
                               useSafeArea: false,

@@ -9,7 +9,7 @@ import 'package:untitled1/view/servise/select_car_booking_view.dart';
 
 import '../../master_view/booking_master_view.dart';
 
-String _time = 'Select Date & time';
+String _time = 'Select Preferred Date & Time';
 FocusNode _focusNode = FocusNode();
 TextEditingController _descriptionController = TextEditingController();
 TextEditingController _pickupController = TextEditingController();

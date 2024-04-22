@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:svg_flutter/svg.dart';
+
+import '../view/buy_car/car_page_view.dart';
 
 class ManagerSellCarInfo extends StatelessWidget {
   final String? ownerName;
@@ -87,12 +90,17 @@ class ManagerSellCarInfo extends StatelessWidget {
                   const SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    ownerPhone.toString(),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
+                  GestureDetector(
+                    onTap: () {
+                      callNumber(ownerPhone.toString());
+                    },
+                    child: Text(
+                      ownerPhone.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                 ],
