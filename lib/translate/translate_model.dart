@@ -55,6 +55,14 @@ class TranslateModel {
   final String insurance;
   final String carRent;
   final String storage;
+  final String transparency;
+  final String safety;
+  final String trust;
+  final String sellBanner1;
+  final String sellBanner2;
+  final String sellBanner3;
+  final String sellBannerTitle;
+  final String inStock;
   const TranslateModel({
     required this.Profile,
     required this.About_us,
@@ -111,5 +119,13 @@ class TranslateModel {
     required this.Already_have_an_account_q,
     required this.createOne,
     required this.Dont_have_an_account_q,
+    required this.safety,
+    required this.sellBanner1,
+    required this.sellBanner2,
+    required this.sellBanner3,
+    required this.transparency,
+    required this.trust,
+    required this.sellBannerTitle,
+    required this.inStock,
   });
 }

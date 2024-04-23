@@ -70,11 +70,11 @@ class ServiseView extends GetView<ServicesController> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                 Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
-                    'Special offers',
-                    style: TextStyle(
+                    translate.specialOffers,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w900,
                       color: Color(0xffffffff),
@@ -185,11 +185,11 @@ class ServiseView extends GetView<ServicesController> {
                 const SizedBox(
                   height: 48,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                 Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Text(
-                    'Service',
-                    style: TextStyle(
+                    translate.service,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 18,
                       color: Color(0xffffffff),

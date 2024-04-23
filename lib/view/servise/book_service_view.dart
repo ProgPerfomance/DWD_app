@@ -316,7 +316,7 @@ class BookServiceView extends GetView<GetUserCars> {
                                 width: 12,
                               ),
                               const Text(
-                                'The workshop is located in the Al Quoz area. We\nwill sendyou the exact addressafter confirming\nyour booking',
+                                'Our workshop is mostly located in Al QUOZ\narea, we will forward the exact address\nvia what’s app after appointment is confirmed',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 13,

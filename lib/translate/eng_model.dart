@@ -55,5 +55,13 @@ TranslateModel engModel = const TranslateModel(
   wrapping: 'Wrapping &\nPPF',
       createOne: ' Create one',
       Dont_have_an_account_q: "Don't have an account?", Already_have_an_account_q: 'Already have an account?',
+  trust: 'Trust',
+  safety: 'Safety',
+  transparency: 'Transparency',
+  sellBannerTitle:  'Sell any car in Dubai, UAE -\nLet us take over, and sell\nyour car!',
+  sellBanner1:  'We price your car\naccurately, avoiding\nfake offers and fake\nadverts.',
+  sellBanner2:  'We ensure legal\ntransactions and full\npayments,\nprotecting you from\nfraud.',
+  sellBanner3:    'We secure the best\noffer for your car\nand provide 24/7\nafter-sale support.',
+  inStock: 'In Stock'
 
 );

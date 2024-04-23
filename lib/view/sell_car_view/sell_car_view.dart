@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/view/sell_car_view/sell_on_the_spot_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../controller/get_user_info.dart';
 import '../../domain/auth_user_domain.dart';
 import '../../server_routes.dart';
 import '../profile/profile_view.dart';
@@ -299,6 +301,7 @@ class SellCarBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Container(
       height: 330,
       width: MediaQuery.of(context).size.width,
@@ -309,10 +312,10 @@ class SellCarBanner extends StatelessWidget {
       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
       child: Column(
         children: [
-          const Center(
+           Center(
               child: Text(
-            'Sell any car in Dubai, UAE -\nLet us take over, and sell\nyour car!',
-            style: TextStyle(
+        translate.sellBannerTitle  ,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 24,
               fontWeight: FontWeight.w800,
@@ -334,9 +337,9 @@ class SellCarBanner extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Transparency',
-                      style: TextStyle(
+                     Text(
+                    translate.transparency,
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                       textAlign: TextAlign.center,
@@ -344,9 +347,9 @@ class SellCarBanner extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      'We price your car\naccurately, avoiding\nfake offers and fake\nadverts.',
-                      style: TextStyle(
+                     Text(
+                  translate.sellBanner1  ,
+                      style: const TextStyle(
                           fontWeight: FontWeight.w200,
                           fontSize: 12,
                           color: Colors.white),
@@ -360,9 +363,9 @@ class SellCarBanner extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Safety',
-                      style: TextStyle(
+                     Text(
+                  translate.safety  ,
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                       textAlign: TextAlign.center,
@@ -370,9 +373,9 @@ class SellCarBanner extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      'We ensure legal\ntransactions and full\npayments,\nprotecting you from\nfraud.',
-                      style: TextStyle(
+                     Text(
+                     translate.sellBanner2,
+                      style: const TextStyle(
                           fontWeight: FontWeight.w200,
                           fontSize: 12,
                           color: Colors.white),
@@ -386,9 +389,9 @@ class SellCarBanner extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Trust',
-                      style: TextStyle(
+                     Text(
+                      translate.trust,
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                       textAlign: TextAlign.center,
@@ -396,9 +399,9 @@ class SellCarBanner extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      'We secure the best\noffer for your car\nand provide 24/7\nafter-sale support.',
-                      style: TextStyle(
+                     Text(
+                   translate.sellBanner3,
+                      style: const TextStyle(
                           fontWeight: FontWeight.w200,
                           fontSize: 12,
                           color: Colors.white),

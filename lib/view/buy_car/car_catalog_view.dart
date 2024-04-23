@@ -5,6 +5,7 @@ import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/meneger_view/meneger_car_page_view.dart';
 import '../../controller/car_controller.dart';
+import '../../controller/get_user_info.dart';
 import '../../controller/home_controller.dart';
 import '../../server_routes.dart';
 import '../profile/profile_view.dart';
@@ -17,6 +18,7 @@ class CarCatalogView extends GetView<CarController> {
   Widget build(BuildContext context) {
     Get.put(CarController());
     final home = Get.put(HomeController());
+    final translate = Get.put(UserInfoController()).translateModel.value;
     controller.getCarList();
     return Scaffold(
       appBar: AppBar(
@@ -92,8 +94,8 @@ class CarCatalogView extends GetView<CarController> {
                   const SizedBox(
                     height: 24,
                   ),
-                  const Text(
-                    'In Stock',
+                   Text(
+                    translate.inStock,
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 18,

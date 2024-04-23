@@ -60,4 +60,13 @@ TranslateModel ruModel = const TranslateModel(
         createOne: ' Создать',
         Already_have_an_account_q: 'Уже есть аккаунт?',
         Dont_have_an_account_q: 'Нет аккаунта?',
+    trust: 'Надёжность',
+    safety: 'Безопасность',
+    transparency: 'Прозрачность',
+    sellBanner1: 'Точная оценка\nавтомобиля,без\nфейковых офферов\nи рекламы.',
+    sellBanner2: 'Законные сделки\nи полная оплата,\nс защитой\nот мошеннечества.',
+    sellBanner3: 'Лучшее предложение\nпо вашему авто\nи поддержка\n24/7.',
+        sellBannerTitle: 'Поможем продать любой автомобиль в Дубае, ОАЭ',
+        inStock: 'В наличии'
+
 );
