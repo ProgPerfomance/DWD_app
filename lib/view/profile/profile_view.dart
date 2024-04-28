@@ -9,7 +9,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:untitled1/controller/translate_controller.dart';
 import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/controller/get_user_info.dart';
 import 'package:untitled1/server_routes.dart';
@@ -42,6 +41,9 @@ class ProfileView extends GetView<UserInfoController> {
     return Obx(
       () => Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
           backgroundColor: Colors.black,
           title: Text(
             controller.translateModel.value.Profile,

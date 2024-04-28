@@ -32,7 +32,6 @@ class ChatView extends GetView<ChatController> {
 
   @override
   Widget build(BuildContext context) {
-    print('j');
     Get.put(ChatController());
     final carController = Get.put(CarController());
     Map data = {};
@@ -49,6 +48,9 @@ class ChatView extends GetView<ChatController> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         backgroundColor: const Color(0xff121212),
         centerTitle: true,
         title: Text(

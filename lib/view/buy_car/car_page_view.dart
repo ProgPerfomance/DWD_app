@@ -8,6 +8,7 @@ import 'package:untitled1/view/chat/chat_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../controller/car_controller.dart';
 import '../../controller/chat_controller.dart';
+import '../../controller/get_user_info.dart';
 import '../../domain/auth_user_domain.dart';
 import '../../meneger_view/meneger_car_page_view.dart';
 import '../../server_routes.dart';
@@ -57,13 +58,16 @@ class CarPageView extends GetView<CarController> {
   @override
   Widget build(BuildContext context) {
     Get.put(CarController());
-    print('картинки  $images');
+    final translate = Get.put(UserInfoController()).translateModel.value;
     Future.delayed(const Duration(milliseconds: 100), () {
       controller.getCarInfo(id);
 
     });
     return  Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
           backgroundColor: Colors.black,
           centerTitle: true,
           title: Text(
@@ -138,7 +142,7 @@ class CarPageView extends GetView<CarController> {
                                     insetPadding: const EdgeInsets.symmetric(
                                         horizontal: 12),
                                     content: InteractiveViewer(
-                                      boundaryMargin: EdgeInsets.all(20.0),
+                                      boundaryMargin: const EdgeInsets.all(20.0),
                                       minScale: 0.7,
                                       maxScale: 2.3,
                                       child: Image.network(
@@ -205,10 +209,10 @@ class CarPageView extends GetView<CarController> {
                                 ),
                                 height: 60,
                                 width: MediaQuery.of(context).size.width / 2 - 33,
-                                child: const Center(
+                                child:  Center(
                                   child: Text(
-                                    'CALL',
-                                    style: TextStyle(
+                                    translate.call.toUpperCase(),
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 16,
                                         color: Color(0xffffffff)),
@@ -246,10 +250,10 @@ class CarPageView extends GetView<CarController> {
                                 ),
                                 height: 60,
                                 width: MediaQuery.of(context).size.width / 2 - 33,
-                                child: const Center(
+                                child:  Center(
                                   child: Text(
-                                    'CHAT',
-                                    style: TextStyle(
+                                    translate.chat.toUpperCase(),
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 16,
                                         color: Color(0xffffffff)),
@@ -263,9 +267,9 @@ class CarPageView extends GetView<CarController> {
                       const SizedBox(
                         height: 24,
                       ),
-                      const Text(
-                        'Car details',
-                        style: TextStyle(
+                       Text(
+                        translate.carDetails,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 18,
                             color: Color(0xffffffff)),
@@ -274,36 +278,36 @@ class CarPageView extends GetView<CarController> {
                         height: 16,
                       ),
                       TextCascadeWidget(
-                          field: 'Year:', parametr: year.toString()),
+                          field: '${translate.year}:', parametr: year.toString()),
                       TextCascadeWidget(
-                          field: 'Color:', parametr: color.toString()),
+                          field: '${translate.color}:', parametr: color.toString()),
                       TextCascadeWidget(
-                          field: 'Kilometers:',
+                          field: '${translate.kilometers}:',
                           parametr: formatPriceString(kilometrs.toString())),
                       TextCascadeWidget(
-                          field: 'Regional Specs:',
+                          field: '${translate.regionalSpecs}:',
                           parametr: regionalSpecs.toString()),
                       TextCascadeWidget(
-                          field: 'Transmission:',
+                          field: '${translate.transmission}:',
                           parametr: transmission.toString()),
                       // TextCascadeWidget(
                       //     field: 'Steering wheel:',
                       //     parametr: steeringWheel.toString()),
                       TextCascadeWidget(
-                          field: 'Motors Trim:', parametr: motorsTrim.toString()),
+                          field: '${translate.motorsTrim}:', parametr: motorsTrim.toString()),
                       TextCascadeWidget(
-                          field: 'Body:', parametr: body.toString()),
+                          field: '${translate.body}:', parametr: body.toString()),
                       // TextCascadeWidget(
                       //     field: 'State:', parametr: state.toString()),
-                      TextCascadeWidget(field: 'Warranty:', parametr: guarantee),
+                      TextCascadeWidget(field: '${translate.warranty}:', parametr: guarantee),
                       TextCascadeWidget(
-                          field: 'Service contract:', parametr: serviceContract),
+                          field: '${translate.serviceContract}:', parametr: serviceContract),
                       const SizedBox(
                         height: 24,
                       ),
-                      const Text(
-                        'Description',
-                        style: TextStyle(
+                       Text(
+                       translate.description ,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 18,
                             color: Color(0xffffffff)),
@@ -339,9 +343,9 @@ class CarPageView extends GetView<CarController> {
                       const SizedBox(
                         height: 32,
                       ),
-                      const Text(
-                        'More cars',
-                        style: TextStyle(
+                       Text(
+                      translate.moreCars,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 18,
                             color: Color(0xffffffff)),
@@ -547,9 +551,9 @@ class TextCascadeWidget extends StatelessWidget {
 }
 
 class AskSellerWidget extends StatelessWidget {
-  final ccid;
-  final id;
-  final name;
+  final dynamic ccid;
+  final dynamic id;
+  final dynamic name;
   const AskSellerWidget(
       {super.key, required this.name, required this.id, required this.ccid});
 

@@ -7,6 +7,7 @@ import 'package:untitled1/domain/booking_domain.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 import 'package:untitled1/view/servise/select_car_booking_view.dart';
 
+import '../../controller/get_user_info.dart';
 import '../../master_view/booking_master_view.dart';
 
 String _time = 'Select Preferred Date & Time';
@@ -31,6 +32,7 @@ class BookServiceView extends GetView<GetUserCars> {
     _ownerNumberController.text = userModel?.phone;
     _ownerEmailController.text = userModel?.email;
     _ownerNameController.text = userModel?.name;
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return GestureDetector(
       onTap: () {
         _focusNode.unfocus();
@@ -51,17 +53,17 @@ class BookServiceView extends GetView<GetUserCars> {
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: const Text(
-                            'Back',
-                            style: TextStyle(
+                          child:  Text(
+                            translate.back,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 16,
                               color: Color(0xff8875FF),
                             ),
                           )),
-                      const Text(
-                        'Booking',
-                        style: TextStyle(
+                       Text(
+                        translate.booking,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w900,
                           color: Colors.white,
@@ -81,9 +83,9 @@ class BookServiceView extends GetView<GetUserCars> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Owner Name',
-                        style: TextStyle(
+                       Text(
+                       translate.ownerName,
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                           color: Color(0xffffffff),
@@ -105,7 +107,7 @@ class BookServiceView extends GetView<GetUserCars> {
                               0xff535353,
                             ),
                           ),
-                          hintText: 'Owner name',
+                          hintText:    translate.ownerName,
                           isDense: true,
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -126,9 +128,9 @@ class BookServiceView extends GetView<GetUserCars> {
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text(
-                        'Mobile number',
-                        style: TextStyle(
+                       Text(
+                           translate.mobilePhone,
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                           color: Color(0xffffffff),
@@ -150,7 +152,7 @@ class BookServiceView extends GetView<GetUserCars> {
                               0xff535353,
                             ),
                           ),
-                          hintText: 'Phone number',
+                          hintText:   translate.mobilePhone,
                           isDense: true,
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -171,9 +173,9 @@ class BookServiceView extends GetView<GetUserCars> {
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text(
-                        'Email',
-                        style: TextStyle(
+                       Text(
+                      translate.email,
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                           color: Color(0xffffffff),
@@ -195,7 +197,7 @@ class BookServiceView extends GetView<GetUserCars> {
                               0xff535353,
                             ),
                           ),
-                          hintText: 'Email',
+                          hintText: translate.email,
                           isDense: true,
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -216,9 +218,9 @@ class BookServiceView extends GetView<GetUserCars> {
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text(
-                        'Description',
-                        style: TextStyle(
+                       Text(
+                      translate.description,
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                           color: Color(0xffffffff),
@@ -315,9 +317,9 @@ class BookServiceView extends GetView<GetUserCars> {
                               const SizedBox(
                                 width: 12,
                               ),
-                              const Text(
-                                'Our workshop is mostly located in Al QUOZ\narea, we will forward the exact address\nvia what’s app after appointment is confirmed',
-                                style: TextStyle(
+                               Text(
+                               translate.bookingText,
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 13,
                                   color: Color(0xffffffff),
@@ -331,7 +333,7 @@ class BookServiceView extends GetView<GetUserCars> {
                         height: 24,
                       ),
                       BookingCheckBoxWidget(
-                        text: 'Add a pickup',
+                        text: translate.addPickup,
                         form: TextField(
                           style: const TextStyle(
                             color: Color(0xffffffff),
@@ -368,7 +370,7 @@ class BookServiceView extends GetView<GetUserCars> {
                         height: 16,
                       ),
                       BookingCheckBoxWidget(
-                        text: 'Add a delivery',
+                        text: translate.addDelivery,
                         form: TextField(
                           style: const TextStyle(
                             color: Color(0xffffffff),
@@ -404,8 +406,8 @@ class BookServiceView extends GetView<GetUserCars> {
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text(
-                        'Select Date & Time',
+                       Text(
+                      translate.selectDate,
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,

@@ -5,6 +5,7 @@ import 'package:untitled1/domain/auth_user_domain.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 import 'package:untitled1/domain/sell_car_request.dart';
 import 'package:untitled1/view/servise/select_car_booking_view.dart';
+import '../../controller/get_user_info.dart';
 import '../../master_view/booking_master_view.dart';
 import '../profile/create_car_view.dart';
 int go = 0;
@@ -29,6 +30,7 @@ class ConsignmentView extends GetView<GetUserCars> {
       _phoneNubmerController.text = userModel?.phone;
       go = 1;
     }
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -45,8 +47,8 @@ class ConsignmentView extends GetView<GetUserCars> {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: const Text(
-                        'Back',
+                      child:  Text(
+                        translate.back,
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
@@ -54,8 +56,8 @@ class ConsignmentView extends GetView<GetUserCars> {
                         ),
                       ),
                     ),
-                    const Text(
-                      'Consignment',
+                     Text(
+                     translate.consignment,
                       style: TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 20,
@@ -75,8 +77,8 @@ class ConsignmentView extends GetView<GetUserCars> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Owner name',
+                     Text(
+                      translate.ownerName,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
@@ -86,14 +88,14 @@ class ConsignmentView extends GetView<GetUserCars> {
                       height: 16,
                     ),
                     CreateCarField(
-                      text: 'Owner name',
+                      text:    translate.ownerName,
                       controller: _userNameController,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Mobile number',
+                     Text(
+                        translate.mobilePhone,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
@@ -103,14 +105,14 @@ class ConsignmentView extends GetView<GetUserCars> {
                       height: 16,
                     ),
                     CreateCarField(
-                      text: 'Mobile number',
+                      text:   translate.mobilePhone,
                       controller: _phoneNubmerController,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Email',
+                     Text(
+                      translate.email,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
@@ -120,7 +122,7 @@ class ConsignmentView extends GetView<GetUserCars> {
                       height: 16,
                     ),
                     CreateCarField(
-                      text: 'Email',
+                      text:       translate.email,
                       controller: _emailController,
                     ),
                     const SizedBox(
@@ -214,9 +216,9 @@ class ConsignmentView extends GetView<GetUserCars> {
                             borderRadius: BorderRadius.circular(8),
                             color: const Color(0xff8875FF),
                           ),
-                          child: const Center(
+                          child:  Center(
                             child: Text(
-                              'Send',
+                            translate.send,
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16,

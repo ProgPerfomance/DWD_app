@@ -219,8 +219,8 @@ class ServiseView extends GetView<ServicesController> {
                         icon: 'assets/icons/interval_service.svg',
                         id: 1,
                       ),
-                      const ServiceButton(
-                        text: 'Body repair\nand paint',
+                       ServiceButton(
+                        text: translate.bodyRepairAndPaint,
                         icon: 'assets/icons/body.svg.svg',
                         id: 21,
                         imagePath: 'body.png',
@@ -330,8 +330,8 @@ class ServiseView extends GetView<ServicesController> {
                         icon: 'assets/icons/recovery.svg',
                         id: 2,
                       ),
-                      const ServiceButton(
-                        text: 'Pre-purchase\ninspection',
+                       ServiceButton(
+                        text: translate.prePuschaseIncpection,
                         icon: 'assets/icons/inspec.svg',
                         id: 22,
                         imagePath: 'inspect.png',

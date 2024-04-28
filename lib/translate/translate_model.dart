@@ -40,6 +40,8 @@ class TranslateModel {
   final String createOne;
   final String Already_have_an_account_q;
   //сервисы
+  final String bodyRepairAndPaint;
+  final String prePuschaseIncpection;
   final String specialOffers;
   final String allServices;
   final String generalRepair;
@@ -63,6 +65,42 @@ class TranslateModel {
   final String sellBanner3;
   final String sellBannerTitle;
   final String inStock;
+  //тачка
+  final String carDetails;
+  final String color;
+  final String kilometers;
+  final String regionalSpecs;
+  final String transmission;
+  final String motorsTrim;
+  final String warranty;
+  final String body;
+  final String serviceContract;
+  final String description;
+  final String year;
+  final String call;
+  final String moreCars;
+  final String buyCarBannerPath;
+  final String consignment;
+  final String consignmentText;
+  final String spot;
+  final String spotText;
+  final String cancel;
+  final String change;
+  final String add;
+  final String extras;
+  final String included;
+  final String book;
+  final String ownerName;
+  final String ownerEmail;
+  final String ownerPhone;
+  final String mobilePhone;
+  final String email;
+  final String selectCar;
+  final String bookingText;
+  final String addPickup;
+  final String addDelivery;
+  final String selectDate;
+  final String send;
   const TranslateModel({
     required this.Profile,
     required this.About_us,
@@ -127,5 +165,42 @@ class TranslateModel {
     required this.trust,
     required this.sellBannerTitle,
     required this.inStock,
+    required this.description,
+    required this.body,
+    required this.color,
+    required this.serviceContract,
+    required this.motorsTrim,
+    required this.transmission,
+    required this.regionalSpecs,
+    required this.carDetails,
+    required this.kilometers,
+    required this.warranty,
+    required this.year,
+    required this.call,
+    required this.moreCars,
+    required this.buyCarBannerPath,
+    required this.consignment,
+    required this.consignmentText,
+    required this.spot,
+    required this.spotText,
+    required this.cancel,
+    required this.change,
+    required this.bodyRepairAndPaint,
+    required this.prePuschaseIncpection,
+    required this.add,
+    required this.book,
+    required this.extras,
+    required this.included,
+    required this.email,
+    required this.addDelivery,
+    required this.addPickup,
+    required this.bookingText,
+    required this.mobilePhone,
+    required this.ownerEmail,
+    required this.ownerName,
+    required this.ownerPhone,
+    required this.selectCar,
+    required this.selectDate,
+    required this.send,
   });
 }

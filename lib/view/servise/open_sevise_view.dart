@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:untitled1/controller/services_controller.dart';
 import 'package:untitled1/view/servise/book_service_view.dart';
 
+import '../../controller/get_user_info.dart';
+
 class OpenServiseView extends GetView<ServicesController> {
   final bool special;
   final String title;
@@ -22,6 +24,7 @@ class OpenServiseView extends GetView<ServicesController> {
   Widget build(BuildContext context) {
     Get.put(ServicesController());
     controller.getServiceInfo(id);
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SingleChildScrollView(
@@ -136,9 +139,9 @@ class OpenServiseView extends GetView<ServicesController> {
                         const SizedBox(
                           height: 61,
                         ),
-                        const Text(
-                          "Description",
-                          style: TextStyle(
+                         Text(
+                          translate.description,
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w900,
                             color: Color(0xffffffff),
@@ -159,9 +162,9 @@ class OpenServiseView extends GetView<ServicesController> {
                        special == false ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "What's Included",
-                              style: TextStyle(
+                             Text(
+                              translate.included,
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w900,
                                 color: Color(0xffffffff),
@@ -188,9 +191,9 @@ class OpenServiseView extends GetView<ServicesController> {
                             const SizedBox(
                               height: 48,
                             ),
-                            const Text(
-                              "Extras",
-                              style: TextStyle(
+                             Text(
+                             translate.extras,
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w900,
                                 color: Color(0xffffffff),
@@ -238,10 +241,10 @@ class OpenServiseView extends GetView<ServicesController> {
                               color: const Color(0xff8875FF),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Center(
+                            child:  Center(
                               child: Text(
-                                'Book',
-                                style: TextStyle(
+                                translate.book,
+                                style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xffffffff)),

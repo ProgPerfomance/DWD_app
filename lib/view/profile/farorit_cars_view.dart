@@ -17,6 +17,9 @@ class FavoritCarsView extends GetView<CarController> {
     controller.getWishlist();
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         backgroundColor: const Color(0xff121212),
         centerTitle: true,
         title: const Text(
@@ -56,7 +59,7 @@ class FavoritCarsView extends GetView<CarController> {
               mainAxisSpacing: 30,
               crossAxisCount: 2,
               childAspectRatio: (100 / 129),
-              children: controller.cars.length < 2
+              children: controller.cars.length < 0
                   ? [
                 const CircularProgressIndicator(),
                 const CircularProgressIndicator()

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/booking_controller.dart';
 import 'package:untitled1/view/booking/update_booking_view.dart';
+import '../../controller/get_user_info.dart';
 import '../../domain/auth_user_domain.dart';
 import '../../meneger_view/manager_booking/meneger_booking_view.dart';
 import '../../server_routes.dart';
@@ -16,6 +17,7 @@ class BookingListView extends GetView<BookingController> {
   @override
   Widget build(BuildContext context) {
     Get.put(BookingController());
+    final translate = Get.put(UserInfoController()).translateModel.value;
     controller.getUserBooking();
     return Scaffold(
       appBar: AppBar(
@@ -367,9 +369,9 @@ class BookingListView extends GetView<BookingController> {
                                                       const SizedBox(
                                                         width: 4,
                                                       ),
-                                                      const Text(
-                                                        'CANCEL',
-                                                        style: TextStyle(
+                                                       Text(
+                                                        translate.cancel.toUpperCase(),
+                                                        style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.w400,
                                                           fontSize: 16,
@@ -412,9 +414,9 @@ class BookingListView extends GetView<BookingController> {
                                                         const SizedBox(
                                                           width: 4,
                                                         ),
-                                                        const Text(
-                                                          'CHANGE',
-                                                          style: TextStyle(
+                                                         Text(
+                                                          translate.change.toUpperCase(),
+                                                          style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 16,

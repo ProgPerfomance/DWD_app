@@ -78,7 +78,7 @@ class CarCatalogView extends GetView<CarController> {
                 home.selectIndex(1);
               },
               child: Image.asset(
-                'assets/big_banner.png',
+              translate.buyCarBannerPath,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.fill,
               ),
@@ -96,7 +96,7 @@ class CarCatalogView extends GetView<CarController> {
                   ),
                    Text(
                     translate.inStock,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 18,
                       color: Color(0xffffffff),

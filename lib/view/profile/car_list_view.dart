@@ -7,6 +7,7 @@ import 'package:untitled1/domain/delete_user_car.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 import 'package:untitled1/view/profile/update_car_view.dart';
 
+import '../../controller/get_user_info.dart';
 import 'create_car_view.dart';
 
 class CarListView extends GetView<GetUserCars> {
@@ -16,6 +17,7 @@ class CarListView extends GetView<GetUserCars> {
   Widget build(BuildContext context) {
     Get.put(GetUserCars());
     controller.getUserCars();
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -33,13 +35,13 @@ class CarListView extends GetView<GetUserCars> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Back',style: TextStyle(
+                        child:  Text(translate.back,style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: Color(0xff7A7A7A),
                         ),),
                       ),
-                      const Text('My cars',style: TextStyle(
+                       Text(translate.MY_CARS,style: const TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 20,
                         color: Color(0xffffffff),
@@ -48,7 +50,7 @@ class CarListView extends GetView<GetUserCars> {
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateCarView()));
                         },
-                        child: const Text('Add',style: TextStyle(
+                        child:  Text(translate.add,style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: Color(0xff8875FF),

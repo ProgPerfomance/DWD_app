@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
 
+import '../../controller/get_user_info.dart';
 import '../../domain/auth_user_domain.dart';
 import '../../domain/sell_car_request.dart';
 import '../../master_view/booking_master_view.dart';
@@ -29,6 +30,7 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
       _phoneNubmerController.text = userModel?.phone;
       goSpot = 1;
     }
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -45,18 +47,18 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: const Text(
-                        'Back',
-                        style: TextStyle(
+                      child:  Text(
+                        translate.back,
+                        style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: Color(0xff8875FF),
                         ),
                       ),
                     ),
-                    const Text(
-                      'Sell on the spot',
-                      style: TextStyle(
+                     Text(
+                      translate.spot,
+                      style: const TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 20,
                           color: Color(0xffffffff)),
@@ -75,9 +77,9 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Owner name',
-                      style: TextStyle(
+                     Text(
+                   translate.ownerName,
+                      style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color(0xffffffff)),
@@ -86,15 +88,15 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                       height: 16,
                     ),
                     CreateCarField(
-                      text: 'Owner name',
+                      text:    translate.ownerName,
                       controller: _userNameController,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Mobile number',
-                      style: TextStyle(
+                     Text(
+                      translate.mobilePhone,
+                      style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color(0xffffffff)),
@@ -103,15 +105,15 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                       height: 16,
                     ),
                     CreateCarField(
-                      text: 'Mobile number',
+                      text:     translate.mobilePhone,
                       controller: _phoneNubmerController,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Email',
-                      style: TextStyle(
+                     Text(
+                   translate.email,
+                      style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color(0xffffffff)),
@@ -120,7 +122,7 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                       height: 16,
                     ),
                     CreateCarField(
-                      text: 'Email',
+                      text:         translate.email,
                       controller: _emailController,
                     ),
                     const SizedBox(
@@ -214,10 +216,10 @@ class SellOnTheSpotView extends GetView<GetUserCars> {
                             borderRadius: BorderRadius.circular(8),
                             color: const Color(0xff8875FF),
                           ),
-                          child: const Center(
+                          child:  Center(
                             child: Text(
-                              'Send',
-                              style: TextStyle(
+                              translate.send,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16,
                                 color: Color(0xffffffff),

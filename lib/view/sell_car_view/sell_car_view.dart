@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
@@ -36,6 +34,7 @@ class SellCarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff121212),
@@ -106,25 +105,25 @@ class SellCarView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5),
                             color: const Color(0xff363636),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(16.0),
+                          child:  Padding(
+                            padding: const EdgeInsets.all(16.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Consignment',
-                                  style: TextStyle(
+                                 translate.consignment,
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
                                     color: Color(0xff8875FF),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 16,
                                 ),
                                 Text(
-                                  'We sell your car on your behalf, against a fixed fee and we handle every aspect of the sale on your behalf, listing, documentation, viewing and detailing if needed',
-                                  style: TextStyle(
+
+                                translate.consignmentText,   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xffffffff),
@@ -147,10 +146,10 @@ class SellCarView extends StatelessWidget {
                               child: SizedBox(
                                 height: 52,
                                 width: MediaQuery.of(context).size.width / 2 - 28,
-                                child: const Center(
+                                child:  Center(
                                   child: Text(
-                                    'Chat',
-                                    style: TextStyle(
+                                    translate.chat,
+                                    style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,
                                       color: Color(0xff8687E7),
@@ -178,10 +177,10 @@ class SellCarView extends StatelessWidget {
                                 height: 52,
                                 width:
                                     MediaQuery.of(context).size.width / 2 - 28,
-                                child: const Center(
+                                child:  Center(
                                   child: Text(
-                                    'Consignment',
-                                    style: TextStyle(
+                                   translate.consignment,
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 16,
                                       color: Color(0xffffffff),
@@ -201,25 +200,25 @@ class SellCarView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5),
                             color: const Color(0xff363636),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(16.0),
+                          child:  Padding(
+                            padding: const EdgeInsets.all(16.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Sell on the spot',
-                                  style: TextStyle(
+                                 translate.spot ,
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
                                     color: Color(0xff8875FF),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 16,
                                 ),
                                 Text(
-                                  'We will evaluate your car and offer the best price, we pay you direct and in cash on the spot',
-                                  style: TextStyle(
+                                translate.spotText,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xffffffff),
@@ -238,10 +237,10 @@ class SellCarView extends StatelessWidget {
                             SizedBox(
                               height: 52,
                               width: MediaQuery.of(context).size.width / 2 - 28,
-                              child: const Center(
+                              child:  Center(
                                 child: Text(
-                                  'Chat',
-                                  style: TextStyle(
+                                  translate.chat,
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xff8687E7),
@@ -268,10 +267,10 @@ class SellCarView extends StatelessWidget {
                                 height: 52,
                                 width:
                                     MediaQuery.of(context).size.width / 2 - 28,
-                                child: const Center(
+                                child:  Center(
                                   child: Text(
-                                    'Sell on the spot',
-                                    style: TextStyle(
+                                 translate.spot,
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 16,
                                       color: Color(0xffffffff),
