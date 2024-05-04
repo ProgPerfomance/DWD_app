@@ -79,7 +79,7 @@ class ManagerAllGarages extends GetView<ServicesController> {
                                           id: item['id'])));
                             },
                             child: SvgPicture.asset(
-                                'assets/icons/next_manager_purple.svg')),
+                                'assets/icons/next_manager_purple.svg',color: Colors.white,)),
                       ],
                     ),
                     const SizedBox(

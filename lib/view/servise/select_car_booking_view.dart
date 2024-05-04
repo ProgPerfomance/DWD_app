@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:untitled1/domain/get_user_cars.dart';
+import '../../controller/get_user_info.dart';
 import '../profile/create_car_view.dart';
 
 
@@ -13,6 +14,7 @@ class SelectCarBookingView extends GetView<GetUserCars> {
 
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     Get.put(GetUserCars());
     controller.getUserCars();
     return Scaffold(
@@ -32,13 +34,13 @@ class SelectCarBookingView extends GetView<GetUserCars> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Back',style: TextStyle(
+                        child:  Text(translate.back,style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: Color(0xff7A7A7A),
                         ),),
                       ),
-                      const Text('My cars',style: TextStyle(
+                       Text(translate.MY_CARS,style: const TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 20,
                         color: Color(0xffffffff),
@@ -47,7 +49,7 @@ class SelectCarBookingView extends GetView<GetUserCars> {
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateCarView()));
                         },
-                        child: const Text('Add',style: TextStyle(
+                        child:  Text(translate.add,style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: Color(0xff8875FF),

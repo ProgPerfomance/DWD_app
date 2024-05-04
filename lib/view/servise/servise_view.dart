@@ -206,7 +206,7 @@ class ServiseView extends GetView<ServicesController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ServiceButton(
-                        imagePath: 'general.png',
+                        imagePath: translate.generalRepair,
                         text: translate.generalRepair,
                         name: 'General repair',
                         icon: 'assets/icons/general_repair.svg',
@@ -214,7 +214,7 @@ class ServiseView extends GetView<ServicesController> {
                       ),
                       ServiceButton(
                         imagePath: 'to.png',
-                        name: 'Interval service',
+                        name: translate.intervalService,
                         text: translate.intervalService,
                         icon: 'assets/icons/interval_service.svg',
                         id: 1,
@@ -228,7 +228,7 @@ class ServiseView extends GetView<ServicesController> {
 
                       ServiceButton(
                         imagePath: 'wheels.png',
-                        name: 'Wheels and tires',
+                        name: translate.wheels,
                         text: translate.wheels,
                         icon: 'assets/icons/general2.svg',
                         id: 3,
@@ -296,7 +296,7 @@ class ServiseView extends GetView<ServicesController> {
                       ),
                       ServiceButton(
                         text: translate.insurance,
-                        imagePath: 'insurance.png',
+                        imagePath: 'ins.png',
                         icon: 'assets/icons/insurance.svg',
                         id: 10,
                       ),

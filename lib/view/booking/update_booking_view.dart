@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:svg_flutter/svg.dart';
 
+import '../../controller/get_user_info.dart';
 import '../../domain/booking_domain.dart';
 import '../../domain/get_user_cars.dart';
 import '../servise/select_car_booking_view.dart';
@@ -44,6 +44,7 @@ class UpdateBookingView extends GetView<GetUserCars> {
      _ownerNumberController.text = ownerNumber.toString();
      _ownerEmailController.text = ownerEmail.toString();
      controller.car.value = carNew;
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -60,17 +61,17 @@ class UpdateBookingView extends GetView<GetUserCars> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: const Text(
-                          'Back',
-                          style: TextStyle(
+                        child:  Text(
+                          translate.back,
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
                             color: Color(0xff8875FF),
                           ),
                         )),
-                    const Text(
-                      'Booking',
-                      style: TextStyle(
+                     Text(
+                      translate.booking,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
@@ -90,9 +91,9 @@ class UpdateBookingView extends GetView<GetUserCars> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Owner Name',
-                      style: TextStyle(
+                     Text(
+                      translate.ownerName,
+                      style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                         color: Color(0xffffffff),
@@ -114,7 +115,7 @@ class UpdateBookingView extends GetView<GetUserCars> {
                             0xff535353,
                           ),
                         ),
-                        hintText: 'Owner name',
+                        hintText: translate.ownerName,
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
@@ -135,9 +136,9 @@ class UpdateBookingView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Mobile number',
-                      style: TextStyle(
+                     Text(
+                     translate.mobilePhone,
+                      style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                         color: Color(0xffffffff),
@@ -159,7 +160,7 @@ class UpdateBookingView extends GetView<GetUserCars> {
                             0xff535353,
                           ),
                         ),
-                        hintText: 'Phone number',
+                        hintText: translate.mobilePhone,
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
@@ -180,9 +181,9 @@ class UpdateBookingView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Email',
-                      style: TextStyle(
+                     Text(
+                      translate.email,
+                      style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                         color: Color(0xffffffff),
@@ -204,7 +205,7 @@ class UpdateBookingView extends GetView<GetUserCars> {
                             0xff535353,
                           ),
                         ),
-                        hintText: 'Email',
+                        hintText: translate.email,
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
@@ -230,7 +231,7 @@ class UpdateBookingView extends GetView<GetUserCars> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SelectCarBookingView(
+                                builder: (context) => const SelectCarBookingView(
                                       sell: false,
                                     )));
                       },
@@ -275,9 +276,9 @@ class UpdateBookingView extends GetView<GetUserCars> {
                             const SizedBox(
                               width: 12,
                             ),
-                            const Text(
-                              'The workshop is located in the JVC area. We\nwill sendyou the exact addressafter confirming\nyour booking',
-                              style: TextStyle(
+                             Text(
+                             translate.bookingText,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 13,
                                 color: Color(0xffffffff),
@@ -303,7 +304,7 @@ class UpdateBookingView extends GetView<GetUserCars> {
                             0xff535353,
                           ),
                         ),
-                        hintText: 'Pickup from',
+                        hintText: translate.addPickup,
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
@@ -337,7 +338,7 @@ class UpdateBookingView extends GetView<GetUserCars> {
                             0xff535353,
                           ),
                         ),
-                        hintText: 'Delivery To',
+                        hintText: translate.addDelivery,
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
@@ -358,9 +359,9 @@ class UpdateBookingView extends GetView<GetUserCars> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Text(
-                      'Select Date & Time',
-                      style: TextStyle(
+                     Text(
+                      translate.selectDate,
+                      style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                         color: Color(0xffffffff),
@@ -402,10 +403,10 @@ class UpdateBookingView extends GetView<GetUserCars> {
                           color: const Color(0xff8875FF),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const Center(
+                        child:  Center(
                           child: Text(
-                            'Send',
-                            style: TextStyle(
+                          translate.send,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 16,
                               color: Color(0xffffffff),

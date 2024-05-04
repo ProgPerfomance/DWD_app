@@ -433,6 +433,7 @@ class BookingMasterView extends GetView<MasterBookingController> {
                                                     builder:
                                                         (BuildContext context) {
                                                       return CancelBookingDialog(
+                                                        manager: false,
                                                         id: item['id'],
                                                       );
                                                     });

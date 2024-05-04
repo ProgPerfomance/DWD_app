@@ -83,7 +83,7 @@ TranslateModel engModel = const TranslateModel(
       consignmentText:   'We sell your car on your behalf, against a fixed fee and we handle every aspect of the sale on your behalf, listing, documentation, viewing and detailing if needed',
 cancel: 'Cancel',
   change: 'Change',
-  bodyRepairAndPaint: 'Body repair and paint',
+  bodyRepairAndPaint: 'Body repair\nand paint',
   prePuschaseIncpection: 'Pre-purchase\ninspection',
       add: 'Add',
   selectCar: 'Select car',

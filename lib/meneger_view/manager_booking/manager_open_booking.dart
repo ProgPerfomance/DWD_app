@@ -340,7 +340,7 @@ class ManagerOpenBooking extends GetView<MasterBookingController> {
                           barrierDismissible:
                           false, // user must tap button!
                           builder: (BuildContext context) {
-                            return CancelBookingDialog(id: id,);
+                            return CancelBookingDialog(id: id,manager: manager,);
                           });
                     //  controller.cancelBooking(id: id);
                    //   Navigator.pop(context);
@@ -385,7 +385,8 @@ TextStyle _thisStyle = const TextStyle(
 
 class CancelBookingDialog extends GetView<MasterBookingController> {
   final id;
-  const CancelBookingDialog({super.key, required this.id});
+  final manager;
+  const CancelBookingDialog({super.key, required this.id,required  this.manager});
 
   @override
   Widget build(BuildContext context) {
@@ -468,7 +469,7 @@ class CancelBookingDialog extends GetView<MasterBookingController> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        controller.cancelBooking(id: id, reason: inputController.text);
+                    manager == true ?    controller.cancelBooking(id: id, reason: inputController.text) :    controller.cancelBookingMaster(id: id, reason: inputController.text) ;
                         Navigator.pop(context);
                         showDialog<void>(
                             useSafeArea: false,
