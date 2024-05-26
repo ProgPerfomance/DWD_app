@@ -101,6 +101,18 @@ class TranslateModel {
   final String addDelivery;
   final String selectDate;
   final String send;
+  final String was;
+  final String stillForSale;
+  final String isExchangePosible;
+  final String whereCarIViewIt;
+  final String noAccident;
+  final String fullServiceHistory;
+  final String carName;
+  final String giveCarName;
+  final String brand;
+  final String carReg;
+  final String model;
+  final String newCar;
   const TranslateModel({
     required this.Profile,
     required this.About_us,
@@ -202,5 +214,17 @@ class TranslateModel {
     required this.selectCar,
     required this.selectDate,
     required this.send,
+    required this.was,
+    required this.stillForSale,
+required this.isExchangePosible,
+    required this.whereCarIViewIt,
+    required this.fullServiceHistory,
+    required this.noAccident,
+    required this.brand,
+    required this.carName,
+    required this.carReg,
+    required this.giveCarName,
+    required this.model,
+    required this.newCar
   });
 }

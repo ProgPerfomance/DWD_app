@@ -524,6 +524,7 @@ class TextCascadeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2.93),
       child: Row(
@@ -559,6 +560,7 @@ class AskSellerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Column(
@@ -580,7 +582,7 @@ class AskSellerWidget extends StatelessWidget {
                                 sid: id,
                                 chatId: cid.toString(),
                                 opponentName: name,
-                                message: 'Still for sale?',
+                                message: translate.stillForSale,
                                 carId: ccid,
                                 uidOpponent: 0,
                                 carIndex: id,
@@ -592,11 +594,11 @@ class AskSellerWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: const Color(0xff8875FF)),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                  child:  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
                     child: Text(
-                      'Still for sale?',
-                      style: TextStyle(
+                      translate.stillForSale,
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: Color(0xffffffff),
@@ -622,7 +624,7 @@ class AskSellerWidget extends StatelessWidget {
                                 chatId: cid.toString(),
                                 opponentName: name,
                                 sid: id,
-                                message: 'Is exchange possible?',
+                                message: translate.isExchangePosible,
                                 carId: ccid,
                                 uidOpponent: 0,
                                 carIndex: id,
@@ -634,11 +636,11 @@ class AskSellerWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: const Color(0xff8875FF)),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                  child:  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
                     child: Text(
-                      'Is exchange possible?',
-                      style: TextStyle(
+                    translate.isExchangePosible,
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: Color(0xffffffff),
@@ -670,7 +672,7 @@ class AskSellerWidget extends StatelessWidget {
                           builder: (context) => ChatView(
                                 chatId: cid.toString(),
                                 opponentName: name,
-                                message: 'Where can I watch it?',
+                                message: translate.whereCarIViewIt,
                                 carId: ccid,
                                 sid: id,
                                 uidOpponent: 0,
@@ -683,11 +685,11 @@ class AskSellerWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: const Color(0xff8875FF)),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                  child:  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
                     child: Text(
-                      'Where can I view it?',
-                      style: TextStyle(
+                    translate.whereCarIViewIt,
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: Color(0xffffffff),

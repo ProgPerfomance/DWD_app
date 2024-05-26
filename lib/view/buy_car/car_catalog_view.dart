@@ -236,7 +236,7 @@ class CarCatalogView extends GetView<CarController> {
                                         height: 4,
                                       ),
                                       Text(
-                                        '${item['year']}, ${formatPriceString(item['killometers'])}',
+                                        '${item['year']}, ${formatPriceString(item['killometers'])} km',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13,

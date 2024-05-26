@@ -161,7 +161,7 @@ class ServiseView extends GetView<ServicesController> {
                                           children: [
                                             Image.asset('assets/line.png'),
                                             Text(
-                                              'was ${item['low_price']} AED',
+                                              '${translate.was} ${item['low_price']} AED',
                                               style: TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w400,
@@ -265,7 +265,7 @@ class ServiseView extends GetView<ServicesController> {
                       ),
                       ServiceButton(
                         imagePath: 'wrapping.png',
-                        name: 'Wrapping & PPF',
+                        name: translate.wrapping,
                         text: translate.wrapping,
                         icon: 'assets/icons/ppf.svg',
                         id: 7,

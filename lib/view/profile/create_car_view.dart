@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled1/domain/create_user_car.dart';
 import 'package:untitled1/view/profile/car_list_view.dart';
 
+import '../../controller/get_user_info.dart';
 import '../../master_view/booking_master_view.dart';
 
 TextEditingController _name = TextEditingController();
@@ -21,6 +23,7 @@ class CreateCarView extends StatefulWidget {
 class _CreateCarViewState extends State<CreateCarView> {
   @override
   Widget build(BuildContext context) {
+    final translate = Get.put(UserInfoController()).translateModel.value;
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -39,18 +42,18 @@ class _CreateCarViewState extends State<CreateCarView> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: const Text(
-                          'Back',
-                          style: TextStyle(
+                        child:  Text(
+                        translate.back,
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
                             color: Color(0xff8875FF),
                           ),
                         ),
                       ),
-                      const Text(
-                        'My cars',
-                        style: TextStyle(
+                       Text(
+                       translate.MY_CARS,
+                        style: const TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 20,
                           color: Color(0xffffffff),
@@ -83,9 +86,9 @@ class _CreateCarViewState extends State<CreateCarView> {
                                   return const MyCustomAlert(text: 'Car created!');
                                 });
                           },
-                          child: const Text(
-                            'Save',
-                            style: TextStyle(
+                          child:  Text(
+                            translate.send,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 16,
                               color: Color(0xff7A7A7A), //0xff7A7A7A
@@ -104,9 +107,9 @@ class _CreateCarViewState extends State<CreateCarView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'New Car',
-                        style: TextStyle(
+                       Text(
+                       translate.newCar,
+                        style: const TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 20,
                           color: Color(0xffffffff),
@@ -115,9 +118,9 @@ class _CreateCarViewState extends State<CreateCarView> {
                       const SizedBox(
                         height: 24,
                       ),
-                      const Text(
-                        'Car name',
-                        style: TextStyle(
+                       Text(
+                     translate.carName,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 13,
                             color: Color(0xffffffff)),
@@ -126,15 +129,15 @@ class _CreateCarViewState extends State<CreateCarView> {
                         height: 8,
                       ),
                       CreateCarField(
-                        text: 'Give the car name',
+                        text: translate.giveCarName,
                         controller: _name,
                       ),
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text(
-                        'Brand',
-                        style: TextStyle(
+                       Text(
+                     translate.brand,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 13,
                             color: Color(0xffffffff)),
@@ -155,7 +158,7 @@ class _CreateCarViewState extends State<CreateCarView> {
                               0xff535353,
                             ),
                           ),
-                          hintText: 'Car Brand',
+                          hintText: translate.brand,
                           isDense: true,
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -176,8 +179,8 @@ class _CreateCarViewState extends State<CreateCarView> {
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text(
-                        'Model',
+                       Text(
+                       translate.model,
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 13,
@@ -187,15 +190,15 @@ class _CreateCarViewState extends State<CreateCarView> {
                         height: 8,
                       ),
                       CreateCarField(
-                        text: 'Car Model',
+                        text: translate.model,
                         controller: _model,
                       ),
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text(
-                        'Year',
-                        style: TextStyle(
+                       Text(
+                        translate.year,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 13,
                             color: Color(0xffffffff)),
@@ -204,15 +207,15 @@ class _CreateCarViewState extends State<CreateCarView> {
                         height: 8,
                       ),
                       CreateCarField(
-                        text: 'Year',
+                        text: translate.year,
                         controller: _year,
                       ),
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text(
-                        'Car Reg/ Plate Number',
-                        style: TextStyle(
+                       Text(
+                       translate.carReg,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 13,
                             color: Color(0xffffffff)),
@@ -221,7 +224,7 @@ class _CreateCarViewState extends State<CreateCarView> {
                         height: 8,
                       ),
                       CreateCarField(
-                        text: 'Car Reg./ Plate Number',
+                        text: translate.carReg,
                         controller: _carReg,
                       ),
                     ],

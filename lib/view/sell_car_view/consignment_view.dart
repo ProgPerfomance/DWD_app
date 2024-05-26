@@ -171,14 +171,14 @@ class ConsignmentView extends GetView<GetUserCars> {
                       height: 16,
                     ),
                     CheckBoxWidget(
-                      text: 'No accident',
+                      text: translate.noAccident,
                       variable: 1,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     CheckBoxWidget(
-                      text: 'Full service history',
+                      text: translate.fullServiceHistory,
                       variable: 2,
                     ),
                     SizedBox(

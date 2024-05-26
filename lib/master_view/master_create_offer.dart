@@ -60,6 +60,7 @@ class MasterCreateOffer extends GetView<ServicesController> {
                     const SizedBox(height: 8,
                     ),
                     DefaultTextField(
+                      lenght: true,
                         controller: _offerTitleController,
                         hintText: 'Offer title'),
                     const SizedBox(height: 12,
@@ -75,12 +76,13 @@ class MasterCreateOffer extends GetView<ServicesController> {
                     const SizedBox(height: 8,
                     ),
                     DefaultTextField(
+                      lenght: false,
                         controller: _offerPriceController,
                         hintText: 'Offer price'),
                     const SizedBox(height: 12,
                     ),
                     const Text(
-                      'Offer new price',
+                      'Offer old price',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
@@ -90,6 +92,7 @@ class MasterCreateOffer extends GetView<ServicesController> {
                     const SizedBox(height: 8,
                     ),
                     DefaultTextField(
+                      lenght: false,
                         controller: _offerLowPriceController,
                         hintText: 'Offer new price'),
                     const SizedBox(height: 8,
@@ -176,12 +179,14 @@ class MasterCreateOffer extends GetView<ServicesController> {
 class DefaultTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+ final bool lenght;
   const DefaultTextField(
-      {super.key, required this.controller, required this.hintText});
+      {super.key, required this.controller, required this.hintText,required this.lenght});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLength: lenght == true ? 22 : null,
       style: const TextStyle(
         color: Colors.white,
       ),
