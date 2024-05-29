@@ -325,8 +325,8 @@ class CarPageView extends GetView<CarController> {
                       const SizedBox(
                         height: 32,
                       ),
-                      const Text(
-                        'Ask the seller',
+                       Text(
+                       translate.askSeller,
                         style: TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 18,
@@ -490,7 +490,7 @@ class CarPageView extends GetView<CarController> {
                                             height: 4,
                                           ),
                                           Text(
-                                            '${item['year']}, ${item['killometers']}',
+                                            '${item['year']}, ${item['killometers']} km',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontSize: 13,

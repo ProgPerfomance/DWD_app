@@ -617,7 +617,7 @@ class MyCustomAlert extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       color: const Color(0xff8875FF),
                     ),
-                    child: const Center(
+                    child:  Center(
                       child: Text(
                         'OK',
                         style: TextStyle(

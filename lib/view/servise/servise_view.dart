@@ -206,9 +206,9 @@ class ServiseView extends GetView<ServicesController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ServiceButton(
-                        imagePath: translate.generalRepair,
+                        imagePath: 'general.png',
                         text: translate.generalRepair,
-                        name: 'General repair',
+                        name: translate.generalRepair,
                         icon: 'assets/icons/general_repair.svg',
                         id: 0,
                       ),

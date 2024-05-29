@@ -110,5 +110,7 @@ cancel: 'Cancel',
   carReg: 'Car Reg/ Plate Number',giveCarName: 'Give car name', brand: 'Car brand',
   newCar: 'New car',
   model: 'Model',
-
+  askSeller: 'Ask the seller',
+      requestSent: 'Request sent',
+      close: 'Close',
 );

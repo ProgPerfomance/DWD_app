@@ -122,4 +122,7 @@ TranslateModel ruModel = const TranslateModel(
 
 newCar: 'Новая машина',
   model: 'Модель',
+  askSeller: 'Спросите продавца',
+      requestSent: 'Запрос отправлен!',
+      close: 'Закрыть',
 );

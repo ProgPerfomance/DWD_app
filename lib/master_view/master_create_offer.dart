@@ -94,7 +94,7 @@ class MasterCreateOffer extends GetView<ServicesController> {
                     DefaultTextField(
                       lenght: false,
                         controller: _offerLowPriceController,
-                        hintText: 'Offer new price'),
+                        hintText: 'Offer old price'),
                     const SizedBox(height: 8,
                     ),
                     const Text(

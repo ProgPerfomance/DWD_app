@@ -472,7 +472,7 @@ class BookServiceView extends GetView<GetUserCars> {
                                 barrierDismissible:
                                 false, // user must tap button!
                                 builder: (BuildContext context) {
-                                  return const MyCustomAlert(text: 'Request sent');
+                                  return  MyCustomAlert(text: translate.requestSent);
                                 });
                           }
                         },

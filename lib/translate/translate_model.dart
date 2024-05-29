@@ -113,6 +113,9 @@ class TranslateModel {
   final String carReg;
   final String model;
   final String newCar;
+  final String askSeller;
+  final String requestSent;
+  final String close;
   const TranslateModel({
     required this.Profile,
     required this.About_us,
@@ -225,6 +228,9 @@ required this.isExchangePosible,
     required this.carReg,
     required this.giveCarName,
     required this.model,
-    required this.newCar
+    required this.newCar,
+    required this.askSeller,
+    required this.close,
+    required this.requestSent,
   });
 }

@@ -89,7 +89,7 @@ class ManagerCreateOffer extends GetView<ServicesController> {
                       height: 12,
                     ),
                     const Text(
-                      'Offer new price',
+                      'Offer old price',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
@@ -101,7 +101,7 @@ class ManagerCreateOffer extends GetView<ServicesController> {
                     ),
                     DefaultTextField(
                         controller: _offerLowPriceController,
-                        hintText: 'Offer new price'),
+                        hintText: 'Offer old price'),
                     const SizedBox(
                       height: 8,
                     ),

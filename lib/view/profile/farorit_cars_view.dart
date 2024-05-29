@@ -168,7 +168,7 @@ class FavoritCarsView extends GetView<CarController> {
                         height: 4,
                       ),
                       Text(
-                        '2003, ${item['killometers']}',
+                        '2003, ${item['killometers']} km',
                         style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
