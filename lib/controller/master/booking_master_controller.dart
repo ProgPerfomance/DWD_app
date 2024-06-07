@@ -58,6 +58,7 @@ class MasterBookingController extends ChangeNotifier {
       'id': id.toString(),
       'status': 'Approved',
       'reason': '',
+      'garage': userModel!.uid.toString(),
     });
   }
 

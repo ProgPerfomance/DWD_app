@@ -176,7 +176,7 @@ class _ManagerAddCar1ViewState extends State<ManagerAddCar1View> {
 
   Future<void> _pickImages() async {
     final picker = ImagePicker();
-    List<XFile> pickedImages = await picker.pickMultiImage();
+    List<XFile> pickedImages = await picker.pickMultiImage(imageQuality: 23);
     setState(() {
       _imageFileList = pickedImages;
     });

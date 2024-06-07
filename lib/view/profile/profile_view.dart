@@ -447,13 +447,13 @@ class ProfileView extends GetView<UserInfoController> {
                               .translateModel.value.Change_app_language,
                         ),
                       ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      IconAndTextWidget(
-                        icon: 'assets/icons/delete_account.svg',
-                        text: controller.translateModel.value.Delete_account,
-                      ),
+                      // const SizedBox(
+                      //   height: 24,
+                      // ),
+                      // IconAndTextWidget(
+                      //   icon: 'assets/icons/delete_account.svg',
+                      //   text: controller.translateModel.value.Delete_account,
+                      // ),
                       const SizedBox(
                         height: 32,
                       ),
